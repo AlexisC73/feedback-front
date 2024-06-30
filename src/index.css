@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family: Jost, sans-serif;
+}
+
 .bg-custom-radial {
   background-image: radial-gradient(ellipse at top right, #E84D70 0%, #A337F6 53%, #28A7ED 100%);
 }
