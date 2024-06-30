@@ -1,0 +1,3 @@
+.bg-custom-radial {
+  background-image: radial-gradient(ellipse at top right, #E84D70 0%, #A337F6 53%, #28A7ED 100%);
+}
