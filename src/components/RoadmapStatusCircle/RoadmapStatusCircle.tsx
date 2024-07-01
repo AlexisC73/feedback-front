@@ -4,5 +4,5 @@ export function RoadmapStatusCircle ({status}: {status: "planned" | "inProgress"
     inProgress: "bg-#AD1FEA",
     live: "bg-#62BCFA"
   }
-  return <div className={"h-2 w-2 rounded-full " + color[status] ?? "bg-#62BCFA"}></div>
+  return <div className={"h-2 w-2 rounded-full " + color[status]}></div>
 }
