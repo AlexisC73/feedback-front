@@ -1,4 +1,4 @@
-export function Tag ({title, active}: {title: "all" | "ui" | "ux" | "enhancement" | "bug" | "feature", active: boolean}) {
+export function Tag ({title, active, hoverable}: {title: "all" | "ui" | "ux" | "enhancement" | "bug" | "feature", active: boolean, hoverable?: boolean}) {
   const filtersStyle = {
     all: "px-4",
     ui: "pl-4 pr-4.75",
@@ -12,6 +12,6 @@ export function Tag ({title, active}: {title: "all" | "ui" | "ux" | "enhancement
   const unactiveStyle = "bg-#F2F4FF text-#4661E6"
 
   return (
-    <p className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 ${filtersStyle[title]} ${active ? activeStyle : unactiveStyle}`}>{title.charAt(0).toUpperCase() + title.slice(1)}</p>
+    <p className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 ${hoverable ? "hover:bg-#CFD7FF cursor-pointer" : ""} ${filtersStyle[title]} ${active ? activeStyle : unactiveStyle}`}>{title.charAt(0).toUpperCase() + title.slice(1)}</p>
   )
 }
