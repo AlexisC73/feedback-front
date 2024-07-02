@@ -1,4 +1,5 @@
 import { SuggestionsIcon } from "../../assets/icons"
+import { Button } from "../Button/button"
 import { SelectSortFilter } from "../SelectSortFilter/SelectSortFilter"
 
 export function Suggestions () {
@@ -8,13 +9,9 @@ export function Suggestions () {
         <p className="hidden text-white gap-x-4 items-center md:flex"><SuggestionsIcon className="text-6 text-white" /> <strong>6 Suggestions</strong></p>
         <SelectSortFilter activeFilter="Most Upvotes" />
       </div>
-      <AddFeedbackButton />
+      <button className="w-33.5 md:w-39.5">
+        <Button>+ Add Feedback</Button>
+      </button>
     </div>
-  )
-}
-
-export function AddFeedbackButton () {
-  return (
-    <button className="text-white bg-#C75AF6 text-3.25 md:text-3.5 line-height-4.75 md:line-height-5 pl-4 pr-4.25 py-2.625 md:pl-6 md:pr-6.25 md:pt-3.125 md:pb-2.875 rounded-2.5 font-bold">+ Add Feedback</button>
   )
 }
