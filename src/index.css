@@ -7,3 +7,7 @@
 .bg-custom-radial {
   background-image: radial-gradient(ellipse at top right, #E84D70 0%, #A337F6 53%, #28A7ED 100%);
 }
+
+.dropdown-shadow {
+  box-shadow: 0 10px 40px -7px rgba(55,63,104,0.35);
+}
