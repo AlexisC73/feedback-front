@@ -1,5 +1,5 @@
 import Layout from "../Layout";
-import { EmptyFeedback } from "../components/EmptyFeedback/EmptyFeedback";
+import { FeedbackList } from "../components/FeedbackList/FeedbackList";
 import { Suggestions } from "../components/Suggestions/Suggestions";
 
 export function HomePage () {
@@ -9,7 +9,7 @@ export function HomePage () {
         <Suggestions />
       </div>
       <div className="px-6 py-8 md:px-10 md:py-6 lg:px-0">
-        <EmptyFeedback />
+        <FeedbackList />
       </div>
     </Layout.withHeader>
   )
