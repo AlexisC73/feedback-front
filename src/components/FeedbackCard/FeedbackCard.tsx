@@ -1,6 +1,6 @@
-import { CommentCount } from "../CommentCount/CommentCount";
-import { Tag } from "../Tag/Tag";
-import { UpvoteCount } from "../UpvoteCount/UpvoteCount";
+import { CommentCount } from "@/components/CommentCount/CommentCount";
+import { Tag } from "@/components/Tag/Tag";
+import { UpvoteCount } from "@/components/UpvoteCount/UpvoteCount";
 
 export function FeedbackCard ({title, category, description, upvotes, comments}: {id: string, title: string, category: "ui" | "ux" | "enhancement" | "feature" | "bug", description: string, upvotes: number, comments: number}) {
   return (

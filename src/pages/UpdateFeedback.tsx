@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { GoBackButton } from "../components/BoBackButton/GoBackButton";
-import Layout from "../Layout";
-import { InputHeader } from "../components/form/input-header/InputHeader";
-import { Input } from "../components/form/input/Input";
-import { FormGroup } from "../components/form/form-group/FormGroup";
-import { Dropdown } from "../components/form/dropdown/Dropdown";
+import { GoBackButton } from "@/components/BoBackButton/GoBackButton";
+import Layout from "@/Layout";
+import { InputHeader } from "@/components/form/input-header/InputHeader";
+import { Input } from "@/components/form/input/Input";
+import { FormGroup } from "@/components/form/form-group/FormGroup";
+import { Dropdown } from "@/components/form/dropdown/Dropdown";
 import { useState } from "react";
-import { Textarea } from "../components/form/textarea/Textarea";
-import { Button } from "../components/Button/button";
-import { PenIcon } from "../assets/icons";
+import { Textarea } from "@/components/form/textarea/Textarea";
+import { Button } from "@/components/Button/button";
+import { PenIcon } from "@/assets/icons";
 
 export function UpdateFeedbackPage () {
   const options = ["Feature", "UI", "UX", "Enhancement", "Bug"]

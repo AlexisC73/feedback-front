@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import { SuggestionsIcon } from "../../assets/icons"
-import { Button } from "../Button/button"
-import { SelectSortFilter } from "../SelectSortFilter/SelectSortFilter"
+import { SuggestionsIcon } from "@/assets/icons"
+import { Button } from "@/components/Button/button"
+import { SelectSortFilter } from "@/components/SelectSortFilter/SelectSortFilter"
 import { useState } from "react"
 
 export function Suggestions () {

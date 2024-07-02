@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowIcon } from "../../../assets/icons";
+import { ArrowIcon } from "@/assets/icons";
 import { DropdownItem } from "./dropdown-item/DropdownItem";
 
 export function Dropdown ({options, current, onSelect}: {options: string[], current?: string, onSelect: (selected: string) => void}) {

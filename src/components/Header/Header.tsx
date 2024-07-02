@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { BurgerMenuIcon, CloseMenuIcon } from "../../assets/icons"
-import { RoadmapStatusList } from "../RoadmapStatusList/RoadmapStatusList"
-import { TypeFilter } from "../TypeFilter/TypeFilter"
-import { MobileSideMenu } from "../MobileSideMenu/MobileSideMenu"
+import { BurgerMenuIcon, CloseMenuIcon } from "@/assets/icons"
+import { RoadmapStatusList } from "@/components/RoadmapStatusList/RoadmapStatusList"
+import { TypeFilter } from "@/components/TypeFilter/TypeFilter"
+import { MobileSideMenu } from "@/components/MobileSideMenu/MobileSideMenu"
 
 export function Header () {
   const [menuOpen, setMenuOpen] = useState(false)

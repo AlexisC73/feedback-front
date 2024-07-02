@@ -1,6 +1,6 @@
-import Layout from "../Layout";
-import { FeedbackList } from "../components/FeedbackList/FeedbackList";
-import { Suggestions } from "../components/Suggestions/Suggestions";
+import Layout from "@/Layout";
+import { FeedbackList } from "@/components/FeedbackList/FeedbackList";
+import { Suggestions } from "@/components/Suggestions/Suggestions";
 
 export function HomePage () {
   return (

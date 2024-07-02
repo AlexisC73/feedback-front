@@ -1,5 +1,5 @@
-import { FeedbackCard } from "../FeedbackCard/FeedbackCard"
-import { feedbacks } from "../../feedback"
+import { FeedbackCard } from "@/components/FeedbackCard/FeedbackCard"
+import { feedbacks } from "@/feedback"
 import { Link } from "react-router-dom"
 
 export function FeedbackList () {

@@ -1,4 +1,4 @@
-import { MessageIcon } from "../../assets/icons";
+import { MessageIcon } from "@/assets/icons";
 
 export function CommentCount ({count}: {count: number}) {
   return (

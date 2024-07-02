@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { ArrowIcon } from "../../assets/icons"
-import { DropdownMenu } from "../form/dropdown/Dropdown"
+import { ArrowIcon } from "@/assets/icons"
+import { DropdownMenu } from "@/components/form/dropdown/Dropdown"
 
 export function SelectSortFilter ({activeFilter, filters, onUpdateFilter}: {activeFilter: string, filters: string[], onUpdateFilter: (filter: string) => void}) {
   const [isFilterOpen, setIsFilterOpen] = useState(false)

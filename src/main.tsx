@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import "virtual:uno.css"
 import { createRouter } from './router.tsx'
 import { RouterProvider } from 'react-router-dom'
-import "./index.css"
+import "@/index.css"
 import '@unocss/reset/tailwind.css'
 
 const router = createRouter()

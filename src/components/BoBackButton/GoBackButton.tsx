@@ -1,4 +1,4 @@
-import { ArrowIcon } from "../../assets/icons";
+import { ArrowIcon } from "@/assets/icons";
 
 export type GoBackButtonStyle = "default" | "alt"
 

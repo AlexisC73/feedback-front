@@ -1,4 +1,4 @@
-import { CheckIcon } from "../../../../assets/icons";
+import { CheckIcon } from "@/assets/icons";
 
 export function DropdownItem ({option, active}: {option: string, active?: boolean}) {
   return (

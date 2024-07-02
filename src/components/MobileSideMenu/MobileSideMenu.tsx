@@ -1,5 +1,5 @@
-import { RoadmapStatusList } from "../RoadmapStatusList/RoadmapStatusList";
-import { TypeFilter } from "../TypeFilter/TypeFilter";
+import { RoadmapStatusList } from "@/components/RoadmapStatusList/RoadmapStatusList";
+import { TypeFilter } from "@/components/TypeFilter/TypeFilter";
 
 export function MobileSideMenu () {
   return (
