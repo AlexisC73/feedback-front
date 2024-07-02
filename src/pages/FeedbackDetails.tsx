@@ -5,6 +5,8 @@ import { FeedbackCard } from "../components/FeedbackCard/FeedbackCard";
 import { feedbacks } from "../feedback";
 import Layout from "../Layout";
 import { PostCommentForm } from "../components/form/post-comment-form/PostCommentForm";
+import { CommentList } from "../components/CommentList/CommentList";
+import { Comment } from "../components/Comment/Comment";
 
 
 export function FeedbackDetailsPage () {
@@ -25,6 +27,9 @@ export function FeedbackDetailsPage () {
           </button>
         </div>
         <FeedbackCard {...feedback} />
+        <CommentList>
+          <Comment />
+        </CommentList>
         <PostCommentForm />
       </div>
     </Layout.emptyLayout>
