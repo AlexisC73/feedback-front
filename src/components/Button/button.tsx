@@ -10,6 +10,6 @@ export function Button ({children, type = "primary", fullWidth = false}: {childr
     danger: "bg-#D73737 text-white hover:bg-#E98888",
   }
   return (
-    <div className={`pt-3.25 pb-2.75 rounded-2.5 font-bold text-3.5 text-center ${fullWidth ? "w-full" : "w-39.5"} ${styles[type]}`}>{children}</div>
+    <div className={`pt-3.25 pb-2.75 rounded-2.5 font-bold text-3.5 text-center ${fullWidth ? "w-full" : "w-33.5 md:w-39.5"} ${styles[type]}`}>{children}</div>
   )
 }

@@ -10,14 +10,14 @@ export const createRouter = () => createBrowserRouter([
       element: <HomePage />
     },
     {
-      path: "/feedback",
+      path: "/feedbacks",
       children: [
         {
-          path: "/feedback/new",
+          path: "/feedbacks/new",
           element: <AddFeedbackPage />
         },
         {
-          path: "/feedback/:id",
+          path: "/feedbacks/:id",
           element: <FeedbackDetailsPage />
         },
       ]
