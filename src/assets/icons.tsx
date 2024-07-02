@@ -30,7 +30,7 @@ export function SuggestionsIcon(props: SVGProps<SVGSVGElement>) {
 export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="1.3em" height="1em" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <path d="M0.968262 4.85894L4.49995 8.39062L11.9999 0.890625" stroke="#AD1FEA" stroke-width="2"/>
+      <path d="M0.968262 4.85894L4.49995 8.39062L11.9999 0.890625" stroke="#AD1FEA" strokeWidth="2"/>
     </svg>
   )
 }
@@ -38,7 +38,7 @@ export function CheckIcon(props: SVGProps<SVGSVGElement>) {
 export function ArrowIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="1.29em" height="1em" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <path d="M1 6L5 2L9 6" stroke="currentColor" stroke-width="2"/>
+      <path d="M1 6L5 2L9 6" stroke="currentColor" strokeWidth="2"/>
     </svg>
   )
 }
@@ -55,7 +55,7 @@ export function EmptyFeedbackIcon() {
   return (
     <svg width="131" height="137" viewBox="0 0 131 137" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.5">
-      <path d="M62.8268 19.7428C33.7105 19.7372 10.1005 43.3321 10.0874 72.4484C10.0743 101.565 33.6632 125.181 62.7794 125.201C91.8957 125.222 115.518 101.639 115.546 72.5228C115.562 58.5303 110.015 45.1053 100.126 35.2054C90.2379 25.3055 76.8193 19.7428 62.8268 19.7428Z" stroke="#3A4374" stroke-width="1.04545" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M62.8268 19.7428C33.7105 19.7372 10.1005 43.3321 10.0874 72.4484C10.0743 101.565 33.6632 125.181 62.7794 125.201C91.8957 125.222 115.518 101.639 115.546 72.5228C115.562 58.5303 110.015 45.1053 100.126 35.2054C90.2379 25.3055 76.8193 19.7428 62.8268 19.7428Z" stroke="#3A4374" strokeWidth="1.04545" stroke-linecap="round" stroke-linejoin="round"/>
       <ellipse cx="90.4653" cy="55.3186" rx="2.436" ry="3.62355" fill="#231F20"/>
       <path d="M0.891602 56.8512L124.722 29.4462L100.362 22.3412C100.362 22.3412 87.1666 0.467961 83.6446 0.0112108C80.1225 -0.445539 16.1166 13.2062 16.1166 13.2062L12.0566 44.0216L0.891602 56.8512Z" fill="#3A4374"/>
       <path d="M26.6726 131.048L12.6758 108.921L73.86 98.4561L78.0621 119.659L84.2739 100.131L115.576 106.312L109.212 131.048H26.6726Z" fill="#3A4374"/>
