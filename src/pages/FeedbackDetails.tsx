@@ -4,6 +4,7 @@ import { Button } from "../components/Button/button";
 import { FeedbackCard } from "../components/FeedbackCard/FeedbackCard";
 import { feedbacks } from "../feedback";
 import Layout from "../Layout";
+import { PostCommentForm } from "../components/form/post-comment-form/PostCommentForm";
 
 
 export function FeedbackDetailsPage () {
@@ -24,6 +25,7 @@ export function FeedbackDetailsPage () {
           </button>
         </div>
         <FeedbackCard {...feedback} />
+        <PostCommentForm />
       </div>
     </Layout.emptyLayout>
   )
