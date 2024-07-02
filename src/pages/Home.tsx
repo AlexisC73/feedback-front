@@ -1,51 +1,6 @@
 import { Layout } from "../Layout/layout";
-import { FeedbackCard } from "../components/FeedbackCard/FeedbackCard";
+import { EmptyFeedback } from "../components/EmptyFeedback/EmptyFeedback";
 import { Suggestions } from "../components/Suggestions/Suggestions";
-
-const feedbacks: {title: string, category: "ui" | "ux" | "enhancement" | "feature" | "bug", description: string, upvotes: number, comments: number}[] = [
-  {
-    title: "Add tags for solutions",
-    description: "Easier to search for solutions based on a specific stack.",
-    category: "enhancement",
-    upvotes: 112,
-    comments: 2
-  },
-  {
-    title: "Add a dark theme option",
-    description: "It would help people with light sensitivities and who prefer dark mode.",
-    category: "feature",
-    upvotes: 99,
-    comments: 4
-  },
-  {
-    title: "Q&A within the challenge hubs",
-    description: "Challenge-specific Q&A would make for easy reference.",
-    category: "feature",
-    upvotes: 65,
-    comments: 2
-  },
-  {
-    title: "Allow image/video upload",
-    description: "Images and screencasts can enhance comments on solutions.",
-    category: "enhancement",
-    upvotes: 51,
-    comments: 2
-  },
-  {
-    title: "Ability to follow others",
-    description: "Stay updated on comments and solutions other people post.",
-    category: "feature",
-    upvotes: 42,
-    comments: 3
-  },
-  {
-    title: "Preview images not loading",
-    description: "Challenge preview images are missing when you apply a filter.",
-    category: "bug",
-    upvotes: 3,
-    comments: 0
-  }
-]
 
 export function HomePage () {
   return (
@@ -53,10 +8,9 @@ export function HomePage () {
       <div className="md:px-10 lg:px-0">
         <Suggestions />
       </div>
-      <ul className="px-6 py-8 flex flex-col gap-y-4">
-        {feedbacks.map((feedback) => (<li><FeedbackCard {...feedback} /></li>))}
-      </ul>
+      <div className="px-6 py-8 md:px-10 md:py-6 lg:px-0">
+        <EmptyFeedback />
+      </div>
     </Layout>
   )
 }
-
