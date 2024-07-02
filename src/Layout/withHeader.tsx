@@ -1,6 +1,6 @@
 import { Header } from "../components/Header/Header";
 
-export function Layout ({children}: {children?: React.ReactNode}) {
+export function withHeader ({children}: {children?: React.ReactNode}) {
   return (
     <div className="flex min-h-screen w-full bg-#F7F8FD">
       <div className="flex flex-1 flex-col lg:flex-row mx-auto gap-x-7.5 md:py-14 lg:pt-23.5 lg:max-w-277.5">

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import { HomePage } from "./pages/Home"
 import { FeedbackDetailsPage } from "./pages/FeedbackDetails"
+import { AddFeedbackPage } from "./pages/AddFeedback"
 
 export const createRouter = () => createBrowserRouter([
     {
@@ -9,7 +10,16 @@ export const createRouter = () => createBrowserRouter([
       element: <HomePage />
     },
     {
-      path: "/feedback/:id",
-      element: <FeedbackDetailsPage />
+      path: "/feedback",
+      children: [
+        {
+          path: "/feedback/new",
+          element: <AddFeedbackPage />
+        },
+        {
+          path: "/feedback/:id",
+          element: <FeedbackDetailsPage />
+        },
+      ]
     }
   ])
