@@ -27,7 +27,7 @@ export function UpdateFeedbackPage () {
 
   return (
     <Layout.emptyLayout>
-      <div className="px-6 py-8.5 flex flex-col gap-y-13.75 items-start md:max-w-135 md:mx-auto md:px-0 md:py-14">
+      <div className="px-6 py-8.5 w-full flex flex-col gap-y-13.75 items-start md:max-w-135 md:mx-auto md:px-0 md:py-14">
         <div>
           <Link to="/" ><GoBackButton /></Link>
         </div>
