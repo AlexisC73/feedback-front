@@ -21,15 +21,17 @@ describe("Register Usecase", () => {
     await accountFixture.whenAccountRegister(registerPayload)
 
     accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.FIELD_ERROR)
+    accountFixture.thenAccountShouldNotExist(new EmailVO(registerPayload.email))
   })
 
   test("should return an error if password is invalid", async () => {
-    const registerPayload: RegisterUsecaseParams = {email: "test@test.fr", password: "pass"}
+    const registerPayload: RegisterUsecaseParams = {email: "test@test.fr", password: "short"}
     accountFixture.givenNoAccountExists()
 
     await accountFixture.whenAccountRegister(registerPayload)
 
     accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.FIELD_ERROR)
+    accountFixture.thenAccountShouldNotExist(new EmailVO(registerPayload.email))
   })
 
   test("should add user to the repository", async () => {

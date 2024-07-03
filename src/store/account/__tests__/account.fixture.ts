@@ -22,6 +22,10 @@ export const createAccountFixture = (store: AppStore, { accountRepository }: { a
     thenAccountShouldExist(email: EmailVO) {
       const repoAccount = accountRepository.accounts.find(a => a.email === email.value)
       expect(repoAccount?.email).toBe(email.value)
+    },
+    thenAccountShouldNotExist(email: EmailVO) {
+      const repoAccount = accountRepository.accounts.find(a => a.email === email.value)
+      expect(repoAccount).toBeUndefined()
     }
   }
 }
