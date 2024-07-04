@@ -30,11 +30,11 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="password" label="Password" />
-        <Input name="password" errors={fieldsErrors.password} />
+        <Input name="password" type="password" errors={fieldsErrors.password} />
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="confirmation-password" label="Verification password" description="Re-type your password" />
-        <Input name="confirmation-password" errors={fieldsErrors.confirmationPassword} />
+        <Input name="confirmation-password" type="password" errors={fieldsErrors.confirmationPassword} />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
         <button type="submit" className="w-full md:order-last">

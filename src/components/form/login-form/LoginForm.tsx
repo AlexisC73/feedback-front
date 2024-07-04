@@ -30,7 +30,7 @@ export function LoginForm ({ loginFn, fieldsErrors }: LoginFormProps) {
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="password" label="Password" />
-            <Input name="password" errors={fieldsErrors.password} />
+            <Input name="password" type="password" errors={fieldsErrors.password} />
           </FormGroup>
           <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
             <button type="submit" className="w-full md:order-last">
