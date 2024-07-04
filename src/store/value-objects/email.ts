@@ -18,7 +18,7 @@ export class EmailVO extends ValueObject {
 
   validate(): boolean {
     const errors = []
-    if(this.#email.length <= 0) {
+    if(this.isEmpty()) {
       errors.push("Email is required")
       this.setErrors(errors)
       return false
@@ -32,6 +32,10 @@ export class EmailVO extends ValueObject {
 
   get value(): string {
     return this.#email
+  }
+
+  isEmpty(): boolean {
+    return this.#email.length <= 0
   }
 
   private isValidEmail(email: string): boolean {

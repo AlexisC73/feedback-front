@@ -15,6 +15,17 @@ export class InMemoryAccountRepository implements AccountRepository {
     return E.right(undefined)
   }
 
+  async login(params: { email: string; password: string; }): Promise<E.Either<InvalidRequestError, Omit<DomainAccount, "password">>> {
+    const account = this.accounts.find(a => a.email === params.email && a.password === params.password)
+    if(!account) {
+      return E.left(new InvalidRequestError("Invalid email or password"))
+    }
+    return E.right({
+      email: account.email,
+      id: account.id
+    })
+  }
+
   private save(account: DomainAccount) {
     this.accounts.push(account)
   }

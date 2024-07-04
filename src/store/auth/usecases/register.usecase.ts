@@ -20,7 +20,7 @@ export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: Registe
 export enum RegisterThunkResultType {
   SUCCESS = "SUCCESS",
   FIELD_ERROR = "FIELD_ERROR",
-  UNKNOWN_ERROR = "UNKNOWN_ERROR"
+  UNKNOWN_ERROR = "UNKNOWN_ERROR",
 }
 
 type RegisterThunkResult = {
