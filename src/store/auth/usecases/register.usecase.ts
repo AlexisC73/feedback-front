@@ -10,10 +10,13 @@ export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: Registe
     return rejectWithValue(result)
   }
   try {
-    await accountRepository.create({email: params.email, password: params.password})
-    return {type: RegisterThunkResultType.SUCCESS, errors: []} as RegisterThunkResult
+    const result = await accountRepository.create({email: params.email, password: params.password})
+    if(result._tag === "Left") {
+      return rejectWithValue({type: RegisterThunkResultType.UNKNOWN_ERROR} as RegisterThunkResult)
+    }
+    return {type: RegisterThunkResultType.SUCCESS} as RegisterThunkResult
   } catch(e) {
-    return {type: RegisterThunkResultType.UNKNOWN_ERROR, errors: []} as RegisterThunkResult
+    return {type: RegisterThunkResultType.UNKNOWN_ERROR} as RegisterThunkResult
   }
 })
 
