@@ -15,6 +15,8 @@ export function LoginComponent () {
           errors[errorField.field] = errorField.errors
         })
         setFieldsErrors(errors)
+      } else if(res.payload?.type === LoginThunkResultType.CREDENTIAL_ERROR) {
+        console.log("Invalid credentials, or account does not exist") // TODO add error message to the UI. ex: toast ?
       }
     })
   }

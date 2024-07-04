@@ -1,4 +1,4 @@
-import { InvalidRequestError } from "@/store/errors/errors";
+import { CredentialError, InvalidRequestError } from "@/store/errors/errors";
 import { DomainAccount } from "../models/account";
 import { AccountRepository } from "../models/account-repository";
 import * as E from "fp-ts/Either"
@@ -15,10 +15,10 @@ export class InMemoryAccountRepository implements AccountRepository {
     return E.right(undefined)
   }
 
-  async login(params: { email: string; password: string; }): Promise<E.Either<InvalidRequestError, Omit<DomainAccount, "password">>> {
+  async login(params: { email: string; password: string; }): Promise<E.Either<CredentialError, Omit<DomainAccount, "password">>> {
     const account = this.accounts.find(a => a.email === params.email && a.password === params.password)
     if(!account) {
-      return E.left(new InvalidRequestError("Invalid email or password"))
+      return E.left(new CredentialError("Invalid email or password"))
     }
     return E.right({
       email: account.email,
