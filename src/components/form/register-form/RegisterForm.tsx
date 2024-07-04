@@ -21,7 +21,7 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
     registerFn({ email, password, confirmationPassword})
   }
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 pt-11 w-full rounded-2.5 flex flex-col gap-y-6 relative">
+    <form onSubmit={handleSubmit} className="bg-white p-6 pt-11 w-full rounded-2.5 flex flex-col gap-y-4 relative">
       <div className="bg-custom-radial h-10 w-10 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white absolute -top-5 md:-top-7 text-5 md:text-6 font-bold">+</div>
       <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Create your account</p>
       <FormGroup>
@@ -41,7 +41,7 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
           <Button fullWidth>Register Account</Button>
         </button>
       </div>
-      <p>Vous avez déjà un compte ? <Link className="text-#AD1FEA underline" to={"/auth/login"}>Connectez vous ici</Link></p>
+      <p className="mt-4">Vous avez déjà un compte ? <Link className="text-#AD1FEA underline" to={"/auth/login"}>Connectez vous ici</Link></p>
     </form>
   )
 }
