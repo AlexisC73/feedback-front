@@ -4,21 +4,21 @@ import { loginThunk, LoginThunkResultType } from "../../usecases/login.usecase";
 import { useState } from "react";
 
 export function LoginComponent () {
-  const [fieldsError, setFieldsError] = useState<{[key: string]: string}>({})
+  const [fieldsErrors, setFieldsErrors] = useState<{[key: string]: string[]}>({})
   const dispatch = useAppDispatch()
   const performLogin = async ({email, password}: {email: string, password: string}) => {
-    setFieldsError({})
+    setFieldsErrors({})
     dispatch(loginThunk({email, password})).then((res) => {
       if(res.payload?.type === LoginThunkResultType.FIELD_ERROR) {
-        const errors: {[key: string]: string} = {}
+        const errors: {[key: string]: string[]} = {}
         res.payload.errors.forEach((errorField) => {
-          errors[errorField.field] = errorField.errors[0]
+          errors[errorField.field] = errorField.errors
         })
-        setFieldsError(errors)
+        setFieldsErrors(errors)
       }
     })
   }
   return (
-    <LoginForm fieldsError={fieldsError} loginFn={performLogin} />
+    <LoginForm fieldsErrors={fieldsErrors} loginFn={performLogin} />
   )
 }

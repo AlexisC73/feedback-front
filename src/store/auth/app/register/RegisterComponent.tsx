@@ -7,7 +7,7 @@ export function RegisterComponent () {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const [errors, setErrors] = useState<{[key: string]: string}>({})
+  const [errors, setErrors] = useState<{[key: string]: string[]}>({})
 
   const performRegister = async ({email, password, confirmationPassword}: {email: string, password: string, confirmationPassword: string}) => {
     setErrors({})
@@ -16,15 +16,15 @@ export function RegisterComponent () {
         navigate("/auth/login") // TODO: show a success message as a toast ?
       }
       if(res.payload?.type === RegisterThunkResultType.FIELD_ERROR) {
-        const errors: {[key: string]: string} = {}
+        const errors: {[key: string]: string[]} = {}
         console.log(res.payload.errors)
-        res.payload.errors.forEach(fieldError => errors[fieldError.field] = fieldError.errors[0])
+        res.payload.errors.forEach(fieldError => errors[fieldError.field] = fieldError.errors)
         setErrors(errors)
         }
     })
   }
 
   return (
-    <RegisterForm registerFn={performRegister} fieldsError={errors} />
+    <RegisterForm registerFn={performRegister} fieldsErrors={errors} />
   )
 }

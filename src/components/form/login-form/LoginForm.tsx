@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 export interface LoginFormProps {
   loginFn: (props: {email: string, password: string}) => Promise<void>
-  fieldsError: {[key: string]: string}
+  fieldsErrors: {[key: string]: string[]}
 }
 
-export function LoginForm ({ loginFn, fieldsError }: LoginFormProps) {
+export function LoginForm ({ loginFn, fieldsErrors }: LoginFormProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,11 +26,11 @@ export function LoginForm ({ loginFn, fieldsError }: LoginFormProps) {
           <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Sign In</p>
           <FormGroup>
             <InputHeader htmlFor="email" label="Mail address" />
-            <Input name="email" error={fieldsError.email} />
+            <Input name="email" errors={fieldsErrors.email} />
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="password" label="Password" />
-            <Input name="password" error={fieldsError.password} />
+            <Input name="password" errors={fieldsErrors.password} />
           </FormGroup>
           <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
             <button type="submit" className="w-full md:order-last">

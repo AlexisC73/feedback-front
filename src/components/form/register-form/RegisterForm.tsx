@@ -6,10 +6,10 @@ import { Button } from "@/components/Button/button";
 
 interface RegisterFormProps {
   registerFn: (props: {email: string, password: string, confirmationPassword: string}) => Promise<void>
-  fieldsError: {[key: string]: string}
+  fieldsErrors: {[key: string]: string[]}
 }
 
-export function RegisterForm ({registerFn, fieldsError}: RegisterFormProps) {
+export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,15 +26,15 @@ export function RegisterForm ({registerFn, fieldsError}: RegisterFormProps) {
       <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Create your account</p>
       <FormGroup>
         <InputHeader htmlFor="email" label="Mail address" />
-        <Input name="email" error={fieldsError.email} />
+        <Input name="email" errors={fieldsErrors.email} />
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="password" label="Password" />
-        <Input name="password" error={fieldsError.password} />
+        <Input name="password" errors={fieldsErrors.password} />
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="confirmation-password" label="Verification password" description="Re-type your password" />
-        <Input name="confirmation-password" error={fieldsError.confirmationPassword} />
+        <Input name="confirmation-password" errors={fieldsErrors.confirmationPassword} />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
         <button type="submit" className="w-full md:order-last">
