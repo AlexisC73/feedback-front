@@ -7,9 +7,12 @@ import "@/index.css"
 import '@unocss/reset/tailwind.css'
 import { Provider } from 'react-redux'
 import { createStore } from './store/store.ts'
+import { InMemoryAccountRepository } from './store/account/infra/in-memory-account.repository.ts'
 
 const router = createRouter()
-const store = createStore({})
+const store = createStore({
+  accountRepository: new InMemoryAccountRepository()
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

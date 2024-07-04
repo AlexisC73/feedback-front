@@ -5,27 +5,28 @@ import { AddFeedbackPage } from "@/pages/AddFeedback"
 import { UpdateFeedbackPage } from "@/pages/UpdateFeedback"
 import { RegisterPage } from "./pages/auth/register"
 import { LoginPage } from "./pages/auth/login"
+import { RequireAuth } from "./components/ProtectedPage/ProtectedPage"
 
 export const createRouter = () => createBrowserRouter([
     {
       path: "/",
       index: true,
-      element: <HomePage />
+      element: <RequireAuth page={<HomePage />} />
     },
     {
       path: "/feedbacks",
       children: [
         {
           path: "/feedbacks/new",
-          element: <AddFeedbackPage />
+          element: <RequireAuth page={<AddFeedbackPage />} />
         },
         {
           path: "/feedbacks/edit/:id",
-          element: <UpdateFeedbackPage />
+          element: <RequireAuth page={<UpdateFeedbackPage />} />
         },
         {
           path: "/feedbacks/:id",
-          element: <FeedbackDetailsPage />
+          element: <RequireAuth page={<FeedbackDetailsPage />} />
         },
       ]
     }, {
