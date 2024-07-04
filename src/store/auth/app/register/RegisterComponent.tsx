@@ -2,8 +2,9 @@ import { RegisterForm } from "@/components/form/register-form/RegisterForm";
 import { useAppDispatch } from "@/store/store-hooks";
 import { registerThunk, RegisterThunkResultType } from "../../usecases/register.usecase";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export function RegisterComponent () {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const [errors, setErrors] = useState<{[key: string]: string}>({})
@@ -13,7 +14,7 @@ export function RegisterComponent () {
     dispatch(registerThunk({email, password, confirmationPassword})).then(res => {
       if(res.meta.requestStatus === "fulfilled") {
         if(res.payload?.type === RegisterThunkResultType.SUCCESS) {
-          console.log("Success") // TODO: redirect to login page and show a success message as a toast ?
+          navigate("/auth/login") // TODO: show a success message as a toast ?
         }
       } else {
         if(res.payload?.type === RegisterThunkResultType.FIELD_ERROR) {
