@@ -3,7 +3,7 @@ import { createAppAsyncThunk } from "../../create-app-thunk";
 import { RegisterPayload } from "./payload/register.payload";
 
 export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: RegisterThunkResult}>()("auth/register", async (params: RegisterUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
-  const registerPayload = new RegisterPayload({email: params.email, password: params.password})
+  const registerPayload = new RegisterPayload({email: params.email, password: params.password, confirmationPassword: params.confirmationPassword})
 
   if (!registerPayload.validate()) {
     const result: RegisterThunkResult = {type: RegisterThunkResultType.FIELD_ERROR, errors: registerPayload.errors}
@@ -37,5 +37,6 @@ type RegisterThunkResult = {
 
 export interface RegisterUsecaseParams {
   email: string,
-  password: string
+  password: string,
+  confirmationPassword: string
 }

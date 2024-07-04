@@ -5,11 +5,13 @@ import { PasswordVO } from "@/store/value-objects/password";
 export class RegisterPayload {
   #email: EmailVO
   #password: PasswordVO
+  #confirmationPassword: string
   #errors: FieldError[] = []
 
-  constructor({email, password}: {email: string, password: string}) {
+  constructor({email, password, confirmationPassword}: {email: string, password: string, confirmationPassword: string}) {
     this.#email = new EmailVO(email)
     this.#password = new PasswordVO(password)
+    this.#confirmationPassword = confirmationPassword
   }
 
   validate(): boolean {
@@ -18,6 +20,9 @@ export class RegisterPayload {
     }
     if(!this.#password.validate()) {
       this.#errors.push({field: "password", errors: this.#password.errors})
+    }
+    if(this.#password.value !== this.#confirmationPassword) {
+      this.#errors.push({field: "confirmationPassword", errors: ["Passwords don't match"]})
     }
     return this.#errors.length === 0
   }

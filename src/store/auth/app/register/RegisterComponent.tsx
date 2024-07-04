@@ -8,9 +8,9 @@ export function RegisterComponent () {
 
   const [errors, setErrors] = useState<{[key: string]: string}>({})
 
-  const performRegister = async ({email, password}: {email: string, password: string}) => {
+  const performRegister = async ({email, password, confirmationPassword}: {email: string, password: string, confirmationPassword: string}) => {
     setErrors({})
-    dispatch(registerThunk({email, password})).then(res => {
+    dispatch(registerThunk({email, password, confirmationPassword})).then(res => {
       if(res.meta.requestStatus === "fulfilled") {
         if(res.payload?.type === RegisterThunkResultType.SUCCESS) {
           console.log("Success") // TODO: redirect to login page and show a success message as a toast ?
