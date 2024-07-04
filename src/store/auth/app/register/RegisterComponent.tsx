@@ -12,18 +12,15 @@ export function RegisterComponent () {
   const performRegister = async ({email, password, confirmationPassword}: {email: string, password: string, confirmationPassword: string}) => {
     setErrors({})
     dispatch(registerThunk({email, password, confirmationPassword})).then(res => {
-      if(res.meta.requestStatus === "fulfilled") {
-        if(res.payload?.type === RegisterThunkResultType.SUCCESS) {
-          navigate("/auth/login") // TODO: show a success message as a toast ?
-        }
-      } else {
-        if(res.payload?.type === RegisterThunkResultType.FIELD_ERROR) {
-          const errors: {[key: string]: string} = {}
-          console.log(res.payload.errors)
-          res.payload.errors.forEach(fieldError => errors[fieldError.field] = fieldError.errors[0])
-          setErrors(errors)
-         }
+      if(res.payload?.type === RegisterThunkResultType.SUCCESS) {
+        navigate("/auth/login") // TODO: show a success message as a toast ?
       }
+      if(res.payload?.type === RegisterThunkResultType.FIELD_ERROR) {
+        const errors: {[key: string]: string} = {}
+        console.log(res.payload.errors)
+        res.payload.errors.forEach(fieldError => errors[fieldError.field] = fieldError.errors[0])
+        setErrors(errors)
+        }
     })
   }
 

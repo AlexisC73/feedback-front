@@ -9,16 +9,12 @@ export function LoginComponent () {
   const performLogin = async ({email, password}: {email: string, password: string}) => {
     setFieldsError({})
     dispatch(loginThunk({email, password})).then((res) => {
-      if(res.meta.requestStatus === "fulfilled") {
-        console.log(res.payload)
-      } else {
-        if(res.payload?.type === LoginThunkResultType.FIELD_ERROR) {
-          const errors: {[key: string]: string} = {}
-          res.payload.errors.forEach((errorField) => {
-            errors[errorField.field] = errorField.errors[0]
-          })
-          setFieldsError(errors)
-        }
+      if(res.payload?.type === LoginThunkResultType.FIELD_ERROR) {
+        const errors: {[key: string]: string} = {}
+        res.payload.errors.forEach((errorField) => {
+          errors[errorField.field] = errorField.errors[0]
+        })
+        setFieldsError(errors)
       }
     })
   }
