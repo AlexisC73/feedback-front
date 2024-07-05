@@ -1,7 +1,7 @@
 import {describe, test, beforeEach} from 'vitest'
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
 import { InMemoryAccountRepository } from '@/store/account/infra/in-memory-account.repository'
-import { createStore } from '@/store/store'
+import { createTestStore } from '@/store/store'
 import { domainAccountBuilder } from '@/store/account/__tests__/account.builder'
 
 describe("Register Usecase", () => {
@@ -9,7 +9,7 @@ describe("Register Usecase", () => {
 
   beforeEach(() => {
     const accountRepository = new InMemoryAccountRepository()
-    const store = createStore({accountRepository})
+    const store = createTestStore({accountRepository})
     accountFixture = createAccountFixture(store, {accountRepository})
   })
 

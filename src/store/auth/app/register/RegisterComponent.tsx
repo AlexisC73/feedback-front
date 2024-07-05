@@ -17,7 +17,6 @@ export function RegisterComponent () {
       }
       if(res.payload?.type === RegisterThunkResultType.FIELD_ERROR) {
         const errors: {[key: string]: string[]} = {}
-        console.log(res.payload.errors)
         res.payload.errors.forEach(fieldError => errors[fieldError.field] = fieldError.errors)
         setErrors(errors)
         }
