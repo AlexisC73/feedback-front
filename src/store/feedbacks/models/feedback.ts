@@ -21,12 +21,3 @@ export enum FeedbackStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   LIVE = 'LIVE',
 }
-
-export interface DomainFeedback {
-  id: string
-  title: string
-  description: string
-  category: FeedbackCategory
-  status: FeedbackStatus
-  owner: string
-}

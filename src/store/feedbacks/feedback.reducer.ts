@@ -2,6 +2,7 @@ import { createReducer } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 import { Feedback, FeedbackStatus } from "./models/feedback"
 import { getFeedbacksThunk, GetFeedbacksThunkResultType } from "./usecases/get-feedbacks.usecase"
+import { addFeedbackThunk, AddFeedbackThunkResultType } from "./usecases/add-feedback.usecase"
 
 export interface FeedbackState {
   data: Feedback[]
@@ -20,6 +21,15 @@ export const feedbackReducer = createReducer(initialState, builder => {
     if(action.payload.type === GetFeedbacksThunkResultType.SUCCESS) {
       state.data = action.payload.data
     }
+    state.loading = false
+  }).addCase(getFeedbacksThunk.rejected, state => {
+    state.loading = false
+  }).addCase(addFeedbackThunk.fulfilled, (state, action) => {
+    if(action.payload.type === AddFeedbackThunkResultType.SUCCESS) {
+      state.data = [...state.data, action.payload.feedback]
+    }
+    state.loading = false
+  }).addCase(addFeedbackThunk.rejected, (state) => {
     state.loading = false
   })
 })
