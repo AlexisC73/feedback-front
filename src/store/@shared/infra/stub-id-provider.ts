@@ -2,10 +2,11 @@ import { IdProvider } from "../models/idProvider";
 
 export class StubIdProvider implements IdProvider {
   id!: string
+  primaryId: number = 1
 
   generateId() {
     if(!this.id) {
-      this.id = new Date().toISOString()
+      return (this.primaryId++).toString()
     }
     return this.id
   }
