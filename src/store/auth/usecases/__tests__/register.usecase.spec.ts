@@ -3,6 +3,7 @@ import { RegisterThunkResultType, RegisterUsecaseParams } from '../register.usec
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
 import { EmailVO } from '@/store/value-objects/email'
 import { stateBuilder } from '@/store/state-builder'
+import { Role } from '@/store/account/models/account'
 
 describe("Register Usecase", () => {
   let accountFixture: AccountFixture
@@ -38,6 +39,16 @@ describe("Register Usecase", () => {
     await accountFixture.whenAccountRegister(registerPayload)
 
     accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.SUCCESS)
-    accountFixture.thenAccountShouldExist(new EmailVO(registerPayload.email))
+    accountFixture.thenAccountShouldExist({email: new EmailVO(registerPayload.email), role: Role.USER})
+  })
+
+  test("should user register, account role should be user", async () => {
+    const registerPayload: RegisterUsecaseParams = {email: "test@test.fr", password: "password", confirmationPassword: "password"}
+    accountFixture.givenNoAccountExists()
+
+    await accountFixture.whenAccountRegister(registerPayload)
+
+    accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.SUCCESS)
+    accountFixture.thenAccountShouldExist({email: new EmailVO(registerPayload.email), role: Role.USER})
   })
 })

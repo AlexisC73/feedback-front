@@ -4,6 +4,7 @@ import { feedbackBuilder } from "./feedback.builder";
 import { StateBuilder, stateBuilder } from "@/store/state-builder";
 import { AccountFixture, createAccountFixture } from "@/store/account/__tests__/account.fixture";
 import { FeedbackStatus } from "../models/feedback";
+import { Role } from "@/store/account/models/account";
 
 describe("Add Feedback Usecase", () => {
   let feedbackFixture: FeedbackFixture
@@ -24,7 +25,8 @@ describe("Add Feedback Usecase", () => {
     feedbackFixture.givenNextGeneratedId(newFeedback.id)
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
-      id: newFeedback.owner
+      id: newFeedback.owner,
+      role: Role.USER
     })
 
     await feedbackFixture.whenAddFeedback({
@@ -50,7 +52,8 @@ describe("Add Feedback Usecase", () => {
     feedbackFixture.givenNextGeneratedId(newFeedback.id)
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
-      id: newFeedback.owner
+      id: newFeedback.owner,
+      role: Role.USER
     })
 
     await feedbackFixture.whenAddFeedback({
@@ -73,7 +76,8 @@ describe("Add Feedback Usecase", () => {
     feedbackFixture.givenNextGeneratedId(feedback.id)
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
-      id: feedback.owner
+      id: feedback.owner,
+      role: Role.USER
     })
 
     await feedbackFixture.whenAddFeedback({

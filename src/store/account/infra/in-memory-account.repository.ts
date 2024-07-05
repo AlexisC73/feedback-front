@@ -1,5 +1,5 @@
 import { CredentialError, InvalidRequestError } from "@/store/errors/errors";
-import { Account, AccountWithPassword } from "../models/account";
+import { Account, AccountWithPassword, Role } from "../models/account";
 import { AccountRepository } from "../models/account-repository";
 import * as E from "fp-ts/Either"
 
@@ -11,7 +11,7 @@ export class InMemoryAccountRepository implements AccountRepository {
     if(alreadyExists) {
       return E.left(new InvalidRequestError("Account already exists"))
     }
-    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password})
+    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER})
     return E.right(undefined)
   }
 
@@ -22,7 +22,8 @@ export class InMemoryAccountRepository implements AccountRepository {
     }
     return E.right({
       email: account.email,
-      id: account.id
+      id: account.id,
+      role: account.role
     })
   }
 

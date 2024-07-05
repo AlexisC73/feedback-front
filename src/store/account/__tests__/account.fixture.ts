@@ -3,7 +3,7 @@ import { expect } from "vitest"
 import { EmailVO } from "@/store/value-objects/email"
 import { AuthState } from "@/store/auth/auth-reducer"
 import { loginThunk, LoginUsecaseParams } from "@/store/auth/usecases/login.usecase"
-import { AccountWithPassword } from "../models/account"
+import { AccountWithPassword, Role } from "../models/account"
 import { StateBuilder } from "@/store/state-builder"
 
 export const createAccountFixture = ( stateBuilder: StateBuilder) => {
@@ -30,9 +30,10 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     thenResultTypeShouldBe(expectedType: string) {
       expect(resultType).toBe(expectedType)
     },
-    thenAccountShouldExist(email: EmailVO) {
+    thenAccountShouldExist( { email, role }: { email: EmailVO, role: Role } ) {
       const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email.value)
       expect(repoAccount?.email).toBe(email.value)
+      expect(repoAccount?.role).toBe(role)
     },
     thenAccountShouldNotExist(email: EmailVO) {
       const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email.value)
