@@ -35,3 +35,5 @@ export const feedbackReducer = createReducer(initialState, builder => {
 })
 
 export const selectSuggestionFeedbacks = (state: RootState) => state.feedback.data.filter(f => f.status === FeedbackStatus.SUGGESTION)
+export const selectFeedbacks = (state: RootState) => state.feedback
+export const selectFeedback = (id: string) => (state: RootState) => state.feedback.data.find(f => f.id === id)

@@ -1,13 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { GoBackButton } from "@/components/BoBackButton/GoBackButton";
 import { Button } from "@/components/Button/button";
-import { FeedbackCard } from "@/components/FeedbackCard/FeedbackCard";
 import { comments, feedbacks } from "@/feedback";
 import Layout from "@/Layout";
 import { PostCommentForm } from "@/components/form/post-comment-form/PostCommentForm";
 import { CommentList } from "@/components/CommentList/CommentList";
 import { Comment } from "@/components/Comment/Comment";
 import { Separator } from "@/components/Separator/Separator";
+import { FeedbackCardComponent } from "@/store/feedbacks/app/FeedbackCard/FeedbackCard";
 
 
 export function FeedbackDetailsPage () {
@@ -27,7 +27,7 @@ export function FeedbackDetailsPage () {
             </Link>
           </button>
         </div>
-        <FeedbackCard {...feedback} />
+        <FeedbackCardComponent feedbackId={params.id!} />
         <CommentList>
           {comments.map((comment, index) => (<>
             {index > 0 && <Separator />}
