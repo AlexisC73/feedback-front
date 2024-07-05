@@ -1,12 +1,12 @@
-import { DomainAccount } from "../models/account";
+import { Account, AccountWithPassword } from "../models/account";
 
-export const domainAccountBuilder = ({email = "test@test.fr", password = "password-test", id = new Date().toISOString()}: Partial<DomainAccount> = {}) => {
-  const props: DomainAccount = {id, email, password}
+export const accountBuilder = ({email = "test@test.fr", id = new Date().toISOString()}: Partial<Account> = {}) => {
+  const props: Account = {id, email}
 
   return {
-    withEmail: (email: string) => domainAccountBuilder({...props, email}),
-    withPassword: (password: string) => domainAccountBuilder({...props, password}),
-    withId: (id: string) => domainAccountBuilder({...props, id}),
+    withEmail: (email: string) => accountBuilder({...props, email}),
+    withId: (id: string) => accountBuilder({...props, id}),
+    buildWithPassword: (password: string) => ({...props, password} as AccountWithPassword),
     build: () => props
   }
 }

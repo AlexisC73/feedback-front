@@ -3,8 +3,4 @@ export interface Account {
   email: string
 }
 
-export interface DomainAccount {
-  id: string
-  email: string
-  password: string
-}
+export type AccountWithPassword = Account & { password: string }

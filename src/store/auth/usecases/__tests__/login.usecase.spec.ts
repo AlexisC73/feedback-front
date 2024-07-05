@@ -1,6 +1,6 @@
 import {describe, test, beforeEach} from 'vitest'
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
-import { domainAccountBuilder } from '@/store/account/__tests__/account.builder'
+import { accountBuilder } from '@/store/account/__tests__/account.builder'
 import { stateBuilder } from '@/store/state-builder'
 
 describe("Register Usecase", () => {
@@ -11,8 +11,8 @@ describe("Register Usecase", () => {
   })
 
   test("should logged user account", async () => {
-    const account = domainAccountBuilder().withEmail("test@test.fr").withPassword("password").withId("1")
-    accountFixture.givenAccountExists([account.build()])
+    const account = accountBuilder().withEmail("test@test.fr").withId("1")
+    accountFixture.givenAccountExists([account.buildWithPassword("password")])
 
     await accountFixture.whenUserLogin({email: "test@test.fr", password: "password"})
 

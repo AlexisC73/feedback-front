@@ -1,10 +1,10 @@
 import { CredentialError, InvalidRequestError } from "@/store/errors/errors";
-import { Account, DomainAccount } from "../models/account";
+import { Account, AccountWithPassword } from "../models/account";
 import { AccountRepository } from "../models/account-repository";
 import * as E from "fp-ts/Either"
 
 export class InMemoryAccountRepository implements AccountRepository {
-  accounts: DomainAccount[] = []
+  accounts: AccountWithPassword[] = []
 
   async create(params: { email: string; password: string; }) {
     const alreadyExists = this.accounts.find(a => a.email === params.email)
@@ -26,7 +26,7 @@ export class InMemoryAccountRepository implements AccountRepository {
     })
   }
 
-  private save(account: DomainAccount) {
+  private save(account: AccountWithPassword) {
     this.accounts.push(account)
   }
 }

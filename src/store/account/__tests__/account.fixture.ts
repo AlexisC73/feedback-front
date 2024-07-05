@@ -3,7 +3,7 @@ import { expect } from "vitest"
 import { EmailVO } from "@/store/value-objects/email"
 import { AuthState } from "@/store/auth/auth-reducer"
 import { loginThunk, LoginUsecaseParams } from "@/store/auth/usecases/login.usecase"
-import { DomainAccount } from "../models/account"
+import { AccountWithPassword } from "../models/account"
 import { StateBuilder } from "@/store/state-builder"
 
 export const createAccountFixture = ( stateBuilder: StateBuilder) => {
@@ -17,7 +17,7 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     givenIsAuthenticatedAs(authAccount: AuthState["account"]) {
       stateBuilder.setStore({...stateBuilder.getStore().getState(), auth: {account: authAccount, loading: false}})
     },
-    givenAccountExists(accounts: DomainAccount[]) {
+    givenAccountExists(accounts: AccountWithPassword[]) {
       stateBuilder.getAccountRepository().accounts = accounts
     },
     async whenAccountRegister(registerPayload: RegisterUsecaseParams) {
