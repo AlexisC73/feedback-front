@@ -1,17 +1,14 @@
 import {describe, test, beforeEach} from 'vitest'
 import { RegisterThunkResultType, RegisterUsecaseParams } from '../register.usecase'
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
-import { InMemoryAccountRepository } from '@/store/account/infra/in-memory-account.repository'
-import { createTestStore } from '@/store/store'
 import { EmailVO } from '@/store/value-objects/email'
+import { stateBuilder } from '@/store/state-builder'
 
 describe("Register Usecase", () => {
   let accountFixture: AccountFixture
 
   beforeEach(() => {
-    const accountRepository = new InMemoryAccountRepository()
-    const store = createTestStore({accountRepository})
-    accountFixture = createAccountFixture(store, {accountRepository})
+    accountFixture = createAccountFixture(stateBuilder())
   })
 
   test("should return an error if email is invalid", async () => {

@@ -2,31 +2,24 @@ import { Action, configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import { rootReducer } from "./root-reducer";
 import { AccountRepository } from "./account/models/account-repository";
 import { FeedbackRepository } from "./feedbacks/models/feedback.repository";
-import { InMemoryAccountRepository } from "./account/infra/in-memory-account.repository";
-import { InMemoryFeedbackRepository } from "./feedbacks/infra/in-memory-feedback.repository";
+import { IdProvider } from "./@shared/models/idProvider";
 
 export interface Dependencies {
   accountRepository: AccountRepository
   feedbackRepository: FeedbackRepository
+  idProvider: IdProvider
 }
 
-export const createStore = (dependencies: Dependencies) => {
+export const createStore = (dependencies: Dependencies, preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({
       thunk: {
         extraArgument: dependencies
       }
-    })
+    }),
+    preloadedState
   })
-  return store
-}
-
-export const createTestStore = ({
-  accountRepository = new InMemoryAccountRepository(),
-  feedbackRepository = new InMemoryFeedbackRepository()
-}: Partial<Dependencies> = {}) => {
-  const store = createStore({accountRepository, feedbackRepository})
   return store
 }
 

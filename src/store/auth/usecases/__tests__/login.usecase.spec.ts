@@ -1,16 +1,13 @@
 import {describe, test, beforeEach} from 'vitest'
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
-import { InMemoryAccountRepository } from '@/store/account/infra/in-memory-account.repository'
-import { createTestStore } from '@/store/store'
 import { domainAccountBuilder } from '@/store/account/__tests__/account.builder'
+import { stateBuilder } from '@/store/state-builder'
 
 describe("Register Usecase", () => {
   let accountFixture: AccountFixture
 
   beforeEach(() => {
-    const accountRepository = new InMemoryAccountRepository()
-    const store = createTestStore({accountRepository})
-    accountFixture = createAccountFixture(store, {accountRepository})
+    accountFixture = createAccountFixture(stateBuilder())
   })
 
   test("should logged user account", async () => {
