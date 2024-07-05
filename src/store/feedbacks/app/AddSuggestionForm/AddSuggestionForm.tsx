@@ -1,4 +1,4 @@
-import { AddFeedbackForm } from "@/components/form/AddFeedbackForm";
+import { AddFeedbackForm } from "@/components/form/AddFeedbackForm/AddFeedbackForm";
 import { FeedbackCategory } from "../../models/feedback";
 import { useAppDispatch } from "@/store/store-hooks";
 import { addFeedbackThunk, AddFeedbackThunkResultType } from "../../usecases/add-feedback.usecase";

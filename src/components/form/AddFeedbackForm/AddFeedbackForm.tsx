@@ -1,10 +1,10 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
-import { Button } from "../Button/button";
-import { Dropdown } from "./dropdown/Dropdown";
-import { FormGroup } from "./form-group/FormGroup";
-import { InputHeader } from "./input-header/InputHeader";
-import { Input } from "./input/Input";
-import { Textarea } from "./textarea/Textarea";
+import { Button } from "../../Button/button";
+import { Dropdown } from "../dropdown/Dropdown";
+import { FormGroup } from "../form-group/FormGroup";
+import { InputHeader } from "../input-header/InputHeader";
+import { Input } from "../input/Input";
+import { Textarea } from "../textarea/Textarea";
 import { useState } from "react";
 
 export interface AddFeedbackFormProps {
