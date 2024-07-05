@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
-import { getAuthSelector } from "@/store/auth/auth-reducer"; 
+import { selectAuth } from "@/store/auth/auth-reducer"; 
 import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "@/store/store-hooks";
 
 export function RequireAuth({page}: {page: ReactNode}) {
-  const auth = useAppSelector(getAuthSelector)
+  const auth = useAppSelector(selectAuth)
   const location = useLocation()
   const returnPath = location.pathname !== "/" ? "?path=" + location.pathname : ""
 

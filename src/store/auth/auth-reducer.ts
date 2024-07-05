@@ -29,4 +29,4 @@ export const authReducer = createReducer(initialState, (builder) => {
   })
 })
 
-export const getAuthSelector = (state: RootState) => state.auth
+export const selectAuth = (state: RootState) => state.auth

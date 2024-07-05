@@ -1,11 +1,11 @@
 import Layout from "@/Layout";
 import { LoginComponent } from "@/store/auth/app/login/LoginComponent";
-import { getAuthSelector } from "@/store/auth/auth-reducer";
+import { selectAuth } from "@/store/auth/auth-reducer";
 import { useAppSelector } from "@/store/store-hooks";
 import { Navigate, useLocation } from "react-router-dom";
 
 export function LoginPage() {
-  const auth = useAppSelector(getAuthSelector)
+  const auth = useAppSelector(selectAuth)
   const params = new URLSearchParams(useLocation().search)
   const returnPath = params.get("path") || "/"
 
