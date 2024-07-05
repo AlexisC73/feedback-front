@@ -5,6 +5,8 @@ export interface Feedback {
   category: FeedbackCategory
   status: FeedbackStatus
   owner: string
+  upvotes: number,
+  comments: number
 }
 
 export enum FeedbackCategory {

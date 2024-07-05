@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { AddFeedbackPayload } from "./payload/add-feedback.payload";
-import { Feedback, FeedbackCategory } from "../models/feedback";
+import { Feedback, FeedbackCategory, FeedbackStatus } from "../models/feedback";
 import { FieldError } from "@/store/errors/fields-error";
 
 
@@ -25,7 +25,16 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
 
   try {
     await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
-    return {type: AddFeedbackThunkResultType.SUCCESS, feedback: addFeedbackPayload.data} as AddFeedbackThunkResult
+    return {type: AddFeedbackThunkResultType.SUCCESS, feedback: {
+      category: addFeedbackPayload.data.category,
+      comments: 0,
+      description: addFeedbackPayload.data.description,
+      id: addFeedbackPayload.data.id,
+      owner: addFeedbackPayload.data.owner,
+      status: FeedbackStatus.SUGGESTION,
+      title: addFeedbackPayload.data.title,
+      upvotes: 0
+    }} as AddFeedbackThunkResult
   } catch(e) {
     return rejectWithValue({type: AddFeedbackThunkResultType.UNKNONW_ERROR} as AddFeedbackThunkResult)
   }

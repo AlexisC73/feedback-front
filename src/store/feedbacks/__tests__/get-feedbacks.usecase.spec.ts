@@ -20,7 +20,7 @@ describe("Get Feedbacks Usecase", () => {
 
   test(" should return a list of feedbacks", async () => {
     const domainFeedback = feedbackBuilder().build()
-    const feedback = feedbackBuilder().fromDomain(domainFeedback).build()
+    const feedback = feedbackBuilder().build()
     
     feedbackFixture.givenFeedbacksExists([domainFeedback])
 

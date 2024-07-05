@@ -32,7 +32,7 @@ export class AddFeedbackPayload {
     return this.errors.length === 0
   }
 
-  get data(): Feedback {
+  get data(): Omit<Feedback, "upvotes" | "comments"> {
     return {
       title: this.title,
       id: this.id,
