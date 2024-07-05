@@ -4,7 +4,7 @@ import { createSuggestionsListViewmodel } from "./SuggestionsList.viewmodel";
 import { Suggestions } from "@/components/Suggestions/Suggestions";
 
 export function SuggestionFeedbackList () {
-  const { feedbackListElement, suggestionCount } = useAppSelector(createSuggestionsListViewmodel())
+  const { feedbackListElement, suggestionCount } = useAppSelector(createSuggestionsListViewmodel)
   return (
     <>
       <div className="md:px-10 lg:px-0">

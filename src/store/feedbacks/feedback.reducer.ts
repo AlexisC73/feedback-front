@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit"
+import { createReducer, createSelector } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 import { Feedback, FeedbackStatus } from "./models/feedback"
 import { getFeedbacksThunk, GetFeedbacksThunkResultType } from "./usecases/get-feedbacks.usecase"
@@ -34,6 +34,6 @@ export const feedbackReducer = createReducer(initialState, builder => {
   })
 })
 
-export const selectSuggestionFeedbacks = (state: RootState) => state.feedback.data.filter(f => f.status === FeedbackStatus.SUGGESTION)
 export const selectFeedbacks = (state: RootState) => state.feedback
-export const selectFeedback = (id: string) => (state: RootState) => state.feedback.data.find(f => f.id === id)
+export const selectFeedback = (id: string) => createSelector([selectFeedbacks], (feedbacks) => feedbacks.data.find(f => f.id === id))
+export const selectSuggestionFeedbacks = createSelector([selectFeedbacks], (feedbacks) => feedbacks.data.filter(f => f.status === FeedbackStatus.SUGGESTION))
