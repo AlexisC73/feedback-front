@@ -1,7 +1,7 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { Feedback } from "../models/feedback";
 
-export const getFeedbacksThunk = createAppAsyncThunk("feedbacks/getFeedbacks", async (_, {extra: { feedbackRepository }, rejectWithValue}) => {
+export const getFeedbacksThunk = createAppAsyncThunk.withTypes<{rejectValue: GetFeedbacksThunkResult}>()("feedbacks/getFeedbacks", async (_, {extra: { feedbackRepository }, rejectWithValue}) => {
   try {
     const feedbacks = await feedbackRepository.getFeedbacks()
     const result: GetFeedbacksThunkResult = {type: GetFeedbacksThunkResultType.SUCCESS, data: feedbacks}

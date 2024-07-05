@@ -2,7 +2,16 @@ import { CommentCount } from "@/components/CommentCount/CommentCount";
 import { Tag } from "@/components/Tag/Tag";
 import { UpvoteCount } from "@/components/UpvoteCount/UpvoteCount";
 
-export function FeedbackCard ({title, category, description, upvotes, comments}: {id: string, title: string, category: "ui" | "ux" | "enhancement" | "feature" | "bug", description: string, upvotes: number, comments: number}) {
+export interface FeedbackCardProps {
+  id: string
+  title: string
+  category: "ui" | "ux" | "enhancement" | "feature" | "bug"
+  description: string
+  upvotes: number
+  comments: number
+}
+
+export function FeedbackCard ({title, category, description, upvotes, comments}: FeedbackCardProps) {
   return (
     <div className="flex flex-col md:flex-row w-full p-6 bg-white rounded-2.5 gap-y-2 md:items-center md:gap-x-10">
       <div className="hidden md:flex">

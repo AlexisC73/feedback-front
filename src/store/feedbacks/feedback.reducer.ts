@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { RootState } from "../store"
-import { Feedback } from "./models/feedback"
+import { Feedback, FeedbackStatus } from "./models/feedback"
 import { getFeedbacksThunk, GetFeedbacksThunkResultType } from "./usecases/get-feedbacks.usecase"
 
 export interface FeedbackState {
@@ -24,4 +24,4 @@ export const feedbackReducer = createReducer(initialState, builder => {
   })
 })
 
-export const getAuthSelector = (state: RootState) => state.auth
+export const selectSuggestionFeedbacks = (state: RootState) => state.feedback.data.filter(f => f.status === FeedbackStatus.SUGGESTION)
