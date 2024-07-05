@@ -48,7 +48,7 @@ export function UpdateFeedbackPage () {
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="description" label="Feedback Detail" description="Include any specific comments on what should be improved, added, etc." />
-            <Textarea error="Can't be empty" />
+            <Textarea name="description" errors={["Can't be empty"]} />
           </FormGroup>
           <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-between">
             <div className="md:w-23.25">
