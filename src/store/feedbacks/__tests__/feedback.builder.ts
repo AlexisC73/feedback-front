@@ -5,14 +5,17 @@ export const feedbackBuilder = ({
   description = "a description",
   id = "1",
   status = FeedbackStatus.LIVE,
-  title = "title"}: Partial<Feedback> = {}) => {
-    const props: Feedback = {category, description, id, status, title}
+  title = "title",
+  owner = "1"
+  }: Partial<Feedback> = {}) => {
+    const props: Feedback = {category, description, id, status, title, owner}
     return {
       withCategory: (category: FeedbackCategory) => feedbackBuilder({...props, category}),
       withDescription: (description: string) => feedbackBuilder({...props, description}),
       withId: (id: string) => feedbackBuilder({...props, id}),
       withStatus: (status: FeedbackStatus) => feedbackBuilder({...props, status}),
       withTitle: (title: string) => feedbackBuilder({...props, title}),
+      withOwner: (owner: string) => feedbackBuilder({...props, owner}),
       fromDomain: (domainFeedback: DomainFeedback) => feedbackBuilder({
         category: domainFeedback.category,
         description: domainFeedback.description,

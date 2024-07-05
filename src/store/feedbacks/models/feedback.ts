@@ -4,6 +4,7 @@ export interface Feedback {
   description: string
   category: FeedbackCategory
   status: FeedbackStatus
+  owner: string
 }
 
 export enum FeedbackCategory {
@@ -27,4 +28,5 @@ export interface DomainFeedback {
   description: string
   category: FeedbackCategory
   status: FeedbackStatus
+  owner: string
 }

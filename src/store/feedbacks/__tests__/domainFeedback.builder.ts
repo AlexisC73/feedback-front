@@ -5,10 +5,13 @@ export const domainFeedbackBuilder = ({
   description = "a description",
   id = "1",
   status = FeedbackStatus.LIVE,
-  title = "title"}: Partial<DomainFeedback> = {}) => {
-    const props: DomainFeedback = {category, description, id, status, title}
+  title = "title",
+  owner = "1"
+}: Partial<DomainFeedback> = {}) => {
+    const props: DomainFeedback = {category, description, id, status, title, owner}
     return {
       withCategory: (category: FeedbackCategory) => domainFeedbackBuilder({...props, category}),
+      withOwner: (owner: string) => domainFeedbackBuilder({...props, owner}),
       withDescription: (description: string) => domainFeedbackBuilder({...props, description}),
       withId: (id: string) => domainFeedbackBuilder({...props, id}),
       withStatus: (status: FeedbackStatus) => domainFeedbackBuilder({...props, status}),
