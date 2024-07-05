@@ -8,11 +8,14 @@ import '@unocss/reset/tailwind.css'
 import { Provider } from 'react-redux'
 import { createStore } from './store/store.ts'
 import { InMemoryAccountRepository } from './store/account/infra/in-memory-account.repository.ts'
+import { InMemoryFeedbackRepository } from './store/feedbacks/infra/in-memory-feedback.repository.ts'
 
-const router = createRouter()
 const store = createStore({
-  accountRepository: new InMemoryAccountRepository()
+  accountRepository: new InMemoryAccountRepository(),
+  feedbackRepository: new InMemoryFeedbackRepository()
 })
+
+const router = createRouter({store})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

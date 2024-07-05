@@ -1,13 +1,16 @@
 import { createBrowserRouter } from "react-router-dom"
 import { HomePage } from "@/pages/Home"
-import { FeedbackDetailsPage } from "@/pages/FeedbackDetails"
-import { AddFeedbackPage } from "@/pages/AddFeedback"
-import { UpdateFeedbackPage } from "@/pages/UpdateFeedback"
+import { FeedbackDetailsPage } from "@/pages/Feedbacks/FeedbackDetails"
+import { AddFeedbackPage } from "@/pages/Feedbacks/AddFeedback"
+import { UpdateFeedbackPage } from "@/pages/Feedbacks/UpdateFeedback"
 import { RegisterPage } from "./pages/auth/register"
 import { LoginPage } from "./pages/auth/login"
 import { RequireAuth } from "./components/ProtectedPage/ProtectedPage"
+import { createFeedbackLoader } from "./pages/Feedbacks/feedback-loader"
+import { AppStore } from "./store/store"
+import { FeedbackPage } from "./pages/Feedbacks/FeedbackPage"
 
-export const createRouter = () => createBrowserRouter([
+export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter([
     {
       path: "/",
       index: true,
@@ -15,7 +18,12 @@ export const createRouter = () => createBrowserRouter([
     },
     {
       path: "/feedbacks",
+      loader: createFeedbackLoader({store}),
       children: [
+        {
+          path: "/feedbacks",
+          element: <RequireAuth page={<FeedbackPage />} />
+        },
         {
           path: "/feedbacks/new",
           element: <RequireAuth page={<AddFeedbackPage />} />
