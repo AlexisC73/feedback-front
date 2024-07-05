@@ -18,7 +18,8 @@ export const createFeedbackCardViewModel = ({feedbackId, feedbacks}: {
       title: feedback.title,
       upvotes: feedback.upvotes,
       status: feedback.status,
-      comments: feedback.comments
+      comments: feedback.comments,
+      upvoted: feedback.upvoted
     } as FeedbackCardProps
   }
 }

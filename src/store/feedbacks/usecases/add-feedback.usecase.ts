@@ -25,7 +25,7 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
 
   try {
     await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
-    return {type: AddFeedbackThunkResultType.SUCCESS, feedback: {
+    const addedFeedback: Feedback = {
       category: addFeedbackPayload.data.category,
       comments: 0,
       description: addFeedbackPayload.data.description,
@@ -33,8 +33,10 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
       owner: addFeedbackPayload.data.owner,
       status: FeedbackStatus.SUGGESTION,
       title: addFeedbackPayload.data.title,
-      upvotes: 0
-    }} as AddFeedbackThunkResult
+      upvotes: 0,
+      upvoted: false
+    }
+    return {type: AddFeedbackThunkResultType.SUCCESS, feedback: addedFeedback} as AddFeedbackThunkResult
   } catch(e) {
     return rejectWithValue({type: AddFeedbackThunkResultType.UNKNONW_ERROR} as AddFeedbackThunkResult)
   }

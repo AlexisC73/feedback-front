@@ -11,7 +11,8 @@ export const createSuggestionsListViewmodel = () => (state: RootState) => {
       id: f.id,
       comments: f.comments,
       upvotes: f.upvotes,
-      category: f.category
+      category: f.category,
+      upvoted: f.upvoted
   }))
 
   return {

@@ -6,7 +6,7 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
   feedbacks: Feedback[] = []
 
   async getFeedbacks(): Promise<Feedback[]> {
-    return this.feedbacks.map(f => ({id: f.id, category: f.category, description: f.description, status: f.status, title: f.title, owner: f.owner, upvotes: f.upvotes, comments: f.comments }))
+    return this.feedbacks.map(f => ({id: f.id, category: f.category, description: f.description, status: f.status, title: f.title, owner: f.owner, upvotes: f.upvotes, comments: f.comments, upvoted: f.upvoted }))
   }
   
   async addFeedback(params: { feedback: AddFeedbackPayload["data"]; }): Promise<void> {
@@ -18,7 +18,8 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
       title: params.feedback.title,
       owner: params.feedback.owner,
       comments: 0,
-      upvotes: 0
+      upvotes: 0,
+      upvoted: false
     })
   }
 }

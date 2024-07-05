@@ -32,14 +32,14 @@ export class AddFeedbackPayload {
     return this.errors.length === 0
   }
 
-  get data(): Omit<Feedback, "upvotes" | "comments"> {
+  get data(): Omit<Feedback, "upvotes" | "comments" | "upvoted"> {
     return {
       title: this.title,
       id: this.id,
       category: this.category.value,
       description: this.description,
       status: this.status,
-      owner: this.owner
+      owner: this.owner,
     }
   }
 }

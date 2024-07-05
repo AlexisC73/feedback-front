@@ -7,6 +7,7 @@ export interface Feedback {
   owner: string
   upvotes: number,
   comments: number
+  upvoted: boolean
 }
 
 export enum FeedbackCategory {
