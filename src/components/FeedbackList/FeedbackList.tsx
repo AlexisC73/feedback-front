@@ -8,7 +8,7 @@ interface FeedbackListProps {
 export function FeedbackList ({feedbacks}: FeedbackListProps) {
   return (
     <ul className="flex flex-col gap-y-4">
-      {feedbacks.map((feedback) => (<Link to={`/feedbacks/${feedback.id}`} key={feedback.title}><FeedbackCard {...feedback} /></Link>))}
+      {feedbacks.map((feedback) => (<Link to={`/feedbacks/${feedback.id}`} key={feedback.id}><FeedbackCard {...feedback} /></Link>))}
     </ul>
   )
 }

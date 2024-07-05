@@ -26,7 +26,7 @@ export function Dropdown ({options, current, onSelect}: {options: string[], curr
 export function DropdownMenu ({options, current, onSelect}: {options: string[], current?: string, onSelect: (select: string) => void}) {
   return (
     <ul className="rounded-1.25 overflow-hidden flex flex-col gap-y-1px bg-#3A4374 bg-opacity-15">
-      {options.map((option) => (<button key={option} onClick={() => onSelect(option)}><DropdownItem option={option} active={current === option} /></button>))}
+      {options.map((option) => (<button type="button" key={option} onClick={() => onSelect(option)}><DropdownItem option={option} active={current === option} /></button>))}
     </ul>
   )
 }
