@@ -46,12 +46,7 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
     if(feedbackIndex === -1) {
       return {type: ApiResultType.NOT_FOUND, data: undefined}
     }
-    const feedback = this.feedbacks.splice(feedbackIndex, 1)[0]
-    if(!feedback) {
-      return {type: ApiResultType.NOT_FOUND, data: undefined}
-    }
-    const updatedFeedback: Feedback = {...feedback, upvotes: feedback.upvotes + (params.upvote ? 1 : -1), upvoted: params.upvote}
-    this.feedbacks = [...this.feedbacks, updatedFeedback]
+    this.feedbacks = this.feedbacks.map(f => f.id === params.feedbackId ? {...f, upvoted: params.upvote, upvotes: f.upvotes + (params.upvote ? 1 : -1)} : f)
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 }

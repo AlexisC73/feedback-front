@@ -2,6 +2,7 @@ import { beforeEach, describe, test } from "vitest";
 import { createFeedbackFixture, FeedbackFixture } from "./feedback.fixture";
 import { StateBuilder, stateBuilder } from "@/store/state-builder";
 import { feedbackBuilder } from "./feedback.builder";
+import { UsecaseResultType } from "@/store/@shared/models/resultType";
 
 describe("Upvote feedback usecase", () => {
 
@@ -32,5 +33,13 @@ describe("Upvote feedback usecase", () => {
     await feedbackFixture.upvoteFeedback({ feedbackId: "6", upvote: false})
     
     feedbackFixture.thenFeedbacksStateShouldBe({loading: false, data: [...existingFeedbacks, feedback.withUpvoted(false).withUpvotes(1).build()]})
+  })
+
+  test("Should return not found if feedback does not exists", async () => {    
+    feedbackFixture.givenNoFeedbacksExists()
+
+    await feedbackFixture.upvoteFeedback({ feedbackId: "6", upvote: false})
+    
+    feedbackFixture.thenFeedbackResultTypeShouldBe(UsecaseResultType.NOT_FOUND)
   })
 })

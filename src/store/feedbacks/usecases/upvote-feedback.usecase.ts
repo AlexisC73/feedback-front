@@ -7,6 +7,7 @@ export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: U
   const upvotePayload = new UpvotePayload({ feedbackId: param.feedbackId, upvote: param.upvote });
 
   if(!upvotePayload.validate()) {
+    console.log("INVALID")
     return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: upvotePayload.errors})
   }
 

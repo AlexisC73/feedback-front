@@ -6,9 +6,10 @@ import { StateBuilder } from "@/store/state-builder"
 import { Feedback } from "../models/feedback"
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../usecases/edit-feedback.usecase"
 import { upvoteFeedbackThunk, UpvoteUsecaseParams } from "../usecases/upvote-feedback.usecase"
+import { UsecaseResultType } from "@/store/@shared/models/resultType"
 
 export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
-  let resultType: string
+  let resultType: UsecaseResultType | undefined
   return {
     givenNoFeedbacksExists() {
       stateBuilder.getFeedbackRepository().feedbacks = []
@@ -51,7 +52,7 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
       const fundFeedback = stateBuilder.getFeedbackRepository().feedbacks.find(f => f.id === feedback.id)
       expect(fundFeedback).toMatchObject(feedback)
     },
-    thenFeedbackResultTypeShouldBe(expectedResultType: string) {
+    thenFeedbackResultTypeShouldBe(expectedResultType: UsecaseResultType) {
       expect(resultType).toBe(expectedResultType)
     }
   }
