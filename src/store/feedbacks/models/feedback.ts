@@ -19,8 +19,8 @@ export enum FeedbackCategory {
 }
 
 export enum FeedbackStatus {
-  SUGGESTION = 'SUGGESTION',
-  PLANNED = 'PLANNED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  LIVE = 'LIVE',
+  SUGGESTION = 'suggestion',
+  PLANNED = 'planned',
+  IN_PROGRESS = 'in_progress',
+  LIVE = 'live',
 }

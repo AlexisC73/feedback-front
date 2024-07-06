@@ -6,13 +6,10 @@ import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";
 import { Textarea } from "../textarea/Textarea";
 import { useState } from "react";
+import { AddFeedbackUsecaseParams } from "@/store/feedbacks/usecases/add-feedback.usecase";
 
 export interface AddFeedbackFormProps {
-  onPostFeedback: (params: { 
-    title: string
-    category: FeedbackCategory
-    description: string
-  }) => Promise<void>
+  onPostFeedback: (params: AddFeedbackUsecaseParams) => Promise<void>
   fieldErrors: {[key: string]: string[]}
 
 }

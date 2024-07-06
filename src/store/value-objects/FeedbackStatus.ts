@@ -8,7 +8,7 @@ export class FeedbackStatusVO extends ValueObject {
   constructor(status: FeedbackStatus) {
     super()
     for(const status in FeedbackStatus) {
-      this.#acceptedStatus.push(status)
+      this.#acceptedStatus.push(status.toLocaleLowerCase())
     }
     this.#status = status
   }
