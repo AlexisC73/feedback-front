@@ -1,6 +1,7 @@
 import { Feedback } from "../models/feedback";
 import { FeedbackRepository } from "../models/feedback.repository";
 import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
+import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
 
 export class InMemoryFeedbackRepository implements FeedbackRepository {
   feedbacks: Feedback[] = []
@@ -21,5 +22,15 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
       upvotes: 0,
       upvoted: false
     })
+  }
+
+  async editFeedback(params: { feedback: EditFeedbackPayload["data"]; }): Promise<void> {
+    const { feedback: editFeedbackPayload} = params
+    const feedback = this.feedbacks.find(f => f.id === editFeedbackPayload.id)
+    if(!feedback) {
+      throw new Error("Feedback not found")
+    }
+    const editedFeedback: Feedback = {...feedback, ...editFeedbackPayload}
+    this.feedbacks = this.feedbacks.map(f => f.id === editedFeedback.id ? editedFeedback : f)
   }
 }

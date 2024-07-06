@@ -4,6 +4,7 @@ import { getFeedbacksThunk } from "../usecases/get-feedbacks.usecase"
 import { addFeedbackThunk, AddFeedbackUsecaseParams } from "../usecases/add-feedback.usecase"
 import { StateBuilder } from "@/store/state-builder"
 import { Feedback } from "../models/feedback"
+import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../usecases/edit-feedback.usecase"
 
 export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
   return {
@@ -22,6 +23,9 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
     },
     async whenAddFeedback(feedback: AddFeedbackUsecaseParams) {
       await stateBuilder.getStore().dispatch(addFeedbackThunk(feedback))
+    },
+    async whenEditFeedback(feedback: EditFeedbackUsecaseParams) {
+      await stateBuilder.getStore().dispatch(editFeedbackThunk(feedback))
     },
     thenFeedbacksStateShouldBe(feedbackState: FeedbackState) {
       expect(stateBuilder.getStore().getState().feedback).toMatchObject(feedbackState)

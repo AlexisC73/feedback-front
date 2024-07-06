@@ -8,7 +8,7 @@ export class FeedbackCategoryVO extends ValueObject {
   constructor(category: FeedbackCategory) {
     super()
     for(const category in FeedbackCategory) {
-      this.#acceptedCategories.push(category)
+      this.#acceptedCategories.push(category.toLocaleLowerCase())
     }
     this.#category = category
   }

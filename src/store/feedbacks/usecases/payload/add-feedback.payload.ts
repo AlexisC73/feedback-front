@@ -26,7 +26,7 @@ export class AddFeedbackPayload {
     if(this.description.length === 0) {
       this.errors.push({field: "description", errors: ["Description is required"]})
     }
-    if(this.category.validate()) {
+    if(!this.category.validate()) {
       this.errors.push({field: "category", errors: this.category.errors})
     }
     return this.errors.length === 0

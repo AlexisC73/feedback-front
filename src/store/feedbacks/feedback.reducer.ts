@@ -3,6 +3,7 @@ import { RootState } from "../store"
 import { Feedback, FeedbackStatus } from "./models/feedback"
 import { getFeedbacksThunk, GetFeedbacksThunkResultType } from "./usecases/get-feedbacks.usecase"
 import { addFeedbackThunk, AddFeedbackThunkResultType } from "./usecases/add-feedback.usecase"
+import { editFeedbackThunk, EditFeedbackThunkResultType } from "./usecases/edit-feedback.usecase"
 
 export interface FeedbackState {
   data: Feedback[]
@@ -30,6 +31,13 @@ export const feedbackReducer = createReducer(initialState, builder => {
     }
     state.loading = false
   }).addCase(addFeedbackThunk.rejected, (state) => {
+    state.loading = false
+  }).addCase(editFeedbackThunk.pending, state => {
+    state.loading = true
+  }).addCase(editFeedbackThunk.fulfilled, (state, action) => {
+    if(action.payload.type === EditFeedbackThunkResultType.SUCCESS) {
+      state.data = state.data.map(f => f.id === action.payload.editedFeedback.id ? {...f, ...action.payload.editedFeedback} : f)
+    }
     state.loading = false
   })
 })
