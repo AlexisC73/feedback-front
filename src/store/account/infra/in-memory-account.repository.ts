@@ -1,7 +1,8 @@
-import { CredentialError, InvalidRequestError } from "@/store/errors/errors";
-import { Account, AccountWithPassword, Role } from "../models/account";
-import { AccountRepository } from "../models/account-repository";
+import { InvalidRequestError } from "@/store/errors/errors";
+import { AccountWithPassword, Role } from "../models/account";
+import { AccountRepository, LoginApiResult } from "../models/account-repository";
 import * as E from "fp-ts/Either"
+import { ApiResultType } from "@/store/@shared/models/resultType";
 
 export class InMemoryAccountRepository implements AccountRepository {
   accounts: AccountWithPassword[] = []
@@ -15,16 +16,18 @@ export class InMemoryAccountRepository implements AccountRepository {
     return E.right(undefined)
   }
 
-  async login(params: { email: string; password: string; }): Promise<E.Either<CredentialError, Account>> {
+  async login(params: { email: string; password: string; }): Promise<LoginApiResult> {
     const account = this.accounts.find(a => a.email === params.email && a.password === params.password)
     if(!account) {
-      return E.left(new CredentialError("Invalid email or password"))
+      return {type: ApiResultType.CREDENTIAL_ERROR}
     }
-    return E.right({
-      email: account.email,
-      id: account.id,
-      role: account.role
-    })
+    return {
+      type: ApiResultType.SUCCESS,
+      data: {
+        email: account.email,
+        id: account.id,
+        role: account.role
+      }}
   }
 
   private save(account: AccountWithPassword) {

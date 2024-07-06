@@ -1,48 +1,46 @@
 import { FieldError } from "@/store/errors/fields-error";
 import { createAppAsyncThunk } from "../../create-app-thunk";
 import { LoginPayload } from "./payload/login.payload";
-import { CredentialError } from "@/store/errors/errors";
-import { AccountWithPassword } from "@/store/account/models/account";
+import { Account } from "@/store/account/models/account";
+import { ApiResultType, UsecaseResult, UsecaseResultType } from "@/store/@shared/models/resultType";
+import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
 export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: LoginThunkResult}>()("auth/login", async (params: LoginUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
   const loginPayload = new LoginPayload({email: params.email, password: params.password})
 
   if (!loginPayload.validate()) {
-    const result: LoginThunkResult = {type: LoginThunkResultType.FIELD_ERROR, errors: loginPayload.errors}
+    const result: LoginThunkResult = {type: UsecaseResultType.FIELD_ERROR, data: loginPayload.errors}
     return rejectWithValue(result)
   }
+  
   try {
-    const account = await accountRepository.login({email: params.email, password: params.password})
-    if(account._tag === "Left") {
-      if(account.left instanceof CredentialError) {
-        return rejectWithValue({type: LoginThunkResultType.CREDENTIAL_ERROR} as LoginThunkResult)
+    const result = await accountRepository.login({email: params.email, password: params.password})
+    if(result.type === ApiResultType.SUCCESS) {
+      const successResult: LoginThunkSuccess = {type: UsecaseResultType.SUCCESS, data: result.data}
+      return successResult
+    } else {
+      switch(result.type) {
+        case ApiResultType.UNKNOWN_ERROR:
+          return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR})
+        case ApiResultType.FIELD_ERROR:
+          return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
+        case ApiResultType.CREDENTIAL_ERROR:
+          return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR})
+        default:
+          exhaustiveGuard(result)
       }
-      return rejectWithValue({type: LoginThunkResultType.UNKNOWN_ERROR} as LoginThunkResult)
     }
-    return {type: LoginThunkResultType.SUCCESS, data: account.right} as LoginThunkResult
   } catch(e) {
-    return rejectWithValue({type: LoginThunkResultType.UNKNOWN_ERROR} as LoginThunkResult)
+    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR} as LoginThunkUnknownError)
   }
 })
 
-export enum LoginThunkResultType {
-  SUCCESS = "SUCCESS",
-  FIELD_ERROR = "FIELD_ERROR",
-  UNKNOWN_ERROR = "UNKNOWN_ERROR",
-  CREDENTIAL_ERROR = "CREDENTIAL_ERROR"
-}
+export type LoginThunkResult = LoginThunkSuccess | LoginThunkFieldError | LoginThunkUnknownError | LoginThunkCredentialError
 
-type LoginThunkResult = {
-  type: LoginThunkResultType.FIELD_ERROR,
-  errors: FieldError[]
-} | {
-  type: LoginThunkResultType.SUCCESS,
-  data: AccountWithPassword
-} | {
-  type: LoginThunkResultType.UNKNOWN_ERROR
-} | {
-  type: LoginThunkResultType.CREDENTIAL_ERROR
-}
+export type LoginThunkFieldError = UsecaseResult<UsecaseResultType.FIELD_ERROR, FieldError[]>
+export type LoginThunkSuccess = UsecaseResult<UsecaseResultType.SUCCESS, Account>
+export type LoginThunkUnknownError = UsecaseResult<UsecaseResultType.UNKNOWN_ERROR, undefined>
+export type LoginThunkCredentialError = UsecaseResult<UsecaseResultType.CREDENTIAL_ERROR, undefined>
 
 export interface LoginUsecaseParams {
   email: string,
