@@ -1,6 +1,6 @@
 import { CommentCount } from "@/components/CommentCount/CommentCount";
 import { Tag } from "@/components/Tag/Tag";
-import { UpvoteCount } from "@/components/UpvoteCount/UpvoteCount";
+import { UpvoteComponent } from "@/store/feedbacks/app/UpvoteComponent/UpvoteComponent";
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
 
 export interface FeedbackCardProps {
@@ -13,11 +13,11 @@ export interface FeedbackCardProps {
   upvoted: boolean
 }
 
-export function FeedbackCard ({title, category, description, upvotes, comments, upvoted}: FeedbackCardProps) {
+export function FeedbackCard ({title, category, description, comments, id}: FeedbackCardProps) {
   return (
     <div className="flex flex-col md:flex-row w-full p-6 bg-white rounded-2.5 gap-y-2 md:items-center md:gap-x-10">
       <div className="hidden md:flex">
-        <UpvoteCount upvoted={upvoted} count={upvotes} />
+        <UpvoteComponent feedbackId={id} />
       </div>
       <div className="flex flex-col gap-y-2 md:gay-y-1 w-full">
         <h2 className="line-height-4.75 md:line-height-6.5 text-3.25 md:text-4.5 -tracking-0.18px font-bold text-#3A4374">{title}</h2>
@@ -28,7 +28,7 @@ export function FeedbackCard ({title, category, description, upvotes, comments, 
       </div>
       <div className="hidden md:flex"><CommentCount count={comments} /></div>
       <div className="flex justify-between items-center mt-2 md:hidden">
-        <UpvoteCount upvoted={upvoted} count={upvotes} />
+        <UpvoteComponent feedbackId={id} />
         <CommentCount count={comments} />
       </div>
     </div>
