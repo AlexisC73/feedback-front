@@ -4,7 +4,7 @@ import { EditFeedbackPayload } from "./payload/edit-feedback.payload";
 import { ApiResultType, UsecaseCredentialError, UsecaseFieldError, UsecaseNotFoundError, UsecaseResultType, UsecaseUnknownError } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
-export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: EditFeedbackThunkResult}>()("feedbacks/editFeedback", async (feedback: EditFeedbackUsecaseParams, {rejectWithValue, extra: {feedbackRepository}}) => {
+export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: EditFeedbackThunkResult}>()("feedbacks/editFeedback", async (feedback: EditFeedbackUsecaseParams, {getState, rejectWithValue, extra: {feedbackRepository}}) => {
   const editFeedbackPayload = new EditFeedbackPayload({
     id: feedback.id,
     title: feedback.title,
@@ -13,8 +13,14 @@ export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Edi
     status: feedback.status
   })
 
+  const feedbackToUpdate = getState().feedback.data.find(f => f.id === feedback.id)
+
   if(!editFeedbackPayload.validate()) {
     return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: editFeedbackPayload.errors})
+  }
+
+  if(editFeedbackPayload.data.title === feedbackToUpdate?.title && editFeedbackPayload.data.category === feedbackToUpdate?.category && editFeedbackPayload.data.description === feedbackToUpdate?.description && editFeedbackPayload.data.status === feedbackToUpdate?.status) {
+    return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data}
   }
 
   try {
