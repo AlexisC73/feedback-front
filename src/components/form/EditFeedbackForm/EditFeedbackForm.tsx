@@ -50,7 +50,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 pt-11 w-full rounded-2.5 flex flex-col gap-y-6 relative">
           <div className="bg-custom-radial h-10 w-10 md:h-14 md:w-14 rounded-full flex items-center justify-center text-white absolute -top-7 md:-top-7 text-5 md:text-6 font-bold"><PenIcon /></div>
-          <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Editing ‘Add a dark theme option’</p>
+          <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Editing ‘{feedback.title}’</p>
           <FormGroup>
             <InputHeader htmlFor="title" label="Feedback Title" description="Add a short, descriptive headline" />
             <Input defaultValue={feedback.title} name="title" errors={errors.title} />
