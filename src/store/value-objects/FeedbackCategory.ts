@@ -7,9 +7,7 @@ export class FeedbackCategoryVO extends ValueObject {
 
   constructor(category: FeedbackCategory) {
     super()
-    for(const category in FeedbackCategory) {
-      this.#acceptedCategories.push(category.toLocaleLowerCase())
-    }
+    this.#acceptedCategories = Object.values(FeedbackCategory)
     this.#category = category
   }
 
@@ -26,6 +24,8 @@ export class FeedbackCategoryVO extends ValueObject {
       this.setErrors(["Category is required"])
     }
     if(!this.#acceptedCategories.includes(this.#category)) {
+      console.log(this.#acceptedCategories)
+      console.log(this.#category)
       this.setErrors(["Invalid category"])
     }
     return this.errors.length === 0

@@ -1,11 +1,12 @@
 import { CommentCount } from "@/components/CommentCount/CommentCount";
 import { Tag } from "@/components/Tag/Tag";
 import { UpvoteCount } from "@/components/UpvoteCount/UpvoteCount";
+import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
 
 export interface FeedbackCardProps {
   id: string
   title: string
-  category: "ui" | "ux" | "enhancement" | "feature" | "bug"
+  category: FeedbackCategory
   description: string
   upvotes: number
   comments: number
