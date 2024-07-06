@@ -3,7 +3,7 @@ import { createFeedbackFixture, FeedbackFixture } from "./feedback.fixture";
 import { stateBuilder } from "@/store/state-builder";
 import { feedbackBuilder } from "./feedback.builder";
 import { FeedbackCategory } from "../models/feedback";
-import { EditFeedbackThunkResultType } from "../usecases/edit-feedback.usecase";
+import { UsecaseResultType } from "@/store/@shared/models/resultType";
 
 describe("Edit Feedback Usecase", () => {
   let feedbackFixture: FeedbackFixture
@@ -50,6 +50,6 @@ describe("Edit Feedback Usecase", () => {
       description: toEditFeedback.build().description,
     })
 
-    feedbackFixture.thenFeedbackResultTypeShouldBe(EditFeedbackThunkResultType.FIELDS_ERROR)
+    feedbackFixture.thenFeedbackResultTypeShouldBe(UsecaseResultType.FIELD_ERROR)
   })
 })

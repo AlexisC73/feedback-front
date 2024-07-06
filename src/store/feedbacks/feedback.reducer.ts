@@ -1,9 +1,10 @@
 import { createReducer, createSelector } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 import { Feedback, FeedbackStatus } from "./models/feedback"
-import { getFeedbacksThunk, GetFeedbacksThunkResultType } from "./usecases/get-feedbacks.usecase"
-import { addFeedbackThunk, AddFeedbackThunkResultType } from "./usecases/add-feedback.usecase"
-import { editFeedbackThunk, EditFeedbackThunkResultType } from "./usecases/edit-feedback.usecase"
+import { getFeedbacksThunk } from "./usecases/get-feedbacks.usecase"
+import { addFeedbackThunk } from "./usecases/add-feedback.usecase"
+import { editFeedbackThunk } from "./usecases/edit-feedback.usecase"
+import { UsecaseResultType } from "../@shared/models/resultType"
 
 export interface FeedbackState {
   data: Feedback[]
@@ -19,15 +20,15 @@ export const feedbackReducer = createReducer(initialState, builder => {
   builder.addCase(getFeedbacksThunk.pending, state => {
     state.loading = true
   }).addCase(getFeedbacksThunk.fulfilled, (state, action) => {
-    if(action.payload.type === GetFeedbacksThunkResultType.SUCCESS) {
+    if(action.payload?.type === UsecaseResultType.SUCCESS) {
       state.data = action.payload.data
     }
     state.loading = false
   }).addCase(getFeedbacksThunk.rejected, state => {
     state.loading = false
   }).addCase(addFeedbackThunk.fulfilled, (state, action) => {
-    if(action.payload.type === AddFeedbackThunkResultType.SUCCESS) {
-      state.data = [...state.data, action.payload.feedback]
+    if(action.payload.type === UsecaseResultType.SUCCESS) {
+      state.data = [...state.data, action.payload.data]
     }
     state.loading = false
   }).addCase(addFeedbackThunk.rejected, (state) => {
@@ -35,9 +36,12 @@ export const feedbackReducer = createReducer(initialState, builder => {
   }).addCase(editFeedbackThunk.pending, state => {
     state.loading = true
   }).addCase(editFeedbackThunk.fulfilled, (state, action) => {
-    if(action.payload.type === EditFeedbackThunkResultType.SUCCESS) {
-      state.data = state.data.map(f => f.id === action.payload.editedFeedback.id ? {...f, ...action.payload.editedFeedback} : f)
+    if(action.payload?.type === UsecaseResultType.SUCCESS) {
+      const editedFeedback = action.payload.data
+      state.data = state.data.map(f => f.id === editedFeedback.id ? {...f, ...editedFeedback} : f)
     }
+    state.loading = false
+  }).addCase(editFeedbackThunk.rejected, (state) => {
     state.loading = false
   })
 })

@@ -1,14 +1,15 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { AddFeedbackPayload } from "./payload/add-feedback.payload";
 import { Feedback, FeedbackCategory, FeedbackStatus } from "../models/feedback";
-import { FieldError } from "@/store/errors/fields-error";
+import { ApiResultType, UsecaseCredentialError, UsecaseFieldError, UsecaseResultType, UsecaseUnknownError } from "@/store/@shared/models/resultType";
+import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
 
 export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddFeedbackThunkResult}>()("feedbacks/addFeedback", async (params: AddFeedbackUsecaseParams, { getState, rejectWithValue, extra: { feedbackRepository, idProvider } }) => {
   const authId = getState().auth.account?.id
 
   if(!authId) {
-    return rejectWithValue({type: AddFeedbackThunkResultType.CREDENTIAL_ERROR} as AddFeedbackThunkResult)
+    return ({type: UsecaseResultType.CREDENTIAL_ERROR} as AddFeedbackThunkResult)
   }
   
   const addFeedbackPayload: AddFeedbackPayload = new AddFeedbackPayload({
@@ -20,11 +21,11 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
   })
 
   if(!addFeedbackPayload.validate()) {
-    return rejectWithValue({type: AddFeedbackThunkResultType.FIELDS_ERROR, errors: addFeedbackPayload.errors} as AddFeedbackThunkResult)
+    return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: addFeedbackPayload.errors})
   }
 
   try {
-    await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
+    const result = await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
     const addedFeedback: Feedback = {
       category: addFeedbackPayload.data.category,
       comments: 0,
@@ -36,30 +37,25 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
       upvotes: 0,
       upvoted: false
     }
-    return {type: AddFeedbackThunkResultType.SUCCESS, feedback: addedFeedback} as AddFeedbackThunkResult
+    switch(result.type) {
+      case ApiResultType.SUCCESS:
+        return {type: UsecaseResultType.SUCCESS, data: addedFeedback}
+      case ApiResultType.CREDENTIAL_ERROR:
+        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data})
+      case ApiResultType.UNKNOWN_ERROR:
+        return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: result.data})
+      case ApiResultType.FIELD_ERROR:
+        return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
+      default:
+        return exhaustiveGuard(result)
+    }
   } catch(e) {
-    return rejectWithValue({type: AddFeedbackThunkResultType.UNKNONW_ERROR} as AddFeedbackThunkResult)
+    console.log(e)
+    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }
 })
 
-export type AddFeedbackThunkResult = {
-  type: AddFeedbackThunkResultType.SUCCESS,
-  feedback: Feedback
-} | {
-  type: AddFeedbackThunkResultType.UNKNONW_ERROR
-} | {
-  type: AddFeedbackThunkResultType.CREDENTIAL_ERROR
-} | {
-  type: AddFeedbackThunkResultType.FIELDS_ERROR,
-  errors: FieldError[]
-}
-
-export enum AddFeedbackThunkResultType {
-  SUCCESS = "SUCCESS",
-  UNKNONW_ERROR = "UNKNOWN_ERROR",
-  CREDENTIAL_ERROR = "CREDENTIAL_ERROR",
-  FIELDS_ERROR = "FIELDS_ERROR"
-}
+export type AddFeedbackThunkResult = UsecaseFieldError | UsecaseCredentialError | UsecaseUnknownError
 
 export interface AddFeedbackUsecaseParams {
   title: string,

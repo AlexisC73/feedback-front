@@ -23,7 +23,7 @@ export const authReducer = createReducer(initialState, (builder) => {
   }).addCase(registerThunk.rejected, (state) => {
     state.loading = false
   }).addCase(loginThunk.fulfilled, (state, action) => {
-    if(action.payload.type === UsecaseResultType.SUCCESS) {
+    if(action.payload?.type === UsecaseResultType.SUCCESS) {
       if(action.payload.data) {
         state.account = action.payload.data
       }

@@ -2,8 +2,9 @@ import { EditFeedbackForm } from "@/components/form/EditFeedbackForm/EditFeedbac
 import { useAppDispatch, useAppSelector } from "@/store/store-hooks";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { selectFeedback } from "../../feedback.reducer";
-import { editFeedbackThunk, EditFeedbackThunkResultType, EditFeedbackUsecaseParams } from "../../usecases/edit-feedback.usecase";
+import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../../usecases/edit-feedback.usecase";
 import { useState } from "react";
+import { UsecaseResultType } from "@/store/@shared/models/resultType";
 
 export function EditFeedbackFormComponent() {
   const params = useParams<{id: string}>()
@@ -15,16 +16,25 @@ export function EditFeedbackFormComponent() {
 
   const handleEditFeedback = (feedback: EditFeedbackUsecaseParams) => {
     dispatch(editFeedbackThunk(feedback)).then(res => {
-      if(res.payload?.type === EditFeedbackThunkResultType.SUCCESS) {
-        navigate(`/feedbacks/${params.id}`)
+      const {payload, type} = res
+      if(!payload || !type) {
+        return
       }
-      if(res.payload?.type === EditFeedbackThunkResultType.FIELDS_ERROR) {
-        const errors: {[key: string]: string[]} = {}
-        res.payload.errors.forEach(errorField => {
-          errors[errorField.field]= errorField.errors
-        })
-        setErrors(errors)
+      if(payload.type === UsecaseResultType.SUCCESS) {
+        return navigate(`/feedbacks/${params.id}`)
       }
+      if(type === editFeedbackThunk.rejected.type) {
+        if(payload.type === UsecaseResultType.FIELD_ERROR) {
+          const errors: {[key: string]: string[]} = {}
+          if(Array.isArray(payload.data)) {
+            payload.data.forEach(errorField => {
+              errors[errorField.field]= errorField.errors
+            })
+          }
+          setErrors(errors)
+        }
+      }
+      
     })
   }
 
