@@ -1,9 +1,9 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback"
 
-type TitleType = FeedbackCategory | "All"
+export type TagTitle = FeedbackCategory | "All"
 
-export function Tag ({title, active, hoverable}: {title: TitleType, active: boolean, hoverable?: boolean}) {
-  const filtersStyle: {[key in TitleType]: string} = {
+export function Tag ({title, active, hoverable}: {title: TagTitle, active: boolean, hoverable?: boolean}) {
+  const filtersStyle: {[key in TagTitle]: string} = {
     All: "px-4",
     UI: "pl-4 pr-4.75",
     UX: "pl-4 pr-3.5",

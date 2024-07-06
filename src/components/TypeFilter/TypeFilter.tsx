@@ -1,15 +1,15 @@
-export function TypeFilter ({activeFilter}: {activeFilter: string[]}) {
-  const activeStyle = "bg-#4661E6 text-white"
-  const unactiveStyle = "bg-#F2F4FF text-#4661E6"
+import { FeedbackCategory } from "@/store/feedbacks/models/feedback"
+import { Tag, TagTitle } from "../Tag/Tag"
 
+export function TypeFilter ({ activeFilter, setActiveFilter }: {activeFilter: TagTitle, setActiveFilter: (filter: TagTitle) => void}) {
   return (
-    <ul id="filter" className="flex flex-wrap pt-6 pl-6 pr-4.5 pb-9 bg-white rounded-2.5 md:w-55.75 h-44.5 lg:w-63.75 lg:h-41.5">
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 px-4 mr-2 ${activeFilter.includes("all") ? activeStyle : unactiveStyle}`}>All</li>
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 pl-4 pr-4.75 mr-2 ${activeFilter.includes("ui") ? activeStyle : unactiveStyle}`}>UI</li>
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 pl-4 pr-3.5 ${activeFilter.includes("ux") ? activeStyle : unactiveStyle}`}>UX</li>
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 px-4 mr-3.5 mt-3.5 ${activeFilter.includes("enhancement") ? activeStyle : unactiveStyle}`}>Enhancement</li>
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 px-4 mt-3.5 ${activeFilter.includes("bug") ? activeStyle : unactiveStyle}`}>Bug</li>
-      <li className={`h-7.5 flex items-center rounded-2.5 font-semibold text-3.25 line-height-4.75 pl-4 pr-4.25 mt-3.5 ${activeFilter.includes("feature") ? activeStyle : unactiveStyle}`}>Feature</li>
+    <ul id="filter" className="flex flex-wrap pt-6 pl-6 pr-4.5 pb-9 bg-white rounded-2.5 md:w-55.75 h-44.5 lg:w-63.75 lg:h-41.5 gap-y-3.5">
+      <li onClick={() => setActiveFilter("All")} className="mr-2 cursor-pointer"><Tag title={"All"} active={activeFilter === "All"} /></li>
+      <li onClick={() => setActiveFilter(FeedbackCategory.UI)} className="mr-2 cursor-pointer"><Tag title={FeedbackCategory.UI} active={activeFilter === FeedbackCategory.UI} /></li>
+      <li onClick={() => setActiveFilter(FeedbackCategory.UX)} className="cursor-pointer"><Tag title={FeedbackCategory.UX} active={activeFilter === FeedbackCategory.UX} /></li>
+      <li onClick={() => setActiveFilter(FeedbackCategory.ENHANCEMENT)} className="mr-3.5 cursor-pointer"><Tag title={FeedbackCategory.ENHANCEMENT} active={activeFilter === FeedbackCategory.ENHANCEMENT} /></li>
+      <li onClick={() => setActiveFilter(FeedbackCategory.BUG)} className="cursor-pointer"><Tag title={FeedbackCategory.BUG} active={activeFilter === FeedbackCategory.BUG} /></li>
+      <li onClick={() => setActiveFilter(FeedbackCategory.FEATURE)} className="cursor-pointer"><Tag title={FeedbackCategory.FEATURE} active={activeFilter === FeedbackCategory.FEATURE} /></li>
     </ul>
   )
 }
