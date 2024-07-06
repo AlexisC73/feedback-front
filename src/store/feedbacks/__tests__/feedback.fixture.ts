@@ -7,6 +7,7 @@ import { Feedback } from "../models/feedback"
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../usecases/edit-feedback.usecase"
 
 export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
+  let resultType: string
   return {
     givenNoFeedbacksExists() {
       stateBuilder.getFeedbackRepository().feedbacks = []
@@ -19,13 +20,22 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
       stateBuilder.getFeedbackRepository().feedbacks = [...feedbacks]
     },
     async whenGetFeedbacks() {
-      await stateBuilder.getStore().dispatch(getFeedbacksThunk())
+      const result = await stateBuilder.getStore().dispatch(getFeedbacksThunk())
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
     },
     async whenAddFeedback(feedback: AddFeedbackUsecaseParams) {
-      await stateBuilder.getStore().dispatch(addFeedbackThunk(feedback))
+      const result = await stateBuilder.getStore().dispatch(addFeedbackThunk(feedback))
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
     },
     async whenEditFeedback(feedback: EditFeedbackUsecaseParams) {
-      await stateBuilder.getStore().dispatch(editFeedbackThunk(feedback))
+      const result = await stateBuilder.getStore().dispatch(editFeedbackThunk(feedback))
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
     },
     thenFeedbacksStateShouldBe(feedbackState: FeedbackState) {
       expect(stateBuilder.getStore().getState().feedback).toMatchObject(feedbackState)
@@ -33,6 +43,9 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
     thenFeedbackShouldExists(feedback: Feedback) {
       const fundFeedback = stateBuilder.getFeedbackRepository().feedbacks.find(f => f.id === feedback.id)
       expect(fundFeedback).toMatchObject(feedback)
+    },
+    thenFeedbackResultTypeShouldBe(expectedResultType: string) {
+      expect(resultType).toBe(expectedResultType)
     }
   }
 }
