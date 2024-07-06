@@ -5,6 +5,7 @@ import { getFeedbacksThunk } from "./usecases/get-feedbacks.usecase"
 import { addFeedbackThunk } from "./usecases/add-feedback.usecase"
 import { editFeedbackThunk } from "./usecases/edit-feedback.usecase"
 import { UsecaseResultType } from "../@shared/models/resultType"
+import { upvoteFeedbackThunk } from "./usecases/upvote-feedback.usecase"
 
 export interface FeedbackState {
   data: Feedback[]
@@ -43,6 +44,11 @@ export const feedbackReducer = createReducer(initialState, builder => {
     state.loading = false
   }).addCase(editFeedbackThunk.rejected, (state) => {
     state.loading = false
+  }).addCase(upvoteFeedbackThunk.fulfilled, (state, action) => {
+    if(action.payload?.type === UsecaseResultType.SUCCESS) {
+      const upvotedFeedback = action.payload.data
+      state.data = state.data.map(f => f.id === upvotedFeedback.feedbackId ? {...f, upvoted: upvotedFeedback.upvote, upvotes: f.upvotes + (upvotedFeedback.upvote ? 1 : -1)} : f)
+    }
   })
 })
 

@@ -16,6 +16,7 @@ export class EditFeedbackPayload {
     this.category = new FeedbackCategoryVO(params.category)
     this.description = params.description
     this.status = new FeedbackStatusVO(params.status)
+    Object.freeze(this)
   }
 
   validate() {

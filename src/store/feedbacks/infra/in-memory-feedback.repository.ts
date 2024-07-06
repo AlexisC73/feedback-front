@@ -1,8 +1,9 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
 import { Feedback } from "../models/feedback";
-import { AddFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult } from "../models/feedback.repository";
+import { AddFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
 import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
 import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
+import { UpvotePayload } from "../usecases/payload/upvote.payload";
 
 export class InMemoryFeedbackRepository implements FeedbackRepository {
   feedbacks: Feedback[] = []
@@ -37,6 +38,20 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
     const editedFeedback: Feedback = {...feedback, ...editFeedbackPayload}
     this.feedbacks = this.feedbacks.map(f => f.id === editedFeedback.id ? editedFeedback : f)
 
+    return {type: ApiResultType.SUCCESS, data: undefined}
+  }
+
+  async upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult> {
+    const feedbackIndex = this.feedbacks.findIndex(f => f.id === params.feedbackId)
+    if(feedbackIndex === -1) {
+      return {type: ApiResultType.NOT_FOUND, data: undefined}
+    }
+    const feedback = this.feedbacks.splice(feedbackIndex, 1)[0]
+    if(!feedback) {
+      return {type: ApiResultType.NOT_FOUND, data: undefined}
+    }
+    const updatedFeedback: Feedback = {...feedback, upvotes: feedback.upvotes + (params.upvote ? 1 : -1), upvoted: params.upvote}
+    this.feedbacks = [...this.feedbacks, updatedFeedback]
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 }

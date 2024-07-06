@@ -17,6 +17,7 @@ export class AddFeedbackPayload {
     this.description = description
     this.id = id
     this.owner = owner
+    Object.freeze(this)
   }
 
   validate(): boolean {

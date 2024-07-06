@@ -5,6 +5,7 @@ import { addFeedbackThunk, AddFeedbackUsecaseParams } from "../usecases/add-feed
 import { StateBuilder } from "@/store/state-builder"
 import { Feedback } from "../models/feedback"
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../usecases/edit-feedback.usecase"
+import { upvoteFeedbackThunk, UpvoteUsecaseParams } from "../usecases/upvote-feedback.usecase"
 
 export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
   let resultType: string
@@ -33,6 +34,12 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
     },
     async whenEditFeedback(feedback: EditFeedbackUsecaseParams) {
       const result = await stateBuilder.getStore().dispatch(editFeedbackThunk(feedback))
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
+    },
+    async upvoteFeedback(feedback: UpvoteUsecaseParams) {
+      const result = await stateBuilder.getStore().dispatch(upvoteFeedbackThunk(feedback))
       if(result.payload?.type) {
         resultType = result.payload.type
       }
