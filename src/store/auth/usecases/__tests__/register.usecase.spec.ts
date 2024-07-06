@@ -1,9 +1,10 @@
 import {describe, test, beforeEach} from 'vitest'
-import { RegisterThunkResultType, RegisterUsecaseParams } from '../register.usecase'
+import { RegisterUsecaseParams } from '../register.usecase'
 import { AccountFixture, createAccountFixture } from '@/store/account/__tests__/account.fixture'
 import { EmailVO } from '@/store/value-objects/email'
 import { stateBuilder } from '@/store/state-builder'
 import { Role } from '@/store/account/models/account'
+import { UsecaseResultType } from '@/store/@shared/models/resultType'
 
 describe("Register Usecase", () => {
   let accountFixture: AccountFixture
@@ -18,7 +19,7 @@ describe("Register Usecase", () => {
 
     await accountFixture.whenAccountRegister(registerPayload)
 
-    accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.FIELD_ERROR)
+    accountFixture.thenResultTypeShouldBe(UsecaseResultType.FIELD_ERROR)
     accountFixture.thenAccountShouldNotExist(new EmailVO(registerPayload.email))
   })
 
@@ -28,7 +29,7 @@ describe("Register Usecase", () => {
 
     await accountFixture.whenAccountRegister(registerPayload)
 
-    accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.FIELD_ERROR)
+    accountFixture.thenResultTypeShouldBe(UsecaseResultType.FIELD_ERROR)
     accountFixture.thenAccountShouldNotExist(new EmailVO(registerPayload.email))
   })
 
@@ -38,7 +39,7 @@ describe("Register Usecase", () => {
 
     await accountFixture.whenAccountRegister(registerPayload)
 
-    accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.SUCCESS)
+    accountFixture.thenResultTypeShouldBe(UsecaseResultType.SUCCESS)
     accountFixture.thenAccountShouldExist({email: new EmailVO(registerPayload.email), role: Role.USER})
   })
 
@@ -48,7 +49,7 @@ describe("Register Usecase", () => {
 
     await accountFixture.whenAccountRegister(registerPayload)
 
-    accountFixture.thenResultTypeShouldBe(RegisterThunkResultType.SUCCESS)
+    accountFixture.thenResultTypeShouldBe(UsecaseResultType.SUCCESS)
     accountFixture.thenAccountShouldExist({email: new EmailVO(registerPayload.email), role: Role.USER})
   })
 })

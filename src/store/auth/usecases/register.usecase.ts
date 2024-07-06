@@ -1,39 +1,42 @@
-import { FieldError } from "@/store/errors/fields-error";
+import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 import { createAppAsyncThunk } from "../../create-app-thunk";
 import { RegisterPayload } from "./payload/register.payload";
+import { ApiResultType, UsecaseResult, UsecaseResultType } from "@/store/@shared/models/resultType";
+import { FieldError } from "@/store/errors/fields-error";
 
 export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: RegisterThunkResult}>()("auth/register", async (params: RegisterUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
   const registerPayload = new RegisterPayload({email: params.email, password: params.password, confirmationPassword: params.confirmationPassword})
 
   if (!registerPayload.validate()) {
-    const result: RegisterThunkResult = {type: RegisterThunkResultType.FIELD_ERROR, errors: registerPayload.errors}
+    const result: RegisterThunkResult = {type: UsecaseResultType.FIELD_ERROR, data: registerPayload.errors} as RegisterThunkFieldError
     return rejectWithValue(result)
   }
   try {
     const result = await accountRepository.create({email: params.email, password: params.password})
-    if(result._tag === "Left") {
-      return rejectWithValue({type: RegisterThunkResultType.UNKNOWN_ERROR} as RegisterThunkResult)
+    switch(result.type) {
+      case ApiResultType.SUCCESS:
+        return {type: UsecaseResultType.SUCCESS} as RegisterThunkSuccess
+      case ApiResultType.CREDENTIAL_ERROR:
+        return {type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data} as RegisterCredentialError
+      case ApiResultType.UNKNOWN_ERROR:
+        return {type: UsecaseResultType.UNKNOWN_ERROR} as RegisterThunkUnknownError
+      case ApiResultType.FIELD_ERROR:
+        return {type: UsecaseResultType.FIELD_ERROR, data: result.data} as RegisterThunkFieldError
+      default:
+        exhaustiveGuard(result)
     }
-    return {type: RegisterThunkResultType.SUCCESS} as RegisterThunkResult
   } catch(e) {
-    return {type: RegisterThunkResultType.UNKNOWN_ERROR} as RegisterThunkResult
+    return {type: UsecaseResultType.UNKNOWN_ERROR} as RegisterThunkUnknownError
   }
 })
 
-export enum RegisterThunkResultType {
-  SUCCESS = "SUCCESS",
-  FIELD_ERROR = "FIELD_ERROR",
-  UNKNOWN_ERROR = "UNKNOWN_ERROR",
-}
+type RegisterThunkResult = RegisterThunkSuccess | RegisterThunkUnknownError | RegisterCredentialError | RegisterThunkFieldError
 
-type RegisterThunkResult = {
-  type: RegisterThunkResultType.FIELD_ERROR,
-  errors: FieldError[]
-} | {
-  type: RegisterThunkResultType.SUCCESS
-} | {
-  type: RegisterThunkResultType.UNKNOWN_ERROR
-}
+type RegisterThunkSuccess = UsecaseResult<UsecaseResultType.SUCCESS, undefined>
+type RegisterThunkUnknownError = UsecaseResult<UsecaseResultType.UNKNOWN_ERROR, undefined>
+type RegisterThunkFieldError = UsecaseResult<UsecaseResultType.FIELD_ERROR, FieldError[]>
+type RegisterCredentialError = UsecaseResult<UsecaseResultType.CREDENTIAL_ERROR, string | undefined>
+
 
 export interface RegisterUsecaseParams {
   email: string,

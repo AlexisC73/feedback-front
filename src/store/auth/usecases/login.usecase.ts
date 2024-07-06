@@ -21,11 +21,11 @@ export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: LoginThunk
     } else {
       switch(result.type) {
         case ApiResultType.UNKNOWN_ERROR:
-          return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR})
+          return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
         case ApiResultType.FIELD_ERROR:
           return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
         case ApiResultType.CREDENTIAL_ERROR:
-          return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR})
+          return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined})
         default:
           exhaustiveGuard(result)
       }

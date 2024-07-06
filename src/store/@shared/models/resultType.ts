@@ -1,6 +1,6 @@
 export type UsecaseResult<T, P> =  {
   type: T,
-  data?: P
+  data: P
 }
 
 export enum UsecaseResultType {
@@ -12,7 +12,7 @@ export enum UsecaseResultType {
 
 export type ApiResult<T, P> =  {
   type: T,
-  data?: P
+  data: P
 }
 
 export enum ApiResultType {
