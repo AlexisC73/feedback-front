@@ -16,7 +16,7 @@ export const commentBuilder = ({
     withId: (id: string) => commentBuilder({...props, id}),
     withContent: (content: string) => commentBuilder({...props, content}),
     withFeedbackId: (feedbackId: string) => commentBuilder({...props, feedbackId}),
-    withReplyTo: (replyTo: string) => commentBuilder({...props, replyTo}),
+    withReplyTo: (replyTo: {userId: string, mainCommentId: string}) => commentBuilder({...props, replyTo}),
     withSender: (sender: Comment["sender"]) => commentBuilder({...props, sender}),
     build: (): Comment => props
   }
