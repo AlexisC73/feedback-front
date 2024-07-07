@@ -10,6 +10,7 @@ import { createStore } from './store/store.ts'
 import { InMemoryAccountRepository } from './store/account/infra/in-memory-account.repository.ts'
 import { InMemoryFeedbackRepository } from './store/feedbacks/infra/in-memory-feedback.repository.ts'
 import { StubIdProvider } from './store/@shared/infra/stub-id-provider.ts'
+import { SortFilterCtxProvider } from './Context/SortFilter/SortFilter.tsx'
 
 const store = createStore({
   accountRepository: new InMemoryAccountRepository(),
@@ -22,7 +23,9 @@ const router = createRouter({store})
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <SortFilterCtxProvider>
+        <RouterProvider router={router} />
+      </SortFilterCtxProvider>
     </Provider>
   </React.StrictMode>,
 )
