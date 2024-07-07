@@ -7,7 +7,7 @@ type SortFilterCtxType = {
   updateFilter: (filter: SortFilter) => void
 }
 
-const SortFilterCtx = createContext<SortFilterCtxType>({
+export const SortFilterCtx = createContext<SortFilterCtxType>({
   currentFilter: SortFilter.MostUpvotes,
   updateFilter: () => {}
 })

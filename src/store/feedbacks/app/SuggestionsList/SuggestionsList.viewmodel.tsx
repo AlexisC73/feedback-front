@@ -5,10 +5,7 @@ import { Feedback } from "../../models/feedback"
 
 export const createSuggestionsListViewmodel = createSelector([selectSuggestionFeedbacks], (feedbacks) => {
     const feedbackListElement: FeedbackCardProps[] = mapFeedbackToFeedbackCardProps(feedbacks)
-    return {
-      feedbackListElement,
-      suggestionCount: feedbacks.length
-    }
+    return feedbackListElement
   })
 
 const mapFeedbackToFeedbackCardProps = (feedbacks: Feedback[]): FeedbackCardProps[] => {

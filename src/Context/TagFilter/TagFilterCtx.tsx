@@ -8,7 +8,7 @@ type TagFilterCtxType = {
   updateFilter: (filter: TagType) => void
 }
 
-const TagFilterCtx = createContext<TagFilterCtxType>({
+export const TagFilterCtx = createContext<TagFilterCtxType>({
   currentFilter: "All",
   updateFilter: () => {}
 })
