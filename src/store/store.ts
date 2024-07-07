@@ -3,11 +3,13 @@ import { rootReducer } from "./root-reducer";
 import { AccountRepository } from "./account/models/account-repository";
 import { FeedbackRepository } from "./feedbacks/models/feedback.repository";
 import { IdProvider } from "./@shared/models/idProvider";
+import { CommentRepository } from "./comments/models/comment.repository";
 
 export interface Dependencies {
   accountRepository: AccountRepository
   feedbackRepository: FeedbackRepository
-  idProvider: IdProvider
+  idProvider: IdProvider,
+  commentRepository: CommentRepository
 }
 
 export const createStore = (dependencies: Dependencies, preloadedState?: Partial<RootState>) => {

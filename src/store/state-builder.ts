@@ -1,5 +1,6 @@
 import { StubIdProvider } from "./@shared/infra/stub-id-provider"
 import { InMemoryAccountRepository } from "./account/infra/in-memory-account.repository"
+import { InMemoryCommentRepository } from "./comments/infra/in-memory-comment.repository"
 import { InMemoryFeedbackRepository } from "./feedbacks/infra/in-memory-feedback.repository"
 import { AppStore, createStore, Dependencies, RootState } from "./store"
 
@@ -7,7 +8,8 @@ export const stateBuilder = () => {
   const accountRepository = new InMemoryAccountRepository()
   const feedbackRepository = new InMemoryFeedbackRepository()
   const idProvider = new StubIdProvider()
-  const dependencies: Dependencies = {accountRepository, feedbackRepository, idProvider}
+  const commentRepository = new InMemoryCommentRepository()
+  const dependencies: Dependencies = {accountRepository, feedbackRepository, idProvider, commentRepository}
   
   let store: AppStore = createStore(dependencies)
 
@@ -28,6 +30,9 @@ export const stateBuilder = () => {
     },
     getIdProvider() {
       return idProvider
+    },
+    getCommentRepository() {
+      return commentRepository
     }
   }
 }
