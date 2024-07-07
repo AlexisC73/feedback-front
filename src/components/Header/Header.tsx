@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { BurgerMenuIcon, CloseMenuIcon } from "@/assets/icons"
-import { RoadmapStatusList } from "@/components/Roadmap/RoadmapStatusList/RoadmapStatusList"
 import { MobileSideMenu } from "./MobileSideMenu/MobileSideMenu"
 import { TagFilterComponent } from "@/Context/TagFilter/TagFilterCtx"
+import { RoadmapState } from "@/store/feedbacks/app/RoadmapState/RoadmapState"
 
 export function Header () {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -16,7 +16,7 @@ export function Header () {
       <header className="flex justify-between lg:flex-col lg:gap-y-6">
         <HeaderMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
         <div className="hidden md:flex"><TagFilterComponent /></div>
-        <div className="hidden md:flex"><RoadmapStatusList /></div>
+        <div className="hidden md:flex"><RoadmapState /></div>
       </header>
       {menuOpen && <MobileSideMenu />}
     </>
