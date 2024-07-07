@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";
-import { Button } from "@/components/Button/button";
+import { Button } from "@/components/ui/Button/button";
 
 interface RegisterFormProps {
   registerFn: (props: {email: string, password: string, confirmationPassword: string}) => Promise<void>

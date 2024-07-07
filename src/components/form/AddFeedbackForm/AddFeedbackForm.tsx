@@ -1,5 +1,5 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
-import { Button } from "../../Button/button";
+import { Button } from "../../ui/Button/button";
 import { Dropdown } from "../dropdown/Dropdown";
 import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";

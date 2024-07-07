@@ -1,4 +1,4 @@
-import { FeedbackCardProps } from "@/components/FeedbackCard/FeedbackCard"
+import { FeedbackCardProps } from "@/components/Feedback/FeedbackCard/FeedbackCard"
 import { Feedback } from "../../models/feedback"
 
 export const createFeedbackCardViewModel = ({feedbackId, feedbacks}: {

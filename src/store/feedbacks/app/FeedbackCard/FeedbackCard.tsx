@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/store/store-hooks";
 import { createFeedbackCardViewModel, FeedbackCardViewModelReturnType } from "./FeedbackCard.viewmodel";
-import { FeedbackCard } from "@/components/FeedbackCard/FeedbackCard";
+import { FeedbackCard } from "@/components/Feedback/FeedbackCard/FeedbackCard";
 import { selectFeedbacks } from "../../feedback.reducer";
 
 export function FeedbackCardComponent ({feedbackId}: {feedbackId: string}) {

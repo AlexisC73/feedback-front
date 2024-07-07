@@ -1,5 +1,5 @@
 import { selectSuggestionFeedbacks } from "../../feedback.reducer"
-import { FeedbackCardProps } from "@/components/FeedbackCard/FeedbackCard"
+import { FeedbackCardProps } from "@/components/Feedback/FeedbackCard/FeedbackCard"
 import { createSelector } from "@reduxjs/toolkit"
 import { Feedback } from "../../models/feedback"
 

@@ -1,4 +1,4 @@
-import { FeedbackCard, FeedbackCardProps } from "@/components/FeedbackCard/FeedbackCard"
+import { FeedbackCard, FeedbackCardProps } from "@/components/Feedback/FeedbackCard/FeedbackCard"
 import { Link } from "react-router-dom"
 
 interface FeedbackListProps {

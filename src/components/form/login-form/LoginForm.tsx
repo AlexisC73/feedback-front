@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/button";
+import { Button } from "@/components/ui/Button/button";
 import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";

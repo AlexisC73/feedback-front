@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import { GoBackButton } from "@/components/BoBackButton/GoBackButton";
-import { Button } from "@/components/Button/button";
+import { GoBackButton } from "@/components/ui/BoBackButton/GoBackButton";
+import { Button } from "@/components/ui/Button/button";
 import { comment } from "@/feedback";
 import Layout from "@/Layout";
 import { PostCommentForm } from "@/components/form/post-comment-form/PostCommentForm";
-import { CommentList } from "@/components/CommentList/CommentList";
-import { Comment } from "@/components/Comment/Comment";
+import { CommentList } from "@/components/Comment/CommentList/CommentList";
+import { CommentItem } from "@/components/Comment/CommentItem/CommentItem";
 import { FeedbackCardComponent } from "@/store/feedbacks/app/FeedbackCard/FeedbackCard";
 
 
@@ -25,7 +25,7 @@ export function FeedbackDetailsPage () {
         </div>
         <FeedbackCardComponent feedbackId={params.id!} />
         <CommentList>
-            <Comment {...comment} />
+            <CommentItem {...comment} />
         </CommentList>
         <PostCommentForm />
       </div>

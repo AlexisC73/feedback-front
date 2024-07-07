@@ -1,8 +1,8 @@
-import { FeedbackList } from "@/components/FeedbackList/FeedbackList";
+import { FeedbackList } from "@/components/Feedback/FeedbackList/FeedbackList";
 import { useAppSelector } from "@/store/store-hooks";
 import { createSuggestionsListViewmodel } from "./SuggestionsList.viewmodel";
 import { Suggestions } from "@/components/Suggestions/Suggestions";
-import { EmptyFeedback } from "@/components/EmptyFeedback/EmptyFeedback";
+import { EmptyFeedback } from "@/components/Feedback/EmptyFeedback/EmptyFeedback";
 
 export function SuggestionFeedbackList () {
   const { feedbackListElement, suggestionCount } = useAppSelector(createSuggestionsListViewmodel)

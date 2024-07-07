@@ -1,4 +1,4 @@
-import { UpvoteCount } from "@/components/UpvoteCount/UpvoteCount"
+import { UpvoteCount } from "@/components/ui/UpvoteCount/UpvoteCount"
 import { useAppDispatch, useAppSelector } from "@/store/store-hooks"
 import { selectFeedback } from "../../feedback.reducer"
 import { upvoteFeedbackThunk } from "../../usecases/upvote-feedback.usecase"

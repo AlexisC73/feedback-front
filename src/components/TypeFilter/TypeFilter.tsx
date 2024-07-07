@@ -1,5 +1,5 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback"
-import { Tag, TagTitle } from "../Tag/Tag"
+import { Tag, TagTitle } from "../ui/Tag/Tag"
 
 export function TypeFilter ({ activeFilter, setActiveFilter }: {activeFilter: TagTitle, setActiveFilter: (filter: TagTitle) => void}) {
   return (

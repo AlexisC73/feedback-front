@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { RoadmapStatusItem } from "@/components/RoadmapStatus/RoadmapStatus";
+import { RoadmapStatusItem } from "@/components/Roadmap/RoadmapStatus/RoadmapStatus";
 
 export function RoadmapStatusList () {
   return (

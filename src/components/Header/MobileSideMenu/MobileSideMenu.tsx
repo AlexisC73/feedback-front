@@ -1,6 +1,6 @@
-import { RoadmapStatusList } from "@/components/RoadmapStatusList/RoadmapStatusList";
+import { RoadmapStatusList } from "@/components/Roadmap/RoadmapStatusList/RoadmapStatusList";
 import { TypeFilter } from "@/components/TypeFilter/TypeFilter";
-import { TagTitle } from "../Tag/Tag";
+import { TagTitle } from "../../ui/Tag/Tag";
 
 export function MobileSideMenu ({activeFilter, changeActiveFilter}: {activeFilter: TagTitle, changeActiveFilter: (filter: TagTitle) => void}) {
   return (

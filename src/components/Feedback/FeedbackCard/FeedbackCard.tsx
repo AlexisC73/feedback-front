@@ -1,5 +1,5 @@
-import { CommentCount } from "@/components/CommentCount/CommentCount";
-import { Tag } from "@/components/Tag/Tag";
+import { CommentCount } from "@/components/ui/CommentCount/CommentCount";
+import { Tag } from "@/components/ui/Tag/Tag";
 import { UpvoteComponent } from "@/store/feedbacks/app/UpvoteComponent/UpvoteComponent";
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
 

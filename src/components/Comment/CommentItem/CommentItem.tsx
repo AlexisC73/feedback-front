@@ -1,11 +1,11 @@
- export interface CommentProps {
+ export interface CommentItemProps {
   imageUrl: string
   fullName: string
   username: string
   comment: string
  }
  
- export function Comment ({fullName, username, comment, imageUrl}: CommentProps) {
+ export function CommentItem ({fullName, username, comment, imageUrl}: CommentItemProps) {
   return <div className="flex flex-col items-start gap-x-8">
     <div className="flex w-full gap-x-8">
       <img src={imageUrl} className="rounded-full h-10 w-10" />

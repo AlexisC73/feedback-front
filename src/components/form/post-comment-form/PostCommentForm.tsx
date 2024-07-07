@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/button";
+import { Button } from "@/components/ui/Button/button";
 import { Textarea } from "@/components/form/textarea/Textarea";
 
 export function PostCommentForm () {

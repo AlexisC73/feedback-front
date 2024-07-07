@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { GoBackButton } from "@/components/BoBackButton/GoBackButton";
+import { GoBackButton } from "@/components/ui/BoBackButton/GoBackButton";
 import Layout from "@/Layout";
 import { EditFeedbackFormComponent } from "@/store/feedbacks/app/EditFeedbackForm/EditFeedbackForm";
 

@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { BurgerMenuIcon, CloseMenuIcon } from "@/assets/icons"
-import { RoadmapStatusList } from "@/components/RoadmapStatusList/RoadmapStatusList"
+import { RoadmapStatusList } from "@/components/Roadmap/RoadmapStatusList/RoadmapStatusList"
 import { TypeFilter } from "@/components/TypeFilter/TypeFilter"
-import { MobileSideMenu } from "@/components/MobileSideMenu/MobileSideMenu"
-import { TagTitle } from "../Tag/Tag"
+import { MobileSideMenu } from "./MobileSideMenu/MobileSideMenu"
+import { TagTitle } from "../ui/Tag/Tag"
 
 export function Header () {
   const [menuOpen, setMenuOpen] = useState(false)

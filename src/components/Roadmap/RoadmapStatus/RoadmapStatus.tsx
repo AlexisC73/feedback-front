@@ -1,4 +1,4 @@
-import { RoadmapStatusCircle } from "@/components/RoadmapStatusCircle/RoadmapStatusCircle"
+import { RoadmapStatusCircle } from "@/components/Roadmap/RoadmapStatusCircle/RoadmapStatusCircle"
 
 export function RoadmapStatusItem({status}: {status: "planned" | "inProgress" | "live"}) {
 

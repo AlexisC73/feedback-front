@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { EmptyFeedbackIcon } from "@/assets/icons";
-import { Button } from "@/components/Button/button";
+import { Button } from "@/components/ui/Button/button";
 
 export function EmptyFeedback () {
   return (
