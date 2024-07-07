@@ -1,30 +1,24 @@
 import { useState } from "react"
 import { BurgerMenuIcon, CloseMenuIcon } from "@/assets/icons"
 import { RoadmapStatusList } from "@/components/Roadmap/RoadmapStatusList/RoadmapStatusList"
-import { TypeFilter } from "@/components/TypeFilter/TypeFilter"
 import { MobileSideMenu } from "./MobileSideMenu/MobileSideMenu"
-import { TagTitle } from "../ui/Tag/Tag"
+import { TagFilterComponent } from "@/Context/TagFilter/TagFilterCtx"
 
 export function Header () {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeFilter, setActiveFilter] = useState<TagTitle>("All")
 
   const toggleMenu = () => {
     setMenuOpen(prev => !prev)
-  }
-
-  const handleFilterChange = (filter: TagTitle) => {
-    setActiveFilter(filter)
   }
 
   return (
     <>
       <header className="flex justify-between lg:flex-col lg:gap-y-6">
         <HeaderMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
-        <div className="hidden md:flex"><TypeFilter setActiveFilter={handleFilterChange} activeFilter={activeFilter} /></div>
+        <div className="hidden md:flex"><TagFilterComponent /></div>
         <div className="hidden md:flex"><RoadmapStatusList /></div>
       </header>
-      {menuOpen && <MobileSideMenu changeActiveFilter={handleFilterChange} activeFilter={activeFilter} />}
+      {menuOpen && <MobileSideMenu />}
     </>
   )
 }

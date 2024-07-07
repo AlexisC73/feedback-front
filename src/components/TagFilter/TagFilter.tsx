@@ -1,7 +1,8 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback"
-import { Tag, TagTitle } from "../ui/Tag/Tag"
+import { Tag } from "../ui/Tag/Tag"
+import { TagType } from "@/Context/TagFilter/TagFilterType"
 
-export function TypeFilter ({ activeFilter, setActiveFilter }: {activeFilter: TagTitle, setActiveFilter: (filter: TagTitle) => void}) {
+export function TagFilter ({ activeFilter, setActiveFilter }: {activeFilter: TagType, setActiveFilter: (filter: TagType) => void}) {
   return (
     <ul id="filter" className="flex flex-wrap pt-6 pl-6 pr-4.5 pb-9 bg-white rounded-2.5 md:w-55.75 h-44.5 lg:w-63.75 lg:h-41.5 gap-y-3.5">
       <li onClick={() => setActiveFilter("All")} className="mr-2 cursor-pointer"><Tag title={"All"} active={activeFilter === "All"} /></li>
