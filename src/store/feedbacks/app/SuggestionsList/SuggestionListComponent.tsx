@@ -15,7 +15,6 @@ interface SuggestionFeedbackListProps {
 export function SuggestionFeedbackList ({ tagFilter, sortFilter }: SuggestionFeedbackListProps) {
   const feedbackListElement = useAppSelector(createSuggestionsListViewmodel)
   const feedbacks = tagFilter === "All" ? feedbackListElement : feedbackListElement.filter(f => f.category === tagFilter)
-  console.log(feedbackListElement)
   const sortedFeedbacks = sortFilter === SortFilter.MostUpvotes ? sortBy(feedbacks, true, "upvotes") : 
                           sortFilter === SortFilter.LeastUpvotes ? sortBy(feedbacks, false, "upvotes") :
                           sortFilter === SortFilter.MostComments ? sortBy(feedbacks, true, "comments") :

@@ -24,8 +24,6 @@ export class FeedbackCategoryVO extends ValueObject {
       this.setErrors(["Category is required"])
     }
     if(!this.#acceptedCategories.includes(this.#category)) {
-      console.log(this.#acceptedCategories)
-      console.log(this.#category)
       this.setErrors(["Invalid category"])
     }
     return this.errors.length === 0

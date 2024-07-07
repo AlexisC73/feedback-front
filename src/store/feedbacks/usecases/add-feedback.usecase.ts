@@ -50,7 +50,6 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
         return exhaustiveGuard(result)
     }
   } catch(e) {
-    console.log(e)
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }
 })
