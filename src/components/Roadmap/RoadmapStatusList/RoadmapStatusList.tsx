@@ -15,7 +15,7 @@ export function RoadmapStatusList ({ amountByStatus }: RoadmapStatusListProps) {
       </div>
       <ul>
         <RoadmapStatusItem status={FeedbackStatus.PLANNED} amount={amountByStatus?.Planned ?? 0} />
-        <RoadmapStatusItem status={FeedbackStatus.IN_PROGRESS} amount={amountByStatus?.In_Progress ?? 0} />
+        <RoadmapStatusItem status={FeedbackStatus.IN_PROGRESS} amount={amountByStatus?.["In-Progress"] ?? 0} />
         <RoadmapStatusItem status={FeedbackStatus.LIVE} amount={amountByStatus?.Live ?? 0} />
       </ul>
     </div>
