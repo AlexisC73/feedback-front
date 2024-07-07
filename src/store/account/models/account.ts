@@ -1,6 +1,7 @@
 export interface Account {
   id: string
   email: string
+  avatar: string
   role: Role
 }
 

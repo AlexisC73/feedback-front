@@ -10,7 +10,7 @@ export class InMemoryAccountRepository implements AccountRepository {
     if(alreadyExists) {
       return {type: ApiResultType.CREDENTIAL_ERROR, data: "Email already exists"}
     }
-    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER})
+    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER, avatar: "https://example.com/avatar.png"})
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 
@@ -24,7 +24,8 @@ export class InMemoryAccountRepository implements AccountRepository {
       data: {
         email: account.email,
         id: account.id,
-        role: account.role
+        role: account.role,
+        avatar: account.avatar
       }}
   }
 

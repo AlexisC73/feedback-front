@@ -26,7 +26,8 @@ describe("Add Feedback Usecase", () => {
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
       id: newFeedback.owner,
-      role: Role.USER
+      role: Role.USER,
+      avatar: "https://example.com/avatar.png"
     })
 
     await feedbackFixture.whenAddFeedback({
@@ -53,7 +54,8 @@ describe("Add Feedback Usecase", () => {
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
       id: newFeedback.owner,
-      role: Role.USER
+      role: Role.USER,
+      avatar: "https://example.com/avatar.png"
     })
 
     await feedbackFixture.whenAddFeedback({
@@ -77,7 +79,8 @@ describe("Add Feedback Usecase", () => {
     accountFixture.givenIsAuthenticatedAs({
       email: "test@email.fr",
       id: feedback.owner,
-      role: Role.USER
+      role: Role.USER,
+      avatar: "https://example.com/avatar.png"
     })
 
     await feedbackFixture.whenAddFeedback({

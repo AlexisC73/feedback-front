@@ -12,11 +12,13 @@ import { InMemoryFeedbackRepository } from './store/feedbacks/infra/in-memory-fe
 import { StubIdProvider } from './store/@shared/infra/stub-id-provider.ts'
 import { SortFilterCtxProvider } from './Context/SortFilter/SortFilter.tsx'
 import { TagFilterCtxProvider } from './Context/TagFilter/TagFilterCtx.tsx'
+import { InMemoryCommentRepository } from './store/comments/infra/in-memory-comment.repository.ts'
 
 const store = createStore({
   accountRepository: new InMemoryAccountRepository(),
   feedbackRepository: new InMemoryFeedbackRepository(),
-  idProvider: new StubIdProvider()
+  idProvider: new StubIdProvider(),
+  commentRepository: new InMemoryCommentRepository()
 })
 
 const router = createRouter({store})

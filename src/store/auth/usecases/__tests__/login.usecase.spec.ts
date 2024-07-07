@@ -21,7 +21,8 @@ describe("Register Usecase", () => {
       account: {
         email: "test@test.fr",
         id: "1",
-        role: Role.ADMIN
+        role: Role.ADMIN,
+        avatar: "https://example.com/avatar.png"
       },
       loading: false
     })
