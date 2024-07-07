@@ -18,13 +18,13 @@ export class PostCommentPayload {
 
   validate(): boolean {
     if(this.feedbackId.length <= 0) {
-      this.errors = [...this.errors, {field: "feedbackId", errors: ["Cannot be empty"]}]
+      this.errors.push({field: "feedbackId", errors: ["Cannot be empty"]})
     }
     if(!this.commentMessage.validate()) {
-      this.errors = [...this.errors, {field: "content", errors: this.commentMessage.errors}]
+      this.errors.push({field: "content", errors: this.commentMessage.errors})
     }
     if(this.replyTo && this.replyTo.length <= 0) {
-      this.errors = [...this.errors, {field: "replyTo", errors: ["Cannot be empty"]}]
+      this.errors.push({field: "replyTo", errors: ["Cannot be empty"]})
     }
     return this.errors.length === 0
   }

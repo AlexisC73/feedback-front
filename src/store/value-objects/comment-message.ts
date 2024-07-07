@@ -1,6 +1,6 @@
 import { ValueObject } from "./value-object";
 
-const COMMENT_MESSAGE_MAX_LENGTH = 250
+export const COMMENT_MESSAGE_MAX_LENGTH = 250
 
 export class CommentMessageVO extends ValueObject {
   #value: string

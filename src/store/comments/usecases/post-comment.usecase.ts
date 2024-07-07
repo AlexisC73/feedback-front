@@ -52,4 +52,3 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
 })
 
 export type PostCommentRejectResult = UsecaseCredentialError | UsecaseUnknownError | UsecaseFieldError
-
