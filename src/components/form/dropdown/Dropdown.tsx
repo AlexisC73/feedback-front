@@ -9,6 +9,11 @@ export function Dropdown ({options, current, onSelect}: {options: string[], curr
     setIsOpen(prev => !prev)
   }
 
+  const handleSelectOption = (select: string) => {
+    onSelect(select)
+    setIsOpen(false)
+  }
+
   return (
     <div className="relative">
       <div onClick={toggleDropdown} className="bg-#F7F8FD h-12 rounded-1.25 px-6 flex justify-between items-center cursor-pointer">
@@ -16,7 +21,7 @@ export function Dropdown ({options, current, onSelect}: {options: string[], curr
         <ArrowIcon className={`text-2 text-#4661E6 ${isOpen ? "rotate-0" : "rotate-180"}`} />
       </div>
       {isOpen && (<div className="absolute left-0 right-0 top-16 dropdown-shadow z-50">
-        <DropdownMenu options={options} current={current} onSelect={onSelect} />
+        <DropdownMenu options={options} current={current} onSelect={handleSelectOption} />
       </div>)}
     </div>
   )

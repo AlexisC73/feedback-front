@@ -11,7 +11,6 @@ import { AddFeedbackUsecaseParams } from "@/store/feedbacks/usecases/add-feedbac
 export interface AddFeedbackFormProps {
   onPostFeedback: (params: AddFeedbackUsecaseParams) => Promise<void>
   fieldErrors: {[key: string]: string[]}
-
 }
 
 export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormProps) {
