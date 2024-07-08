@@ -9,6 +9,7 @@ import { RequireAuth } from "./components/middlewares/ProtectedPage/ProtectedPag
 import { createFeedbackLoader } from "./pages/Feedbacks/feedback-loader"
 import { AppStore } from "./store/store"
 import { FeedbackPage } from "./pages/Feedbacks/FeedbackPage"
+import { createFeedbackDetailLoader } from "./pages/Feedbacks/feedback-detail-loader"
 
 export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter([
     {
@@ -34,6 +35,7 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
         },
         {
           path: "/feedbacks/:id",
+          loader: async({params}) => createFeedbackDetailLoader({store, feedbackId: params.id}),
           element: <RequireAuth page={<FeedbackDetailsPage />} />
         },
       ]
