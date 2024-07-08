@@ -5,6 +5,7 @@ import { CommentItem } from "@/components/Comment/CommentItem/CommentItem";
 
 export function CommentsListStore ({feedbackId}: {feedbackId: string}) {
   const comments = useAppSelector(createCommentListViewmodel(feedbackId))
+  if(!comments || comments.length === 0) return null
   return (
     <CommentList>
       {comments.map((comment) => <CommentItem key={comment.id} {...comment} />)}

@@ -17,6 +17,6 @@
         <p className="text-3.25 font-semibold text-#4661E6">Reply</p>
       </div>
     </div>
-    <p className="mt-4.25 md:ml-18 text-3.75 text-#647196">{comment}</p>
+    <p className="mt-4.25 md:ml-18 text-3.75 text-#647196 break-all">{comment}</p>
   </div>
  }
