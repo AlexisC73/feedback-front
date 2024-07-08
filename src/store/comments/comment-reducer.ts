@@ -4,6 +4,7 @@ import { UsecaseResultType } from "../@shared/models/resultType"
 import { Comment } from "./models/comment"
 import { getCommentsForFeedbackThunk } from "./usecases/get-comments.usecase"
 import { RootState } from "../store"
+import { deleteFeedbackThunk } from "../feedbacks/usecases/delete-feedback.usecase"
 
 export interface CommentState {
   comments: Comment[]
@@ -35,6 +36,11 @@ export const commentsReducer = createReducer(initialState, (builder) => {
         return result
       }, [[], []])
       state.comments = state.comments.map(c => alreadyIn.find(a => a.id === c.id) || c).concat(notAlreadyIn)
+    }
+  }).addCase(deleteFeedbackThunk.fulfilled, (state, action) => {
+    if(action.payload?.type === UsecaseResultType.SUCCESS) {
+      const deletedFeedback = action.payload.data
+      state.comments = state.comments.filter(c => c.feedbackId !== deletedFeedback.feedbackId)
     }
   })
 })

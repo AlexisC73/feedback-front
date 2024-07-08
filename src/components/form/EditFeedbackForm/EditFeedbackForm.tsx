@@ -8,6 +8,7 @@ import { Feedback, FeedbackCategory, FeedbackStatus } from "@/store/feedbacks/mo
 import { useState } from "react";
 import { EditFeedbackUsecaseParams } from "@/store/feedbacks/usecases/edit-feedback.usecase";
 import { PenIcon } from "@/assets/icons";
+import { DeleteFeedbackButtonState } from "@/store/feedbacks/app/DeleteFeedbackButton/DeleteFeedbackButton";
 
 export interface EditFeedbackFormProps {
   feedback: Feedback,
@@ -68,9 +69,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
             <Textarea defaultValue={feedback.description} name="description" errors={errors.description} />
           </FormGroup>
           <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-between">
-            <div className="md:w-23.25">
-              <Button fullWidth type="danger">Delete</Button>
-            </div>
+            <DeleteFeedbackButtonState feedbackId={feedback.id} />
             <div className="order-first flex flex-col gap-y-4 md:order-last md:flex-row md:gap-x-4">
               <button type="submit" className="md:w-36 md:order-last"><Button fullWidth>Save Changes</Button></button>
               <div className="md:w-23.25"><Button fullWidth type="tertiary">Cancel</Button></div>

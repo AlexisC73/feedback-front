@@ -7,6 +7,7 @@ import { Feedback } from "../models/feedback"
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../usecases/edit-feedback.usecase"
 import { upvoteFeedbackThunk, UpvoteUsecaseParams } from "../usecases/upvote-feedback.usecase"
 import { UsecaseResultType } from "@/store/@shared/models/resultType"
+import { deleteFeedbackThunk, DeleteFeedbackUsecaseParams } from "../usecases/delete-feedback.usecase"
 
 export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
   let resultType: UsecaseResultType | undefined
@@ -45,6 +46,12 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
         resultType = result.payload.type
       }
     },
+    async whenDeleteFeedback(params: DeleteFeedbackUsecaseParams) {
+      const result = await stateBuilder.getStore().dispatch(deleteFeedbackThunk(params))
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
+    },
     thenFeedbacksStateShouldBe(feedbackState: FeedbackState) {
       expect(stateBuilder.getStore().getState().feedback).toMatchObject(feedbackState)
     },
@@ -54,6 +61,10 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
     },
     thenFeedbackResultTypeShouldBe(expectedResultType: UsecaseResultType) {
       expect(resultType).toBe(expectedResultType)
+    },
+    thenFeedbackShouldNotExists(feedback: Feedback) {
+      const fundFeedback = stateBuilder.getFeedbackRepository().feedbacks.find(f => f.id === feedback.id)
+      expect(fundFeedback).toBeUndefined()
     }
   }
 }

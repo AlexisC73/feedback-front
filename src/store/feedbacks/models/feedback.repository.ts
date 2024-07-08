@@ -9,9 +9,11 @@ export interface FeedbackRepository {
   addFeedback(params: {feedback: AddFeedbackPayload["data"]}): Promise<AddFeedbackApiResult>
   editFeedback(params: {feedback: EditFeedbackPayload["data"]}): Promise<EditFeedbackApiResult>
   upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult>
+  deleteFeedback(params: {feedbackId: string}): Promise<DeleteFeedbackApiResult>
 }
 
 export type GetFeedbacksApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<Feedback[]>
 export type AddFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void>
 export type EditFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
 export type UpvoteApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
+export type DeleteFeedbackApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiCredentialError

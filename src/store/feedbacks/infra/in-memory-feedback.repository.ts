@@ -1,6 +1,6 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
 import { Feedback } from "../models/feedback";
-import { AddFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
+import { AddFeedbackApiResult, DeleteFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
 import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
 import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
 import { UpvotePayload } from "../usecases/payload/upvote.payload";
@@ -47,6 +47,15 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
       return {type: ApiResultType.NOT_FOUND, data: undefined}
     }
     this.feedbacks = this.feedbacks.map(f => f.id === params.feedbackId ? {...f, upvoted: params.upvote, upvotes: f.upvotes + (params.upvote ? 1 : -1)} : f)
+    return {type: ApiResultType.SUCCESS, data: undefined}
+  }
+
+  async deleteFeedback(params: { feedbackId: string; }): Promise<DeleteFeedbackApiResult> {
+    const feedbackIndex = this.feedbacks.findIndex(f => f.id === params.feedbackId)
+    if(feedbackIndex === -1) {
+      return {type: ApiResultType.NOT_FOUND, data: undefined}
+    }
+    this.feedbacks = this.feedbacks.filter(f => f.id !== params.feedbackId)
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 }
