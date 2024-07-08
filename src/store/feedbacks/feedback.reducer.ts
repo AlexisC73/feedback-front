@@ -7,6 +7,7 @@ import { editFeedbackThunk } from "./usecases/edit-feedback.usecase"
 import { UsecaseResultType } from "../@shared/models/resultType"
 import { upvoteFeedbackThunk } from "./usecases/upvote-feedback.usecase"
 import { deleteFeedbackThunk } from "./usecases/delete-feedback.usecase"
+import { postCommentThunk } from "../comments/usecases/post-comment.usecase"
 
 export interface FeedbackState {
   data: Feedback[]
@@ -54,6 +55,10 @@ export const feedbackReducer = createReducer(initialState, builder => {
     if(action.payload?.type === UsecaseResultType.SUCCESS) {
       const deletedFeedback = action.payload.data
       state.data = state.data.filter(f => f.id !== deletedFeedback.feedbackId)
+    }
+  }).addCase(postCommentThunk.fulfilled, (state, action) => {
+    if(action.payload.type === UsecaseResultType.SUCCESS) {
+      state.data = state.data.map(f => f.id === action.payload.data.feedbackId ? {...f, comments: f.comments + 1} : f)
     }
   })
 })
