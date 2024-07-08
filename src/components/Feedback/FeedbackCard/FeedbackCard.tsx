@@ -20,8 +20,8 @@ export function FeedbackCard ({title, category, description, comments, id}: Feed
         <UpvoteComponent feedbackId={id} />
       </div>
       <div className="flex flex-col gap-y-2 md:gay-y-1 w-full">
-        <h2 className="line-height-4.75 md:line-height-6.5 text-3.25 md:text-4.5 -tracking-0.18px font-bold text-#3A4374">{title}</h2>
-        <p className="line-height-4.75 md:line-height-5.75 text-3.25 md:text-4 text-#647196">{description}</p>
+        <h2 className="line-height-4.75 md:line-height-6.5 text-3.25 md:text-4.5 -tracking-0.18px font-bold text-#3A4374 break-all">{title}</h2>
+        <p className="line-height-4.75 md:line-height-5.75 text-3.25 md:text-4 text-#647196 break-all">{description}</p>
         <div className="flex justify-start mt-0.25 md:mt-2">
           <Tag title={category} active={false} />
         </div>
