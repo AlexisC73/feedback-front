@@ -1,6 +1,7 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { CommentRepository, PostCommentResponse } from "../models/comment.repository";
+import { CommentRepository, GetFeedbackCommentResponse, PostCommentResponse } from "../models/comment.repository";
 import { Comment } from "../models/comment";
+import { GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
 
 export class InMemoryCommentRepository implements CommentRepository {
   comments: Comment[] = []
@@ -15,6 +16,13 @@ export class InMemoryCommentRepository implements CommentRepository {
     return {
       type: ApiResultType.SUCCESS,
       data: undefined
+    }
+  }
+
+  async getForFeedback ({ feedbackId }: GetFeedbackCommentParams): Promise<GetFeedbackCommentResponse> {
+    return {
+      type: ApiResultType.SUCCESS,
+      data: this.comments.filter(comment => comment.feedbackId === feedbackId)
     }
   }
 }

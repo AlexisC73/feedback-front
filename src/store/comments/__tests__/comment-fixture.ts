@@ -5,15 +5,29 @@ import { expect } from "vitest";
 import { Comment } from "../models/comment";
 import { postCommentThunk } from "../usecases/post-comment.usecase";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
+import { getCommentsForFeedbackThunk, GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
 
 export const createCommentFixture = (store: StateBuilder) => {
   let resultType: UsecaseResultType | undefined
 
   return {
     givenNoCommentsExist() {
+      store.getCommentRepository().comments = []
+    },
+    givenExistingComments(comments: Comment[]) {
+      store.getCommentRepository().comments = comments
+    },
+    givenCommentStateIs(comments: CommentState){
+      store.setStore({...store.getStore().getState(), comments})
     },
     async postComment(params: PostCommentPayload["data"]) {
       const result = await store.getStore().dispatch(postCommentThunk(params))
+      if(result.payload?.type) {
+        resultType = result.payload.type
+      }
+    },
+    async getCommentsForFeedback(params: GetFeedbackCommentParams) {
+      const result = await store.getStore().dispatch(getCommentsForFeedbackThunk(params))
       if(result.payload?.type) {
         resultType = result.payload.type
       }
