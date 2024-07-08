@@ -3,6 +3,7 @@ import { postCommentThunk } from "./usecases/post-comment.usecase"
 import { UsecaseResultType } from "../@shared/models/resultType"
 import { Comment } from "./models/comment"
 import { getCommentsForFeedbackThunk } from "./usecases/get-comments.usecase"
+import { RootState } from "../store"
 
 export interface CommentState {
   comments: Comment[]
@@ -37,3 +38,6 @@ export const commentsReducer = createReducer(initialState, (builder) => {
     }
   })
 })
+
+export const selectComments = (state: RootState) => state.comments
+export const selectCommentsForFeedback = (feedbackId: string) => (state: RootState) => state.comments.comments.filter(c => c.feedbackId === feedbackId)
