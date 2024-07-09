@@ -1,7 +1,7 @@
 export interface Account {
   id: string
   email: string
-  avatar: string
+  avatar: string | null
   role: Role
 }
 

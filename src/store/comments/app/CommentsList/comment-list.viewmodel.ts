@@ -12,7 +12,7 @@ function mapCommentsToCommentItemProps (comments: Comment[]): Array<CommentItemP
     id: c.id,
     comment: c.content,
     fullName: c.sender.name,
-    imageUrl: c.sender.avatar,
+    imageUrl: c.sender.avatar ?? "https://example.com/no_avatar.png",
     username: c.sender.name
   }))
 }
