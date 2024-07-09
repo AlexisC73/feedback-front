@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export type ButtonType = "primary" | "secondary" | "tertiary" | "danger"
 
-export function Button ({children, type = "primary", fullWidth = false}: {children?: ReactNode, type?: ButtonType, fullWidth?: boolean}) {
+export function Button ({children, type = "primary", fullWidth = false, disabled = false}: {children?: ReactNode, type?: ButtonType, fullWidth?: boolean, disabled?: boolean}) {
   const styles: {[key in ButtonType]: string} = {
     primary: "bg-#AD1FEA text-white hover:bg-#C75AF6",
     secondary: "bg-#4661E6 text-white hover:bg-#7C91F9",
@@ -10,6 +10,6 @@ export function Button ({children, type = "primary", fullWidth = false}: {childr
     danger: "bg-#D73737 text-white hover:bg-#E98888",
   }
   return (
-    <div className={`pt-3.25 pb-2.75 rounded-2.5 font-bold text-3.5 text-center ${fullWidth ? "w-full" : "w-33.5 md:w-39.5"} ${styles[type]}`}>{children}</div>
+    <div className={`pt-3.25 pb-2.75 rounded-2.5 font-bold text-3.5 flex items-center justify-center ${disabled ? "bg-opacity-50" : ""} ${fullWidth ? "w-full" : "w-33.5 md:w-39.5"} ${styles[type]}`}>{children}</div>
   )
 }

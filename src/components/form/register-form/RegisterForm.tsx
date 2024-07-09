@@ -3,13 +3,15 @@ import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";
 import { Button } from "@/components/ui/Button/button";
+import { LoadingIcon } from "@/assets/icons";
 
 interface RegisterFormProps {
   registerFn: (props: {email: string, password: string, confirmationPassword: string}) => Promise<void>
   fieldsErrors: {[key: string]: string[]}
+  isProcessing: boolean
 }
 
-export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
+export function RegisterForm ({registerFn, fieldsErrors, isProcessing}: RegisterFormProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -37,8 +39,8 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
         <Input name="confirmation-password" type="password" errors={fieldsErrors.confirmationPassword} />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
-        <button type="submit" className="w-full md:order-last">
-          <Button fullWidth>Register Account</Button>
+        <button disabled={isProcessing} type="submit" className="w-full md:order-last">
+          <Button disabled={isProcessing} fullWidth>{isProcessing ? <LoadingIcon className="text-8" /> : "Register Account"}</Button>
         </button>
       </div>
       <p className="mt-4">Vous avez déjà un compte ? <Link className="text-#AD1FEA underline" to={"/auth/login"}>Connectez vous ici</Link></p>

@@ -18,8 +18,8 @@ export class PasswordVO extends ValueObject {
 
   validate(): boolean {
     const errors = []
-    if(this.isEmpty() || this.#password.length < 6) {
-      errors.push("Password must be at least 6 characters long")
+    if(this.isEmpty()) {
+      errors.push("Password can't be empty")
     }
     this.setErrors(errors)
     return errors.length === 0
