@@ -1,16 +1,17 @@
 import { ApiCredentialError, ApiFieldError, ApiNotFoundError, ApiSuccessResult, ApiUnknownError } from "@/store/@shared/models/resultType";
-import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
-import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
-import { Feedback } from "./feedback";
-import { UpvotePayload } from "../usecases/payload/upvote.payload";
+import { Feedback, FeedbackCategory, FeedbackStatus } from "./feedback";
 
 export abstract class FeedbackRepository {
   abstract getFeedbacks(): Promise<GetFeedbacksApiResult>
-  abstract addFeedback(params: {feedback: AddFeedbackPayload["data"]}): Promise<AddFeedbackApiResult>
-  abstract editFeedback(params: {feedback: EditFeedbackPayload["data"]}): Promise<EditFeedbackApiResult>
-  abstract upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult>
+  abstract addFeedback(params: AddFeedbackParams): Promise<AddFeedbackApiResult>
+  abstract editFeedback(params: EditFeedbackParams): Promise<EditFeedbackApiResult>
+  abstract upvote(params: UpvoteFeedbackParams): Promise<UpvoteApiResult>
   abstract deleteFeedback(params: {feedbackId: string}): Promise<DeleteFeedbackApiResult>
 }
+
+export type AddFeedbackParams = {title: string, description: string, category: FeedbackCategory, id: string}
+export type EditFeedbackParams = {title: string, description: string, category: FeedbackCategory, id: string, status: FeedbackStatus}
+export type UpvoteFeedbackParams = {feedbackId: string, upvote: boolean}
 
 export type GetFeedbacksApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<Feedback[]>
 export type AddFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void>

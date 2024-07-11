@@ -8,15 +8,13 @@ export class AddFeedbackPayload {
   description: string
   id: string
   status = FeedbackStatus.SUGGESTION
-  owner: string
   errors: FieldError[] = []
   
-  constructor({title, category, description, id, owner}: {title: string, category: FeedbackCategory, description: string, id: string, owner: string}) {
+  constructor({title, category, description, id}: {title: string, category: FeedbackCategory, description: string, id: string}) {
     this.title = title
     this.category = new FeedbackCategoryVO(category)
     this.description = description
     this.id = id
-    this.owner = owner
     Object.freeze(this)
   }
 
@@ -33,14 +31,13 @@ export class AddFeedbackPayload {
     return this.errors.length === 0
   }
 
-  get data(): Omit<Feedback, "upvotes" | "comments" | "upvoted"> {
+  get data(): Omit<Feedback, "upvotes" | "comments" | "upvoted" | "owner"> {
     return {
       title: this.title,
       id: this.id,
       category: this.category.value,
       description: this.description,
       status: this.status,
-      owner: this.owner,
     }
   }
 }

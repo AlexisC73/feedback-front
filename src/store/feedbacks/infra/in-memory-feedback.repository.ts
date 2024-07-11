@@ -1,27 +1,28 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { Feedback } from "../models/feedback";
-import { AddFeedbackApiResult, DeleteFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
-import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
-import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
-import { UpvotePayload } from "../usecases/payload/upvote.payload";
-import { injectable } from "inversify";
+import { Feedback, FeedbackStatus } from "../models/feedback";
+import { AddFeedbackApiResult, AddFeedbackParams, DeleteFeedbackApiResult, EditFeedbackApiResult, EditFeedbackParams, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult, UpvoteFeedbackParams } from "../models/feedback.repository";
+import { inject, injectable } from "inversify";
+import { AccountRepository } from "@/store/account/models/account-repository";
+import { InMemoryAccountRepository } from "@/store/account/infra/in-memory-account.repository";
 
 @injectable()
 export class InMemoryFeedbackRepository implements FeedbackRepository {
   feedbacks: Feedback[] = []
 
+  constructor(@inject(AccountRepository) private readonly accountRepository: InMemoryAccountRepository) {}
+
   async getFeedbacks(): Promise<GetFeedbacksApiResult> {
     return {type: ApiResultType.SUCCESS, data: this.feedbacks}
   }
   
-  async addFeedback(params: { feedback: AddFeedbackPayload["data"]; }): Promise<AddFeedbackApiResult> {
+  async addFeedback(params: AddFeedbackParams): Promise<AddFeedbackApiResult> {
     const newFeedback = {
-      id: params.feedback.id,
-      category: params.feedback.category,
-      description: params.feedback.description,
-      status: params.feedback.status,
-      title: params.feedback.title,
-      owner: params.feedback.owner,
+      id: params.id,
+      category: params.category,
+      description: params.description,
+      status: FeedbackStatus.SUGGESTION,
+      title: params.title,
+      owner: this.accountRepository.loggedAccount!.id,
       comments: 0,
       upvotes: 0,
       upvoted: false
@@ -31,24 +32,23 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 
-  async editFeedback(params: { feedback: EditFeedbackPayload["data"]; }): Promise<EditFeedbackApiResult> {
-    const { feedback: editFeedbackPayload} = params
-    const feedback = this.feedbacks.find(f => f.id === editFeedbackPayload.id)
+  async editFeedback({id, category, description, status, title}: EditFeedbackParams): Promise<EditFeedbackApiResult> {
+    const feedback = this.feedbacks.find(f => f.id === id)
     if(!feedback) {
       return {type: ApiResultType.NOT_FOUND, data: undefined}
     }
-    const editedFeedback: Feedback = {...feedback, ...editFeedbackPayload}
+    const editedFeedback: Feedback = {...feedback, category, description, status, title}
     this.feedbacks = this.feedbacks.map(f => f.id === editedFeedback.id ? editedFeedback : f)
 
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 
-  async upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult> {
-    const feedbackIndex = this.feedbacks.findIndex(f => f.id === params.feedbackId)
+  async upvote({feedbackId, upvote}: UpvoteFeedbackParams): Promise<UpvoteApiResult> {
+    const feedbackIndex = this.feedbacks.findIndex(f => f.id === feedbackId)
     if(feedbackIndex === -1) {
       return {type: ApiResultType.NOT_FOUND, data: undefined}
     }
-    this.feedbacks = this.feedbacks.map(f => f.id === params.feedbackId ? {...f, upvoted: params.upvote, upvotes: f.upvotes + (params.upvote ? 1 : -1)} : f)
+    this.feedbacks = this.feedbacks.map(f => f.id === feedbackId ? {...f, upvoted: upvote, upvotes: f.upvotes + (upvote ? 1 : -1)} : f)
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 

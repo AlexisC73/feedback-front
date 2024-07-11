@@ -17,7 +17,6 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
     category: params.category,
     description: params.description,
     title: params.title,
-    owner: authId
   })
 
   if(!addFeedbackPayload.validate()) {
@@ -25,13 +24,13 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
   }
 
   try {
-    const result = await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
+    const result = await feedbackRepository.addFeedback({category: addFeedbackPayload.category.value, id: addFeedbackPayload.id,description: addFeedbackPayload.description, title: addFeedbackPayload.title})
     const addedFeedback: Feedback = {
       category: addFeedbackPayload.data.category,
       comments: 0,
       description: addFeedbackPayload.data.description,
       id: addFeedbackPayload.id,
-      owner: addFeedbackPayload.data.owner,
+      owner: authId,
       status: FeedbackStatus.SUGGESTION,
       title: addFeedbackPayload.data.title,
       upvotes: 0,

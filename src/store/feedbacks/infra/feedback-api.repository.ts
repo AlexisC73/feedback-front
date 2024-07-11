@@ -1,7 +1,5 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { AddFeedbackApiResult, DeleteFeedbackApiResult, EditFeedbackApiResult, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
-import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
-import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
+import { AddFeedbackApiResult, AddFeedbackParams, DeleteFeedbackApiResult, EditFeedbackApiResult, EditFeedbackParams, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult } from "../models/feedback.repository";
 import { UpvotePayload } from "../usecases/payload/upvote.payload";
 import { Feedback } from "../models/feedback";
 import { injectable } from "inversify";
@@ -27,13 +25,13 @@ export class FeedbackApiRepository implements FeedbackRepository {
     }
   }
   
-  async addFeedback(params: { feedback: AddFeedbackPayload["data"]; }): Promise<AddFeedbackApiResult> {
+  async addFeedback(params: AddFeedbackParams): Promise<AddFeedbackApiResult> {
     const request = await fetch("http://localhost:3333/api/feedbacks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(params.feedback),
+      body: JSON.stringify(params),
       credentials: "include"
     })
 
@@ -69,13 +67,13 @@ export class FeedbackApiRepository implements FeedbackRepository {
     }
   }
 
-  async editFeedback(params: { feedback: EditFeedbackPayload["data"]; }): Promise<EditFeedbackApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks/" + params.feedback.id, {
+  async editFeedback({id, title, description, category, status}: EditFeedbackParams): Promise<EditFeedbackApiResult> {
+    const request = await fetch("http://localhost:3333/api/feedbacks/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(params.feedback),
+      body: JSON.stringify({title, description, category, status}),
       credentials: "include"
     })
     if(request.ok) {

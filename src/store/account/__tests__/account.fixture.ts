@@ -16,6 +16,7 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     },
     givenIsAuthenticatedAs(authAccount: AuthState["account"]) {
       stateBuilder.setStore({...stateBuilder.getStore().getState(), auth: {account: authAccount, loading: false}})
+      stateBuilder.getAccountRepository().loggedAccount = authAccount!
     },
     givenAccountExists(accounts: AccountWithPassword[]) {
       stateBuilder.getAccountRepository().accounts = accounts

@@ -24,7 +24,7 @@ export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Edi
   }
 
   try {
-    const result = await feedbackRepository.editFeedback({ feedback: editFeedbackPayload.data })
+    const result = await feedbackRepository.editFeedback({ category: editFeedbackPayload.category.value, description: editFeedbackPayload.description, id: editFeedbackPayload.id, title: editFeedbackPayload.title, status: editFeedbackPayload.status.value})
     switch(result.type) {
       case ApiResultType.SUCCESS:
         return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} 

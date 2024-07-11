@@ -1,11 +1,12 @@
 import { injectable } from "inversify";
-import { AccountWithPassword, Role } from "../models/account";
+import { Account, AccountWithPassword, Role } from "../models/account";
 import { AccountRepository, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { ApiResultType } from "@/store/@shared/models/resultType";
 
 @injectable()
 export class InMemoryAccountRepository implements AccountRepository {
   accounts: AccountWithPassword[] = []
+  loggedAccount: Account | undefined
 
   async create(params: { email: string; password: string; }): Promise<RegisterApiResult> {
     const alreadyExists = this.accounts.find(a => a.email === params.email)
@@ -21,6 +22,9 @@ export class InMemoryAccountRepository implements AccountRepository {
     if(!account) {
       return {type: ApiResultType.CREDENTIAL_ERROR, data: "Invalid email or password"}
     }
+
+    this.loggedAccount = {email: account.email, id: account.id, role: account.role, avatar: account.avatar}
+    
     return {
       type: ApiResultType.SUCCESS,
       data: {
