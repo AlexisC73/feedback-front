@@ -27,6 +27,11 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: D
           type: UsecaseResultType.CREDENTIAL_ERROR,
           data: undefined
         })
+      case ApiResultType.UNKNOWN_ERROR:
+        return rejectWithValue({
+          type: UsecaseResultType.UNKNOWN_ERROR,
+          data: undefined
+        })
       default:
         exhaustiveGuard(result)
     }

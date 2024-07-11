@@ -16,4 +16,4 @@ export type GetFeedbacksApiResult = ApiUnknownError | ApiCredentialError | ApiSu
 export type AddFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void>
 export type EditFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
 export type UpvoteApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
-export type DeleteFeedbackApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiCredentialError
+export type DeleteFeedbackApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiCredentialError | ApiUnknownError
