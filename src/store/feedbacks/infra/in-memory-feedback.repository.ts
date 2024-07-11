@@ -4,7 +4,9 @@ import { AddFeedbackApiResult, DeleteFeedbackApiResult, EditFeedbackApiResult, F
 import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
 import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
 import { UpvotePayload } from "../usecases/payload/upvote.payload";
+import { injectable } from "inversify";
 
+@injectable()
 export class InMemoryFeedbackRepository implements FeedbackRepository {
   feedbacks: Feedback[] = []
 

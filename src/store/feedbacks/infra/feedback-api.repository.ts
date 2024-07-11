@@ -4,7 +4,9 @@ import { AddFeedbackPayload } from "../usecases/payload/add-feedback.payload";
 import { EditFeedbackPayload } from "../usecases/payload/edit-feedback.payload";
 import { UpvotePayload } from "../usecases/payload/upvote.payload";
 import { Feedback } from "../models/feedback";
+import { injectable } from "inversify";
 
+@injectable()
 export class FeedbackApiRepository implements FeedbackRepository {
   async getFeedbacks(): Promise<GetFeedbacksApiResult> {
     const request = await fetch("http://localhost:3333/api/feedbacks", {

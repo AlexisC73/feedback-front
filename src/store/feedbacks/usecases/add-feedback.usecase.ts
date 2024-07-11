@@ -24,13 +24,15 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: AddF
     return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: addFeedbackPayload.errors})
   }
 
+  console.log(addFeedbackPayload.id)
+
   try {
     const result = await feedbackRepository.addFeedback({feedback: addFeedbackPayload.data})
     const addedFeedback: Feedback = {
       category: addFeedbackPayload.data.category,
       comments: 0,
       description: addFeedbackPayload.data.description,
-      id: addFeedbackPayload.data.id,
+      id: addFeedbackPayload.id,
       owner: addFeedbackPayload.data.owner,
       status: FeedbackStatus.SUGGESTION,
       title: addFeedbackPayload.data.title,

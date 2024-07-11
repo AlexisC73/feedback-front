@@ -3,7 +3,9 @@ import { AccountRepository, LoginApiResult, RegisterApiResult } from "../models/
 import { Account } from "../models/account";
 import { FieldError } from "@/store/errors/fields-error";
 import { getBadRequestApiError } from "@/store/@shared/utiles/badRequestError";
+import { injectable } from "inversify";
 
+@injectable()
 export class AccountApiRepository implements AccountRepository {
   async create(params: { email: string; password: string; }): Promise<RegisterApiResult> {
     try {

@@ -17,7 +17,7 @@ describe("Add Feedback Usecase", () => {
   })
 
   test("Should add a feedback with suggestion status", async () => {
-    const defaultFeedback = feedbackBuilder()
+    const defaultFeedback = feedbackBuilder().withId("12")
     const newFeedback = defaultFeedback.build()
     const expectedFeedback = defaultFeedback.withStatus(FeedbackStatus.SUGGESTION).build()
 

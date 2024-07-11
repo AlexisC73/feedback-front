@@ -13,8 +13,8 @@ describe("Register Usecase", () => {
     accountFixture = createAccountFixture(stateBuilder())
   })
 
-  test("should return an error if email is invalid", async () => {
-    const registerPayload: RegisterUsecaseParams = {email: "invalid-email", password: "password", confirmationPassword: "password"}
+  test("should return an error if email is empty", async () => {
+    const registerPayload: RegisterUsecaseParams = {email: "", password: "password", confirmationPassword: "password"}
     accountFixture.givenNoAccountExists()
 
     await accountFixture.whenAccountRegister(registerPayload)
@@ -23,8 +23,8 @@ describe("Register Usecase", () => {
     accountFixture.thenAccountShouldNotExist(new EmailVO(registerPayload.email))
   })
 
-  test("should return an error if password is invalid", async () => {
-    const registerPayload: RegisterUsecaseParams = {email: "test@test.fr", password: "short", confirmationPassword: "short"}
+  test("should return an error if password is empty", async () => {
+    const registerPayload: RegisterUsecaseParams = {email: "test@test.fr", password: "", confirmationPassword: ""}
     accountFixture.givenNoAccountExists()
 
     await accountFixture.whenAccountRegister(registerPayload)

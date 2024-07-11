@@ -1,20 +1,27 @@
+import 'reflect-metadata'
 import { StubIdProvider } from "./@shared/infra/stub-id-provider"
 import { InMemoryAccountRepository } from "./account/infra/in-memory-account.repository"
 import { InMemoryCommentRepository } from "./comments/infra/in-memory-comment.repository"
 import { InMemoryFeedbackRepository } from "./feedbacks/infra/in-memory-feedback.repository"
-import { AppStore, createStore, Dependencies, RootState } from "./store"
+import { AppStore, createStore, RootState } from "./store"
+import { createContainer } from '@/injection/container'
+import { AccountRepository } from './account/models/account-repository'
+import { FeedbackRepository } from './feedbacks/models/feedback.repository'
+import { CommentRepository } from './comments/models/comment.repository'
+import { IdProvider } from './@shared/models/idProvider'
 
 export const stateBuilder = () => {
-  const accountRepository = new InMemoryAccountRepository()
-  const feedbackRepository = new InMemoryFeedbackRepository()
-  const idProvider = new StubIdProvider()
-  const commentRepository = new InMemoryCommentRepository()
-  const dependencies: Dependencies = {accountRepository, feedbackRepository, idProvider, commentRepository}
+  const testContainer = createContainer({
+    AccountRepository: InMemoryAccountRepository,
+    CommentRepository: InMemoryCommentRepository,
+    FeedbackRepository: InMemoryFeedbackRepository,
+    IdProvider: StubIdProvider
+  })
   
-  let store: AppStore = createStore(dependencies)
+  let store: AppStore = createStore(testContainer)
 
   const setStore = (newState: RootState) => {
-    store = createStore(dependencies, newState)
+    store = createStore(testContainer, newState)
   }
 
   return {
@@ -23,16 +30,16 @@ export const stateBuilder = () => {
     },
     setStore,
     getAccountRepository() {
-      return accountRepository
+      return testContainer.get(AccountRepository) as InMemoryAccountRepository
     },
-    getFeedbackRepository() {
-      return feedbackRepository
+    getFeedbackRepository(): InMemoryFeedbackRepository {
+      return testContainer.get(FeedbackRepository) as InMemoryFeedbackRepository
     },
     getIdProvider() {
-      return idProvider
+      return testContainer.get(IdProvider) as StubIdProvider
     },
     getCommentRepository() {
-      return commentRepository
+      return testContainer.get(CommentRepository) as InMemoryCommentRepository
     }
   }
 }

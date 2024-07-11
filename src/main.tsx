@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import "virtual:uno.css"
@@ -13,13 +14,14 @@ import { TagFilterCtxProvider } from './Context/TagFilter/TagFilterCtx.tsx'
 import { InMemoryCommentRepository } from './store/comments/infra/in-memory-comment.repository.ts'
 import { AccountApiRepository } from './store/account/infra/account-api.repository.ts'
 import { FeedbackApiRepository } from './store/feedbacks/infra/feedback-api.repository.ts'
+import { createContainer } from "./injection/container.ts"
 
-const store = createStore({
-  accountRepository: new AccountApiRepository(),
-  feedbackRepository: new FeedbackApiRepository(),
-  idProvider: new StubIdProvider(),
-  commentRepository: new InMemoryCommentRepository()
-})
+const store = createStore(createContainer({
+  AccountRepository: AccountApiRepository,
+  CommentRepository: InMemoryCommentRepository,
+  FeedbackRepository: FeedbackApiRepository,
+  IdProvider: StubIdProvider
+}))
 
 const router = createRouter({store})
 

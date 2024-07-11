@@ -53,6 +53,7 @@ export const createFeedbackFixture = (stateBuilder: StateBuilder) => {
       }
     },
     thenFeedbacksStateShouldBe(feedbackState: FeedbackState) {
+      console.log(stateBuilder.getStore().getState().feedback, feedbackState)
       expect(stateBuilder.getStore().getState().feedback).toMatchObject(feedbackState)
     },
     thenFeedbackShouldExists(feedback: Feedback) {

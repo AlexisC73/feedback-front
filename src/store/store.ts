@@ -1,23 +1,29 @@
 import { Action, configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import { rootReducer } from "./root-reducer";
 import { AccountRepository } from "./account/models/account-repository";
+import { Container } from "inversify";
 import { FeedbackRepository } from "./feedbacks/models/feedback.repository";
-import { IdProvider } from "./@shared/models/idProvider";
 import { CommentRepository } from "./comments/models/comment.repository";
+import { IdProvider } from "./@shared/models/idProvider";
 
 export interface Dependencies {
-  accountRepository: AccountRepository
   feedbackRepository: FeedbackRepository
-  idProvider: IdProvider,
+  accountRepository: AccountRepository
   commentRepository: CommentRepository
+  idProvider: IdProvider
 }
 
-export const createStore = (dependencies: Dependencies, preloadedState?: Partial<RootState>) => {
+export const createStore = (container: Container, preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({
       thunk: {
-        extraArgument: dependencies
+        extraArgument: {
+          feedbackRepository: container.get(FeedbackRepository),
+          accountRepository: container.get(AccountRepository),
+          commentRepository: container.get(CommentRepository),
+          idProvider: container.get(IdProvider)
+        }
       }
     }),
     preloadedState

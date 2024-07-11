@@ -29,7 +29,7 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
     replyTo: params.replyTo,
     sender: {
       name: account.email,
-      avatar: null
+      avatar: account.avatar
     }
   }
 

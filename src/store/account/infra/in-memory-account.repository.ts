@@ -1,7 +1,9 @@
+import { injectable } from "inversify";
 import { AccountWithPassword, Role } from "../models/account";
 import { AccountRepository, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { ApiResultType } from "@/store/@shared/models/resultType";
 
+@injectable()
 export class InMemoryAccountRepository implements AccountRepository {
   accounts: AccountWithPassword[] = []
 

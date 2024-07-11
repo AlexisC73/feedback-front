@@ -1,3 +1,3 @@
-export interface IdProvider {
-  generateId(): string
+export abstract class IdProvider {
+  abstract generateId(): string
 }

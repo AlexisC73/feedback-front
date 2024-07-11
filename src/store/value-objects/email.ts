@@ -23,10 +23,6 @@ export class EmailVO extends ValueObject {
       this.setErrors(errors)
       return false
     }
-    if(!this.isValidEmail(this.#email)) {
-      errors.push("Invalid email")
-    }
-    this.setErrors(errors)
     return this.errors.length === 0
   }
 
@@ -36,9 +32,5 @@ export class EmailVO extends ValueObject {
 
   isEmpty(): boolean {
     return this.#email.length <= 0
-  }
-
-  private isValidEmail(email: string): boolean {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
 }

@@ -2,7 +2,9 @@ import { ApiResultType } from "@/store/@shared/models/resultType";
 import { CommentRepository, GetFeedbackCommentResponse, PostCommentResponse } from "../models/comment.repository";
 import { Comment } from "../models/comment";
 import { GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
+import { injectable } from "inversify";
 
+@injectable()
 export class InMemoryCommentRepository implements CommentRepository {
   comments: Comment[] = []
 
