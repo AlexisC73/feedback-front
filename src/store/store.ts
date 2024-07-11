@@ -14,16 +14,19 @@ export interface Dependencies {
 }
 
 export const createStore = (container: Container, preloadedState?: Partial<RootState>) => {
+
+  const dependencies: Dependencies = {
+    accountRepository: container.get(AccountRepository),
+    feedbackRepository: container.get(FeedbackRepository),
+    commentRepository: container.get(CommentRepository),
+    idProvider: container.get(IdProvider)
+  }
+
   const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({
       thunk: {
-        extraArgument: {
-          feedbackRepository: container.get(FeedbackRepository),
-          accountRepository: container.get(AccountRepository),
-          commentRepository: container.get(CommentRepository),
-          idProvider: container.get(IdProvider)
-        }
+        extraArgument: dependencies
       }
     }),
     preloadedState
