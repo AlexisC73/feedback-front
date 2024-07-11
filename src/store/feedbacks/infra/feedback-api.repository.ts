@@ -7,7 +7,10 @@ import { Feedback } from "../models/feedback";
 
 export class FeedbackApiRepository implements FeedbackRepository {
   async getFeedbacks(): Promise<GetFeedbacksApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks")
+    const request = await fetch("http://localhost:3333/api/feedbacks", {
+      method: "GET",
+      credentials: "include"
+    })
     const data = await request.json()
     if(request.ok) {
       return {
@@ -28,7 +31,8 @@ export class FeedbackApiRepository implements FeedbackRepository {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(params.feedback)
+      body: JSON.stringify(params.feedback),
+      credentials: "include"
     })
 
     if(request.ok) {
@@ -46,7 +50,8 @@ export class FeedbackApiRepository implements FeedbackRepository {
   
   async deleteFeedback(params: { feedbackId: string; }): Promise<DeleteFeedbackApiResult> {
     const request = await fetch("http://localhost:3333/api/feedbacks/" + params.feedbackId, {
-      method: "DELETE"
+      method: "DELETE",
+      credentials: "include"
     })
 
     if(request.ok) {
@@ -68,7 +73,8 @@ export class FeedbackApiRepository implements FeedbackRepository {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(params.feedback)
+      body: JSON.stringify(params.feedback),
+      credentials: "include"
     })
     if(request.ok) {
       return {
@@ -89,7 +95,8 @@ export class FeedbackApiRepository implements FeedbackRepository {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({upvote: params.upvote})
+      body: JSON.stringify({upvote: params.upvote}),
+      credentials: "include"
     })
 
     if(request.ok) {
