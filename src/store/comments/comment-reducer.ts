@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit"
+import { createReducer, createSelector } from "@reduxjs/toolkit"
 import { postCommentThunk } from "./usecases/post-comment.usecase"
 import { UsecaseResultType } from "../@shared/models/resultType"
 import { Comment } from "./models/comment"
@@ -46,4 +46,4 @@ export const commentsReducer = createReducer(initialState, (builder) => {
 })
 
 export const selectComments = (state: RootState) => state.comments
-export const selectCommentsForFeedback = (feedbackId: string) => (state: RootState) => state.comments.comments.filter(c => c.feedbackId === feedbackId)
+export const selectCommentsForFeedback = (feedbackId: string) => createSelector([selectComments], (comments) => comments.comments.filter(c => c.feedbackId === feedbackId))

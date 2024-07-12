@@ -90,7 +90,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
   }
 
   async upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks/" + params.feedbackId + "/upvote", {
+    const request = await fetch("http://localhost:3333/api/upvotes/feedback/" + params.feedbackId, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
