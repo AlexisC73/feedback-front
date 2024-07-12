@@ -1,5 +1,5 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { AccountRepository, LoginApiResult, RegisterApiResult } from "../models/account-repository";
+import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { Account } from "../models/account";
 import { FieldError } from "@/store/errors/fields-error";
 import { getBadRequestApiError } from "@/store/@shared/utiles/badRequestError";
@@ -92,7 +92,7 @@ export class AccountApiRepository implements AccountRepository {
     }
   }
 
-  async getMe() {
+  async getMe(): Promise<GetMeApiResult> {
     try {
       const request = await fetch("http://localhost:3333/api/auth/me", {
         method: "GET",
@@ -100,12 +100,20 @@ export class AccountApiRepository implements AccountRepository {
       })
 
       if(request.ok) {
-        return await request.json()
+        return {
+          type: ApiResultType.SUCCESS,
+          data: await request.json() as Account
+        }
       }
-
-      throw new Error("Not connected")
+      return {
+        type: ApiResultType.CREDENTIAL_ERROR,
+        data: undefined
+      }
     } catch(e) {
-      throw new Error("Method not implemented.")
+      return {
+        type: ApiResultType.UNKNOWN_ERROR,
+        data: undefined
+      }
     }
   }
 }

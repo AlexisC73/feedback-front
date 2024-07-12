@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { Account, AccountWithPassword, Role } from "../models/account";
-import { AccountRepository, LoginApiResult, RegisterApiResult } from "../models/account-repository";
+import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { ApiResultType } from "@/store/@shared/models/resultType";
 
 @injectable()
@@ -35,8 +35,11 @@ export class InMemoryAccountRepository implements AccountRepository {
       }}
   }
 
-  getMe(): Promise<Account> {
-    return Promise.resolve(this.loggedAccount!)
+  async getMe(): Promise<GetMeApiResult> {
+    return {
+      type: ApiResultType.SUCCESS,
+      data: this.loggedAccount!
+    }
   }
 
   private save(account: AccountWithPassword) {

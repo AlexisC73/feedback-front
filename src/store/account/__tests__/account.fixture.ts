@@ -36,7 +36,8 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
       await stateBuilder.getStore().dispatch(loginThunk(loginParam))
     },
     async whenRetrievingCurrentAuth() {
-      await stateBuilder.getStore().dispatch(getCurrentAuthThunk())
+      const result = await stateBuilder.getStore().dispatch(getCurrentAuthThunk())
+      resultType = result.payload?.type
     },
     thenResultTypeShouldBe(expectedType: string) {
       expect(resultType).toBe(expectedType)
