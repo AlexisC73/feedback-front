@@ -99,7 +99,11 @@ export class AccountApiRepository implements AccountRepository {
         credentials: "include"
       })
 
-      return await request.json()
+      if(request.ok) {
+        return await request.json()
+      }
+
+      throw new Error("Not connected")
     } catch(e) {
       throw new Error("Method not implemented.")
     }

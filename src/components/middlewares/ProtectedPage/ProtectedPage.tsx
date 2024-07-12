@@ -5,6 +5,7 @@ import { useAppSelector } from "@/store/store-hooks";
 
 export function RequireAuth({page}: {page: ReactNode}) {
   const auth = useAppSelector(selectAuth)
+  console.log(auth)
   const location = useLocation()
   const returnPath = location.pathname !== "/" ? "?path=" + location.pathname : ""
 
