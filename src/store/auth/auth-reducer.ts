@@ -4,6 +4,7 @@ import { registerThunk } from "./usecases/register.usecase"
 import { loginThunk } from "./usecases/login.usecase"
 import { RootState } from "../store"
 import { UsecaseResultType } from "../@shared/models/resultType"
+import { getCurrentAuthThunk } from "./usecases/get-current-auth.usecase"
 
 export interface AuthState {
   account: Account | null
@@ -29,6 +30,8 @@ export const authReducer = createReducer(initialState, (builder) => {
       }
     }
     state.loading = false
+  }).addCase(getCurrentAuthThunk.fulfilled, (state, action) => {
+    state.account = action.payload
   })
 })
 

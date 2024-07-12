@@ -91,4 +91,17 @@ export class AccountApiRepository implements AccountRepository {
       }
     }
   }
+
+  async getMe() {
+    try {
+      const request = await fetch("http://localhost:3333/api/auth/me", {
+        method: "GET",
+        credentials: "include"
+      })
+
+      return await request.json()
+    } catch(e) {
+      throw new Error("Method not implemented.")
+    }
+  }
 }

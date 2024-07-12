@@ -35,6 +35,10 @@ export class InMemoryAccountRepository implements AccountRepository {
       }}
   }
 
+  getMe(): Promise<Account> {
+    return Promise.resolve(this.loggedAccount!)
+  }
+
   private save(account: AccountWithPassword) {
     this.accounts.push(account)
   }

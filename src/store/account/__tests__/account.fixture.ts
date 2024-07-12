@@ -3,8 +3,9 @@ import { expect } from "vitest"
 import { EmailVO } from "@/store/value-objects/email"
 import { AuthState } from "@/store/auth/auth-reducer"
 import { loginThunk, LoginUsecaseParams } from "@/store/auth/usecases/login.usecase"
-import { AccountWithPassword, Role } from "../models/account"
+import { Account, AccountWithPassword, Role } from "../models/account"
 import { StateBuilder } from "@/store/state-builder"
+import { getCurrentAuthThunk } from "@/store/auth/usecases/get-current-auth.usecase"
 
 export const createAccountFixture = ( stateBuilder: StateBuilder) => {
 
@@ -14,9 +15,15 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     givenNoAccountExists() {
       stateBuilder.getAccountRepository().accounts = []
     },
-    givenIsAuthenticatedAs(authAccount: AuthState["account"]) {
-      stateBuilder.setStore({...stateBuilder.getStore().getState(), auth: {account: authAccount, loading: false}})
-      stateBuilder.getAccountRepository().loggedAccount = authAccount!
+    givenIsAuthenticatedAs(authAccount: Account) {
+      this.givenIsApiAuthAs(authAccount)
+      this.givenIsStateAuthAs(authAccount)
+    },
+    givenIsStateAuthAs(account: Account) {
+      stateBuilder.setStore({...stateBuilder.getStore().getState(), auth: {account, loading: false}})
+    },
+    givenIsApiAuthAs(authAccount: Account) {
+      stateBuilder.getAccountRepository().loggedAccount = authAccount
     },
     givenAccountExists(accounts: AccountWithPassword[]) {
       stateBuilder.getAccountRepository().accounts = accounts
@@ -27,6 +34,9 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     },
     async whenUserLogin(loginParam: LoginUsecaseParams) {
       await stateBuilder.getStore().dispatch(loginThunk(loginParam))
+    },
+    async whenRetrievingCurrentAuth() {
+      await stateBuilder.getStore().dispatch(getCurrentAuthThunk())
     },
     thenResultTypeShouldBe(expectedType: string) {
       expect(resultType).toBe(expectedType)

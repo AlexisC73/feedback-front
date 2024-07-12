@@ -4,6 +4,7 @@ import { ApiCredentialError, ApiFieldError, ApiSuccessResult, ApiUnknownError } 
 export abstract class AccountRepository {
   abstract create(params: {email: string, password: string}): Promise<RegisterApiResult>
   abstract login(params: {email: string, password: string}): Promise<LoginApiResult>
+  abstract getMe(): Promise<Account>
 }
 
 
