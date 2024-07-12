@@ -1,9 +1,8 @@
 import { StateBuilder } from "@/store/state-builder";
-import { PostCommentPayload } from "../usecases/payload/post-usecase.payload";
 import { CommentState } from "../comment-reducer";
 import { expect } from "vitest";
 import { Comment } from "../models/comment";
-import { postCommentThunk } from "../usecases/post-comment.usecase";
+import { postCommentThunk, PostCommentUsecaseParams } from "../usecases/post-comment.usecase";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
 import { getCommentsForFeedbackThunk, GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
 
@@ -20,7 +19,10 @@ export const createCommentFixture = (store: StateBuilder) => {
     givenCommentStateIs(comments: CommentState){
       store.setStore({...store.getStore().getState(), comments})
     },
-    async postComment(params: PostCommentPayload["data"]) {
+    givenNextId(id: string) {
+      store.getIdProvider().id =id
+    },
+    async postComment(params: PostCommentUsecaseParams) {
       const result = await store.getStore().dispatch(postCommentThunk(params))
       if(result.payload?.type) {
         resultType = result.payload.type

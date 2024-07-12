@@ -1,18 +1,30 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { CommentRepository, GetFeedbackCommentResponse, PostCommentResponse } from "../models/comment.repository";
+import { CommentRepository, GetFeedbackCommentResponse, PostCommentParams, PostCommentResponse } from "../models/comment.repository";
 import { Comment } from "../models/comment";
 import { GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import { AccountRepository } from "@/store/account/models/account-repository";
+import { InMemoryAccountRepository } from "@/store/account/infra/in-memory-account.repository";
 
 @injectable()
 export class InMemoryCommentRepository implements CommentRepository {
   comments: Comment[] = []
 
-  async postComment (newComment: Comment): Promise<PostCommentResponse> {
-    const existingComment = this.comments.findIndex(comment => comment.id === newComment.id)
-    if(existingComment !== -1) {
-      throw new Error("Id already exists")
+  constructor(@inject(AccountRepository) private readonly accountRepository: InMemoryAccountRepository) {}
+
+  async postComment (params: PostCommentParams): Promise<PostCommentResponse> {
+    const account = this.accountRepository.loggedAccount!
+    
+    const newComment: Comment = {
+      id: params.id,
+      content: params.content,
+      feedbackId: params.feedbackId,
+      sender: {
+        avatar: account.avatar,
+        name: account.email
+      }
     }
+
     this.comments = [...this.comments, newComment]
 
     return {

@@ -6,8 +6,8 @@ export interface Comment {
   }
   content: string
   feedbackId: string
-  replyTo?: {
+  replyTo: {
     username: string,
     mainCommentId: string
-  }
+  } | null
 }

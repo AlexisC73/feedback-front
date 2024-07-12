@@ -5,17 +5,12 @@ export class PostCommentPayload {
   id: string
   feedbackId: string
   commentMessage: CommentMessageVO
-  replyTo?: {
-    username: string,
-    mainCommentId: string
-  }
   errors: FieldError[] = []
 
   constructor(params: {id: string, feedbackId: string, content: string, replyTo?: { username: string, mainCommentId: string }}) {
     this.id = params.id
     this.feedbackId = params.feedbackId
     this.commentMessage = new CommentMessageVO(params.content)
-    this.replyTo = params.replyTo
     Object.freeze(this)
   }
 
@@ -26,9 +21,6 @@ export class PostCommentPayload {
     if(!this.commentMessage.validate()) {
       this.errors.push({field: "content", errors: this.commentMessage.errors})
     }
-    if(this.replyTo && this.replyTo.username.length <= 0 && this.replyTo.mainCommentId.length <= 0) {
-      this.errors.push({field: "replyTo", errors: ["ReplyTo must have userId and commentId"]})
-    }
     return this.errors.length === 0
   }
 
@@ -37,7 +29,6 @@ export class PostCommentPayload {
       id: this.id,
       feedbackId: this.feedbackId,
       content: this.commentMessage.value,
-      replyTo: this.replyTo
     }
   }
 }

@@ -35,7 +35,7 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
         },
         {
           path: "/feedbacks/:id",
-          loader: async({params}) => createFeedbackDetailLoader({store, feedbackId: params.id}),
+          loader: createFeedbackDetailLoader({store}),
           element: <RequireAuth page={<FeedbackDetailsPage />} />
         },
       ]

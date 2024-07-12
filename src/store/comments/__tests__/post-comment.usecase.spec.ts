@@ -25,13 +25,12 @@ describe("Post comment usecase", () => {
 
     commentFixture.givenNoCommentsExist()
     feedbackFixture.givenFeedbacksExists([existingFeedback])
+    commentFixture.givenNextId(newComment.id)
     accountFixture.givenIsAuthenticatedAs({id: "99", email: "test@test.fr", role: Role.USER, avatar: "https://example.com/avatar.png"})
 
     await commentFixture.postComment({
-      id: newComment.id,
       feedbackId: newComment.feedbackId,
       content: newComment.content,
-      replyTo: newComment.replyTo
     })
 
     commentFixture.thenCommentShouldExist(newComment)

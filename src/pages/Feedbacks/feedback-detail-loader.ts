@@ -2,7 +2,8 @@ import { getCommentsForFeedbackThunk } from "@/store/comments/usecases/get-comme
 import { AppStore } from "@/store/store";
 import { LoaderFunction } from "react-router-dom";
 
-export const createFeedbackDetailLoader = ({store, feedbackId}: {store: AppStore, feedbackId: string | undefined}): LoaderFunction => () => {
+export const createFeedbackDetailLoader = ({store}: {store: AppStore}): LoaderFunction => ({params}) => {
+  const feedbackId = params.id
   if(feedbackId) {
     store.dispatch(getCommentsForFeedbackThunk({feedbackId}))
   }
