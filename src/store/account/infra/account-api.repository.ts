@@ -4,12 +4,13 @@ import { Account } from "../models/account";
 import { FieldError } from "@/store/errors/fields-error";
 import { getBadRequestApiError } from "@/store/@shared/utiles/badRequestError";
 import { injectable } from "inversify";
+import { api } from "@/config/api";
 
 @injectable()
 export class AccountApiRepository implements AccountRepository {
   async create(params: { email: string; password: string; }): Promise<RegisterApiResult> {
     try {
-      const request = await fetch("http://localhost:3333/api/auth/register", {
+      const request = await fetch(`${api.endpoint}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -45,7 +46,7 @@ export class AccountApiRepository implements AccountRepository {
 
   async login(params: { email: string; password: string; }): Promise<LoginApiResult> {
     try {
-      const request = await fetch("http://localhost:3333/api/auth/login", {
+      const request = await fetch(`${api.endpoint}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -94,7 +95,7 @@ export class AccountApiRepository implements AccountRepository {
 
   async getMe(): Promise<GetMeApiResult> {
     try {
-      const request = await fetch("http://localhost:3333/api/auth/me", {
+      const request = await fetch(`${api.endpoint}/api/auth/me`, {
         method: "GET",
         credentials: "include"
       })

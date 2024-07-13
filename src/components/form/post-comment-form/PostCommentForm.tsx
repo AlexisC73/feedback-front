@@ -12,6 +12,7 @@ interface PostCommentFormProps {
 
 export function PostCommentForm ({ onSubmit, feedbackId, errors }: PostCommentFormProps) {
   const [content, setContent] = useState<string>("")
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const handleChange = (value: string) => {
     setContent(value)
@@ -19,12 +20,13 @@ export function PostCommentForm ({ onSubmit, feedbackId, errors }: PostCommentFo
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsProcessing(true)
     const form = e.currentTarget as HTMLFormElement
     const formData = new FormData(form)
     const content = formData.get("content") as string
     onSubmit({ feedbackId, content, id: new Date().getTime().toString()}).then(() => {
       setContent("")
-    })
+    }).finally(() => setIsProcessing(false))
   }
   return (
     <form onSubmit={handleSubmit} className="bg-white px-8.5 py-6 rounded-2.5 flex flex-col gap-y-4">
@@ -32,8 +34,8 @@ export function PostCommentForm ({ onSubmit, feedbackId, errors }: PostCommentFo
       <Textarea value={content} onChange={handleChange} errors={errors?.content} name="content" rows={2} placeholder="Type your comment here" />
       <div className="flex justify-between items-center">
         <p className="text-#647196 text-3.75">{COMMENT_MESSAGE_MAX_LENGTH - content.length} Characters left</p>
-        <button type="submit" className="w35.5">
-          <Button fullWidth>Post Comment</Button>
+        <button disabled={isProcessing} type="submit" className="w35.5">
+          <Button isLoading={isProcessing} fullWidth>Post Comment</Button>
         </button>
       </div>
     </form>

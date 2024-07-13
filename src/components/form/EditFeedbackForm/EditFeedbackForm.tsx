@@ -12,13 +12,14 @@ import { DeleteFeedbackButtonState } from "@/store/feedbacks/app/DeleteFeedbackB
 
 export interface EditFeedbackFormProps {
   feedback: Feedback,
-  onEditFeedback: (feedback: EditFeedbackUsecaseParams) => void
+  onEditFeedback: (feedback: EditFeedbackUsecaseParams) => Promise<void>
   errors: { [key: string]: string[] }
 }
 
 export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeedbackFormProps) {
   const categories = Object.values(FeedbackCategory)
   const status = Object.values(FeedbackStatus)
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const [currentOption, setCurrentOption] = useState<FeedbackCategory>(feedback.category)
   const [currentStatus, setCurrentStatus] = useState<FeedbackStatus>(feedback.status)
@@ -39,13 +40,14 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsProcessing(true)
     const form = e.currentTarget
     const formData = new FormData(form)
     const title = formData.get('title') as string
     const category = currentOption
     const status = currentStatus
     const description = formData.get('description') as string
-    onEditFeedback({id: feedback.id, title, category, status, description})
+    onEditFeedback({id: feedback.id, title, category, status, description}).finally(() => setIsProcessing(false))
   }
 
   return (
@@ -71,7 +73,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
           <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-between">
             <DeleteFeedbackButtonState feedbackId={feedback.id} />
             <div className="order-first flex flex-col gap-y-4 md:order-last md:flex-row md:gap-x-4">
-              <button type="submit" className="md:w-36 md:order-last"><Button fullWidth>Save Changes</Button></button>
+              <button disabled={isProcessing} type="submit" className="md:w-36 md:order-last"><Button isLoading={isProcessing} fullWidth>Save Changes</Button></button>
               <div className="md:w-23.25"><Button fullWidth type="tertiary">Cancel</Button></div>
             </div>
           </div>

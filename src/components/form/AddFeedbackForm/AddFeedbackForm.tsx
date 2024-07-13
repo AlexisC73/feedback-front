@@ -16,6 +16,7 @@ export interface AddFeedbackFormProps {
 export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormProps) {
   const categoryOptions = Object.values(FeedbackCategory)
   const [currentOption, setCurrentOption] = useState<FeedbackCategory>(categoryOptions[0])
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const handleSelectOption = (selected: string) => {
     if(!categoryOptions.includes(selected as FeedbackCategory)) {
@@ -24,14 +25,15 @@ export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormP
     setCurrentOption(selected as FeedbackCategory)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsProcessing(true)
     const form = e.currentTarget
     const formData = new FormData(form)
     const title = formData.get('title') as string
     const category = currentOption
     const description = formData.get('description') as string
-    onPostFeedback({title, category, description})
+    onPostFeedback({title, category, description}).finally(() => setIsProcessing(false))
   }
 
   return (
@@ -51,8 +53,8 @@ export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormP
         <Textarea errors={fieldErrors?.description} name="description" />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
-        <button type="submit" className="w-full md:w-36 md:order-last">
-          <Button fullWidth>Add Feedback</Button>
+        <button disabled={isProcessing} type="submit" className="w-full md:w-36 md:order-last">
+          <Button isLoading={isProcessing} fullWidth>Add Feedback</Button>
         </button>
         <div className="w-full md:w-23.25">
           <Button fullWidth type="tertiary">Cancel</Button>

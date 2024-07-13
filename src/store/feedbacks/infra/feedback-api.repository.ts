@@ -3,11 +3,12 @@ import { AddFeedbackApiResult, AddFeedbackParams, DeleteFeedbackApiResult, EditF
 import { UpvotePayload } from "../usecases/payload/upvote.payload";
 import { Feedback } from "../models/feedback";
 import { injectable } from "inversify";
+import { api } from "@/config/api";
 
 @injectable()
 export class FeedbackApiRepository implements FeedbackRepository {
   async getFeedbacks(): Promise<GetFeedbacksApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks", {
+    const request = await fetch(`${api.endpoint}/api/feedbacks/`, {
       method: "GET",
       credentials: "include"
     })
@@ -26,7 +27,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
   }
   
   async addFeedback(params: AddFeedbackParams): Promise<AddFeedbackApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks", {
+    const request = await fetch(`${api.endpoint}/api/feedbacks/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -49,7 +50,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
   }
   
   async deleteFeedback(params: { feedbackId: string; }): Promise<DeleteFeedbackApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks/" + params.feedbackId, {
+    const request = await fetch(`${api.endpoint}/api/feedbacks/` + params.feedbackId, {
       method: "DELETE",
       credentials: "include"
     })
@@ -68,7 +69,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
   }
 
   async editFeedback({id, title, description, category, status}: EditFeedbackParams): Promise<EditFeedbackApiResult> {
-    const request = await fetch("http://localhost:3333/api/feedbacks/" + id, {
+    const request = await fetch(`${api.endpoint}/api/feedbacks/` + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -90,7 +91,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
   }
 
   async upvote(params: UpvotePayload["data"]): Promise<UpvoteApiResult> {
-    const request = await fetch("http://localhost:3333/api/upvotes/feedback/" + params.feedbackId, {
+    const request = await fetch(`${api.endpoint}/api/upvotes/feedback/` + params.feedbackId, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

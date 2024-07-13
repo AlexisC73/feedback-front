@@ -1,6 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { Account } from "../account/models/account"
-import { registerThunk } from "./usecases/register.usecase"
 import { loginThunk } from "./usecases/login.usecase"
 import { RootState } from "../store"
 import { UsecaseResultType } from "../@shared/models/resultType"
@@ -17,25 +16,23 @@ const initialState: AuthState = {
 }
 
 export const authReducer = createReducer(initialState, (builder) => {
-  builder.addCase(registerThunk.fulfilled, (state) => {
-    state.loading = false
-  }).addCase(registerThunk.pending, (state) => {
-    state.loading = true
-  }).addCase(registerThunk.rejected, (state) => {
-    state.loading = false
-  }).addCase(loginThunk.fulfilled, (state, action) => {
+  builder.addCase(loginThunk.fulfilled, (state, action) => {
     if(action.payload?.type === UsecaseResultType.SUCCESS) {
       if(action.payload.data) {
         state.account = action.payload.data
       }
     }
-    state.loading = false
   }).addCase(getCurrentAuthThunk.fulfilled, (state, action) => {
     if(action.payload?.type === UsecaseResultType.SUCCESS) {
       if(action.payload.data) {
         state.account = action.payload.data
       }
     }
+    state.loading = false
+  }).addCase(getCurrentAuthThunk.pending, (state) => {
+    state.loading = true
+  }).addCase(getCurrentAuthThunk.rejected, (state) => {
+    state.loading = false
   })
 })
 

@@ -3,11 +3,12 @@ import { CommentRepository, GetFeedbackCommentResponse, PostCommentParams, PostC
 import { GetFeedbackCommentParams } from "../usecases/get-comments.usecase";
 import { injectable } from "inversify";
 import { Comment } from "../models/comment";
+import { api } from "@/config/api";
 
 @injectable()
 export class CommentApiRepository implements CommentRepository {
   postComment = async (params: PostCommentParams): Promise<PostCommentResponse> => {
-    const request = await fetch(`http://localhost:3333/api/comments/feedback/${params.feedbackId}`, {
+    const request = await fetch(`${api.endpoint}/api/comments/feedback/${params.feedbackId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -34,7 +35,7 @@ export class CommentApiRepository implements CommentRepository {
 
   getForFeedback = async (params: GetFeedbackCommentParams): Promise<GetFeedbackCommentResponse> => {
     try {
-      const request = await fetch(`http://localhost:3333/api/comments/feedback/${params.feedbackId}`, {
+      const request = await fetch(`${api.endpoint}/api/comments/feedback/${params.feedbackId}`, {
         method: "GET",
         credentials: "include"
       })

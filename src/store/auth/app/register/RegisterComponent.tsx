@@ -1,14 +1,13 @@
 import { RegisterForm } from "@/components/form/register-form/RegisterForm";
-import { useAppDispatch, useAppSelector } from "@/store/store-hooks";
+import { useAppDispatch } from "@/store/store-hooks";
 import { registerThunk } from "../../usecases/register.usecase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
-import { selectAuth } from "../../auth-reducer";
+
 export function RegisterComponent () {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const {loading} = useAppSelector(selectAuth)
 
   const [errors, setErrors] = useState<{[key: string]: string[]}>({})
 
@@ -27,6 +26,6 @@ export function RegisterComponent () {
   }
 
   return (
-    <RegisterForm isProcessing={loading} registerFn={performRegister} fieldsErrors={errors} />
+    <RegisterForm registerFn={performRegister} fieldsErrors={errors} />
   )
 }

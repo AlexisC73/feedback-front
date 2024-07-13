@@ -14,8 +14,8 @@ export function EditFeedbackFormComponent() {
   const feedback = useAppSelector(selectFeedback(params.id!))
   
 
-  const handleEditFeedback = (feedback: EditFeedbackUsecaseParams) => {
-    dispatch(editFeedbackThunk(feedback)).then(res => {
+  const handleEditFeedback = async (feedback: EditFeedbackUsecaseParams) => {
+    await dispatch(editFeedbackThunk(feedback)).then(res => {
       const {payload, type} = res
       if(!payload || !type) {
         return

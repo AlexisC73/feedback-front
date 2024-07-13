@@ -8,5 +8,9 @@ export function RequireAuth({page}: {page: ReactNode}) {
   const location = useLocation()
   const returnPath = location.pathname !== "/" ? "?path=" + location.pathname : ""
 
+  if(auth.loading) {
+    return <div></div>
+  }
+
   return !auth.account ? <Navigate to={`/auth/login${returnPath}`} /> : page
 }
