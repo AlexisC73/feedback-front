@@ -42,8 +42,6 @@ describe("Test API account", () => {
     const users = await pool.query("SELECT * FROM accounts WHERE email = $1 LIMIT 1", ["test@test.fr"])
     const expectedUser = users.rows[0]
 
-    console.log(result)
-
     expect(expectedUser).toMatchObject({
       email: "test@test.fr",
       password: expect.any(String),
