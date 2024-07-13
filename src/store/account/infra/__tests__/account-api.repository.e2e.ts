@@ -13,7 +13,7 @@ describe("Test API account", () => {
 
   beforeEach(async () => {
     store = createStore(createContainer())
-    const backContainer = new DockerComposeEnvironment("./", "test.compose.yml")
+    const backContainer = new DockerComposeEnvironment("./", "compose.yml")
     backendContainer = await backContainer.up()
     await backendContainer.getContainer("backend-1").exec(["node", "ace", "migration:run"])
     pool = new Pool({
