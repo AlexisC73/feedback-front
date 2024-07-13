@@ -5,6 +5,8 @@ import { Pool } from "pg";
 import { AppStore, createStore } from "@/store/store";
 import { createContainer } from "@/injection/container";
 import { registerThunk } from "@/store/auth/usecases/register.usecase";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { ApiResultType, ApiSuccessResult } from "@/store/@shared/models/resultType";
 
 describe("Test API account", () => {
   let backendContainer: StartedDockerComposeEnvironment
@@ -31,19 +33,28 @@ describe("Test API account", () => {
   })
 
   test("register usecase", {timeout: 20000}, async () => {
-    await store.dispatch(registerThunk({
+    const result = await store.dispatch(registerThunk({
       email: "test@test.fr",
       confirmationPassword: "password",
       password: "password"
-    }))
+    })).then(unwrapResult)
     
     const users = await pool.query("SELECT * FROM accounts WHERE email = $1 LIMIT 1", ["test@test.fr"])
     const expectedUser = users.rows[0]
+
+    console.log(result)
 
     expect(expectedUser).toMatchObject({
       email: "test@test.fr",
       password: expect.any(String),
       id: expect.any(String),
     })
+
+    const apiResult: ApiSuccessResult<undefined> = {
+      type: ApiResultType.SUCCESS,
+      data: undefined
+    }
+
+    expect(result).toMatchObject(apiResult)
   })
 })

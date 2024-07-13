@@ -15,7 +15,7 @@ export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: Registe
     const result = await accountRepository.create({email: params.email, password: params.password})
     switch(result.type) {
       case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS} as RegisterThunkSuccess
+        return {type: UsecaseResultType.SUCCESS, data: undefined} as RegisterThunkSuccess
       case ApiResultType.CREDENTIAL_ERROR:
         return {type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data} as RegisterCredentialError
       case ApiResultType.UNKNOWN_ERROR:
