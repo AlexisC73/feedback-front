@@ -35,22 +35,26 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
     }
 
     const result = await commentRepository.postComment(postCommentParams)
+    const addedComment: Comment = {
+      id: payload.id,
+      content: payload.commentMessage.value,
+      feedbackId: payload.feedbackId,
+      sender: {
+        avatar: account.avatar,
+        name: account.email
+      },
+      replyTo: null
+    }
 
     switch(result.type) {
       case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: {
-          id: payload.id,
-          content: payload.commentMessage.value,
-          feedbackId: payload.feedbackId,
-          sender: {
-            avatar: account.avatar,
-            name: account.email
-          }
-        }} as UsecaseSuccess<Comment>
+        return {type: UsecaseResultType.SUCCESS, data: addedComment} as UsecaseSuccess<Comment>
       case ApiResultType.FIELD_ERROR:
         return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
       case ApiResultType.CREDENTIAL_ERROR:
         return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data})
+      case ApiResultType.UNKNOWN_ERROR:
+        return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
       default:
         return exhaustiveGuard(result)
     }

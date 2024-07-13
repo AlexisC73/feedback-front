@@ -22,7 +22,7 @@ export function PostCommentForm ({ onSubmit, feedbackId, errors }: PostCommentFo
     const form = e.currentTarget as HTMLFormElement
     const formData = new FormData(form)
     const content = formData.get("content") as string
-    onSubmit({ feedbackId, content, replyTo: undefined, id: new Date().getTime().toString()}).then(() => {
+    onSubmit({ feedbackId, content, id: new Date().getTime().toString()}).then(() => {
       setContent("")
     })
   }

@@ -10,18 +10,9 @@ import { Provider } from 'react-redux'
 import { createStore } from './store/store.ts'
 import { SortFilterCtxProvider } from './Context/SortFilter/SortFilter.tsx'
 import { TagFilterCtxProvider } from './Context/TagFilter/TagFilterCtx.tsx'
-import { AccountApiRepository } from './store/account/infra/account-api.repository.ts'
-import { FeedbackApiRepository } from './store/feedbacks/infra/feedback-api.repository.ts'
 import { createContainer } from "./injection/container.ts"
-import { RealIdProvider } from "./store/@shared/infra/real-id-provider.ts"
-import { CommentApiRepository } from "./store/comments/infra/comment-api.repository.ts"
 
-const store = createStore(createContainer({
-  AccountRepository: AccountApiRepository,
-  CommentRepository: CommentApiRepository,
-  FeedbackRepository: FeedbackApiRepository,
-  IdProvider: RealIdProvider
-}))
+const store = createStore(createContainer())
 
 const router = createRouter({store})
 

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["reflect-metadata"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
   },
   "references": [
     {

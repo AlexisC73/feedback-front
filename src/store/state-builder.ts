@@ -4,19 +4,14 @@ import { InMemoryAccountRepository } from "./account/infra/in-memory-account.rep
 import { InMemoryCommentRepository } from "./comments/infra/in-memory-comment.repository"
 import { InMemoryFeedbackRepository } from "./feedbacks/infra/in-memory-feedback.repository"
 import { AppStore, createStore, RootState } from "./store"
-import { createContainer } from '@/injection/container'
+import { createTestContainer } from '@/injection/container'
 import { AccountRepository } from './account/models/account-repository'
 import { FeedbackRepository } from './feedbacks/models/feedback.repository'
 import { CommentRepository } from './comments/models/comment.repository'
 import { IdProvider } from './@shared/models/idProvider'
 
 export const stateBuilder = () => {
-  const testContainer = createContainer({
-    AccountRepository: InMemoryAccountRepository,
-    CommentRepository: InMemoryCommentRepository,
-    FeedbackRepository: InMemoryFeedbackRepository,
-    IdProvider: StubIdProvider
-  })
+  const testContainer = createTestContainer()
   
   let store: AppStore = createStore(testContainer)
 

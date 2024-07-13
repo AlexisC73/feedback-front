@@ -26,6 +26,11 @@ export const getCommentsForFeedbackThunk = createAppAsyncThunk.withTypes<{ rejec
         type: UsecaseResultType.CREDENTIAL_ERROR,
         data: undefined
       }
+    case ApiResultType.UNKNOWN_ERROR:
+      return {
+        type: UsecaseResultType.UNKNOWN_ERROR,
+        data: undefined
+      }
     default:
       exhaustiveGuard(result)
   }

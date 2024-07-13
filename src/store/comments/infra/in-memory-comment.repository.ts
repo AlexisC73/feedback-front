@@ -19,6 +19,7 @@ export class InMemoryCommentRepository implements CommentRepository {
       id: params.id,
       content: params.content,
       feedbackId: params.feedbackId,
+      replyTo: null,
       sender: {
         avatar: account.avatar,
         name: account.email

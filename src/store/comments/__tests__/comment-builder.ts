@@ -4,7 +4,7 @@ export const commentBuilder = ({
   id = "1",
   content = "this is a comment",
   feedbackId = "1",
-  replyTo = undefined,
+  replyTo = null,
   sender = {
     name: "moi",
     avatar: "https://example.com/avatar.png"

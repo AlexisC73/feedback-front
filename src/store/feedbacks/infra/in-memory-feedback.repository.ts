@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import { ApiResultType } from "@/store/@shared/models/resultType";
 import { Feedback, FeedbackStatus } from "../models/feedback";
 import { AddFeedbackApiResult, AddFeedbackParams, DeleteFeedbackApiResult, EditFeedbackApiResult, EditFeedbackParams, FeedbackRepository, GetFeedbacksApiResult, UpvoteApiResult, UpvoteFeedbackParams } from "../models/feedback.repository";
