@@ -5,13 +5,7 @@ import { Container } from "inversify";
 import { FeedbackRepository } from "./feedbacks/models/feedback.repository";
 import { CommentRepository } from "./comments/models/comment.repository";
 import { IdProvider } from "./@shared/models/idProvider";
-
-export interface Dependencies {
-  feedbackRepository: FeedbackRepository
-  accountRepository: AccountRepository
-  commentRepository: CommentRepository
-  idProvider: IdProvider
-}
+import { Dependencies } from "@/injection/container";
 
 export const createStore = (container: Container, preloadedState?: Partial<RootState>) => {
 

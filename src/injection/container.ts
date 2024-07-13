@@ -12,6 +12,13 @@ import { InMemoryFeedbackRepository } from "@/store/feedbacks/infra/in-memory-fe
 import { FeedbackRepository } from "@/store/feedbacks/models/feedback.repository";
 import { Container } from "inversify";
 
+export interface Dependencies {
+  feedbackRepository: FeedbackRepository
+  accountRepository: AccountRepository
+  commentRepository: CommentRepository
+  idProvider: IdProvider
+}
+
 export function createContainer() {
   const container = new Container({
     defaultScope: 'Singleton'
