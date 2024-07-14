@@ -23,23 +23,17 @@ export class AccountApiRepository implements AccountRepository {
         credentials: "include"
       })
 
-      switch (request.status) {
-        case 201:
-          return {
-            type: ApiResultType.SUCCESS,
-            data: undefined
-          }
-        case 400: {
-          const result = await request.json()
-          const hasFieldErrors = handleApiFieldError(result)
-          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
-            return handleApiError(request.status, result)
-          }
-        } break
-        default:
-          return handleApiError(request.status, await request.json())
+      if(request.status === 201) {
+        return {type: ApiResultType.SUCCESS, data: undefined}
       }
-      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
+      const result = await request.json()
+      if(request.status === 400) {
+        const hasFieldErrors = handleApiFieldError(result)
+        if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+          return hasFieldErrors
+        }
+      }
+      return handleApiError(request.status, result)
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,
@@ -62,23 +56,20 @@ export class AccountApiRepository implements AccountRepository {
         credentials: "include"
       })
 
-      switch (request.status) {
-        case 200:
-          return {
+      if(request.ok) {
+        return {
             type: ApiResultType.SUCCESS,
             data: await request.json() as Account
           }
-        case 400: {
-          const result = await request.json()
-          const hasFieldErrors = handleApiFieldError(result)
-          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
-            return handleApiError(request.status, result)
-          }
-        } break
-        default:
-          return handleApiError(request.status, await request.json())
       }
-      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
+      const result = await request.json()
+      if(request.status === 400) {
+        const hasFieldErrors = handleApiFieldError(result)
+        if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+          return handleApiError(request.status, hasFieldErrors)
+        }
+      }
+      return handleApiError(request.status, result)
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,
@@ -100,10 +91,7 @@ export class AccountApiRepository implements AccountRepository {
           data: await request.json() as Account
         }
       }
-      return {
-        type: ApiResultType.CREDENTIAL_ERROR,
-        data: undefined
-      }
+      return handleApiError(request.status, await request.json())
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,

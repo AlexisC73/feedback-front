@@ -40,18 +40,14 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      switch(request.status) {
-        case 400: {
-          const result = await request.json()
-          const hasFieldErrors = handleApiFieldError(result)
-          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
-            return handleApiError(request.status, result)
-          }
-        } break
-        default:
-          return handleApiError(request.status, await request.json())
+      const result = await request.json()
+      if (request.status === 400) {
+        const hasFieldErrors = handleApiFieldError(result)
+        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
+          return hasFieldErrors
+        }
       }
-      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
+      return handleApiError(request.status, result)
     }
   }
   
@@ -97,7 +93,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
         const result = await request.json()
         return {
           type: ApiResultType.NOT_FOUND,
-          data: "message" in result ? result.message : "Not found"
+          data: "message" in result ? result.message : "Not found feedback"
         }
       }
       return handleApiError(request.status, await request.json())
