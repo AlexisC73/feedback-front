@@ -13,24 +13,21 @@ export function PostCommentComponent ({ feedbackId }: PostCommentComponentProps)
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({})
   const dispatch = useAppDispatch()
 
-  const handlePostComment = (params: PostCommentPayload["data"]) => {
+  const handlePostComment = async (params: PostCommentPayload["data"]) => {
     setErrors({})
-    return new Promise<void>((resolve, reject) => {
-        dispatch(postCommentThunk(params)).then((res) => {
-        if(res.payload?.type === UsecaseResultType.SUCCESS) {
-          resolve(undefined)
+    await dispatch(postCommentThunk(params)).then((res) => {
+      if(res.payload?.type === UsecaseResultType.SUCCESS) {
+        return
+      }
+      if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
+        const errors: {[key: string]: string[]} = {}
+        if(Array.isArray(res.payload.data)) {
+          res.payload.data.forEach((errorField) => {
+            errors[errorField.field] = errorField.errors
+          })
         }
-        reject(undefined)
-        if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
-          const errors: {[key: string]: string[]} = {}
-          if(Array.isArray(res.payload.data)) {
-            res.payload.data.forEach((errorField) => {
-              errors[errorField.field] = errorField.errors
-            })
-          }
-          setErrors(errors)
-        }
-      })
+        setErrors(errors)
+      }
     })
     
   }

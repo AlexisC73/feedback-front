@@ -1,7 +1,7 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { FeedbackCategory, FeedbackStatus } from "../models/feedback";
 import { EditFeedbackPayload } from "./payload/edit-feedback.payload";
-import { ApiResultType, UsecaseErrors, UsecaseFieldError, UsecaseNotFoundError, UsecaseResultType } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseErrors, UsecaseFieldError, UsecaseNotFoundError, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
 export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError | UsecaseNotFoundError}>()("feedbacks/editFeedback", async (feedback: EditFeedbackUsecaseParams, {getState, rejectWithValue, extra: {feedbackRepository}}) => {
@@ -20,14 +20,14 @@ export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Use
   }
 
   if(editFeedbackPayload.data.title === feedbackToUpdate?.title && editFeedbackPayload.data.category === feedbackToUpdate?.category && editFeedbackPayload.data.description === feedbackToUpdate?.description && editFeedbackPayload.data.status === feedbackToUpdate?.status) {
-    return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data}
+    return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} as UsecaseSuccess<EditFeedbackPayload["data"]>
   }
 
   try {
     const result = await feedbackRepository.editFeedback({ category: editFeedbackPayload.category.value, description: editFeedbackPayload.description, id: editFeedbackPayload.id, title: editFeedbackPayload.title, status: editFeedbackPayload.status.value})
     switch(result.type) {
       case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} 
+        return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} as UsecaseSuccess<EditFeedbackPayload["data"]>
       case ApiResultType.CREDENTIAL_ERROR:
         return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined})
       case ApiResultType.UNKNOWN_ERROR:

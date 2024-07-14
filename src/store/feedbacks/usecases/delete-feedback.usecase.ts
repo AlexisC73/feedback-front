@@ -1,4 +1,4 @@
-import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 
@@ -16,7 +16,7 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: U
     const result = await feedbackRepository.deleteFeedback({feedbackId})
     switch(result.type) {
       case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: { feedbackId }}
+        return {type: UsecaseResultType.SUCCESS, data: { feedbackId }} as UsecaseSuccess<{feedbackId: string}>
       case ApiResultType.CREDENTIAL_ERROR:
         return rejectWithValue({
           type: UsecaseResultType.CREDENTIAL_ERROR,

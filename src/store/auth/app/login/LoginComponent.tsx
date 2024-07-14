@@ -12,7 +12,7 @@ export function LoginComponent () {
   const dispatch = useAppDispatch()
   const performLogin = async ({email, password}: {email: string, password: string}) => {
     setFieldsErrors({})
-    dispatch(loginThunk({email, password})).then((res) => {
+    await dispatch(loginThunk({email, password})).then((res) => {
       if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
         const errors: {[key: string]: string[]} = {}
         res.payload?.data?.forEach((errorField) => {

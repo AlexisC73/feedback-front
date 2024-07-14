@@ -16,7 +16,7 @@ export function RegisterComponent () {
 
   const performRegister = async ({email, password, confirmationPassword, displayName, username}: {email: string, password: string, confirmationPassword: string, displayName: string, username: string}) => {
     setErrors({})
-    dispatch(registerThunk({email, password, confirmationPassword, displayName, username})).then(res => {
+    await dispatch(registerThunk({email, password, confirmationPassword, displayName, username})).then(res => {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
         addToast({message: "Account created successfully", type: "success", id: new Date().getTime().toString()})
         navigate("/auth/login")

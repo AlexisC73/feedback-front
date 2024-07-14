@@ -3,12 +3,15 @@ import { useAppDispatch, useAppSelector } from "@/store/store-hooks";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { selectFeedback } from "../../feedback.reducer";
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../../usecases/edit-feedback.usecase";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
+import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function EditFeedbackFormComponent() {
   const params = useParams<{id: string}>()
   const [errors, setErrors] = useState<{[key: string]: string[]}>({})
+  const {addToast} = useContext(ToastCtx)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const feedback = useAppSelector(selectFeedback(params.id!))
@@ -22,19 +25,19 @@ export function EditFeedbackFormComponent() {
       }
       if(payload.type === UsecaseResultType.SUCCESS) {
         return navigate(`/feedbacks/${params.id}`)
-      }
-      if(type === editFeedbackThunk.rejected.type) {
-        if(payload.type === UsecaseResultType.FIELD_ERROR) {
-          const errors: {[key: string]: string[]} = {}
+      } else if(payload.type === UsecaseResultType.FIELD_ERROR) {
+        const errors: {[key: string]: string[]} = {}
           if(Array.isArray(payload.data)) {
             payload.data.forEach(errorField => {
               errors[errorField.field]= errorField.errors
             })
           }
           setErrors(errors)
-        }
+      } else if(payload.type === UsecaseResultType.NOT_FOUND) {
+        addToast({message: "Feedback not found", type: "error", id: new Date().getTime().toString()})
+      } else {  
+        handleUsecaseError(addToast, payload)
       }
-      
     })
   }
 
