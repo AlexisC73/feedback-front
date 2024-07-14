@@ -39,7 +39,6 @@ export class AccountApiRepository implements AccountRepository {
           }
       }
     } catch(e) {
-      console.log(e)
       return {
         type: ApiResultType.UNKNOWN_ERROR,
         data: undefined
