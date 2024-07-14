@@ -29,7 +29,7 @@ export class AccountApiRepository implements AccountRepository {
       const result = await request.json()
       if(request.status === 400) {
         const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
           return hasFieldErrors
         }
       }
@@ -65,7 +65,7 @@ export class AccountApiRepository implements AccountRepository {
       const result = await request.json()
       if(request.status === 400) {
         const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
           return handleApiError(request.status, hasFieldErrors)
         }
       }
