@@ -5,14 +5,14 @@ import { ApiResultType, UsecaseResult, UsecaseResultType } from "@/store/@shared
 import { FieldError } from "@/store/errors/fields-error";
 
 export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: RegisterThunkResult}>()("auth/register", async (params: RegisterUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
-  const registerPayload = new RegisterPayload({email: params.email, password: params.password, confirmationPassword: params.confirmationPassword})
+  const registerPayload = new RegisterPayload({email: params.email, password: params.password, confirmationPassword: params.confirmationPassword, displayName: params.displayName, username: params.username})
 
   if (!registerPayload.validate()) {
     const result: RegisterThunkResult = {type: UsecaseResultType.FIELD_ERROR, data: registerPayload.errors} as RegisterThunkFieldError
     return rejectWithValue(result)
   }
   try {
-    const result = await accountRepository.create({email: params.email, password: params.password})
+    const result = await accountRepository.create({email: registerPayload.email, password: registerPayload.password, displayName: registerPayload.displayName, username: registerPayload.username})
     switch(result.type) {
       case ApiResultType.SUCCESS:
         return {type: UsecaseResultType.SUCCESS, data: undefined} as RegisterThunkSuccess
@@ -41,5 +41,7 @@ type RegisterCredentialError = UsecaseResult<UsecaseResultType.CREDENTIAL_ERROR,
 export interface RegisterUsecaseParams {
   email: string,
   password: string,
-  confirmationPassword: string
+  confirmationPassword: string,
+  displayName: string
+  username: string
 }

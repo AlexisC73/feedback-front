@@ -8,7 +8,7 @@ import { api } from "@/config/api";
 
 @injectable()
 export class AccountApiRepository implements AccountRepository {
-  async create(params: { email: string; password: string; }): Promise<RegisterApiResult> {
+  async create(params: { email: string; password: string; displayName: string, username: string }): Promise<RegisterApiResult> {
     try {
       const request = await fetch(`${api.endpoint}/auth/register`, {
         method: "POST",
@@ -17,7 +17,9 @@ export class AccountApiRepository implements AccountRepository {
         },
         body: JSON.stringify({
           email: params.email,
-          password: params.password
+          password: params.password,
+          displayName: params.displayName,
+          username: params.username
         }),
         credentials: "include"
       })

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button/button";
 import { useState } from "react";
 
 interface RegisterFormProps {
-  registerFn: (props: {email: string, password: string, confirmationPassword: string}) => Promise<void>
+  registerFn: (props: {email: string, password: string, confirmationPassword: string, displayName: string, username: string}) => Promise<void>
   fieldsErrors: {[key: string]: string[]}
 }
 
@@ -22,7 +22,9 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
     const email = formData.get("email")?.toString() ?? ""
     const password = formData.get("password")?.toString() ?? ""
     const confirmationPassword = formData.get("confirmation-password")?.toString() ?? ""
-    registerFn({ email, password, confirmationPassword}).finally(() => setIsProcessing(false))
+    const displayName = formData.get("display-name")?.toString() ?? ""
+    const username = formData.get("username")?.toString() ?? ""
+    registerFn({ email, password, confirmationPassword, displayName, username}).finally(() => setIsProcessing(false))
   }
   
   return (
@@ -40,6 +42,14 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
       <FormGroup>
         <InputHeader htmlFor="confirmation-password" label="Verification password" description="Re-type your password" />
         <Input name="confirmation-password" type="password" errors={fieldsErrors.confirmationPassword} />
+      </FormGroup>
+      <FormGroup>
+        <InputHeader htmlFor="display-name" label="Display Name" description="Your display name" />
+        <Input name="display-name" errors={fieldsErrors.displayName} />
+      </FormGroup>
+      <FormGroup>
+        <InputHeader htmlFor="username" label="Username" description="Need to be unique" />
+        <Input name="username" errors={fieldsErrors.username} />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">
         <button disabled={isProcessing} type="submit" className="w-full md:order-last">

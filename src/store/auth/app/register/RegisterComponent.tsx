@@ -11,9 +11,9 @@ export function RegisterComponent () {
 
   const [errors, setErrors] = useState<{[key: string]: string[]}>({})
 
-  const performRegister = async ({email, password, confirmationPassword}: {email: string, password: string, confirmationPassword: string}) => {
+  const performRegister = async ({email, password, confirmationPassword, displayName, username}: {email: string, password: string, confirmationPassword: string, displayName: string, username: string}) => {
     setErrors({})
-    dispatch(registerThunk({email, password, confirmationPassword})).then(res => {
+    dispatch(registerThunk({email, password, confirmationPassword, displayName, username})).then(res => {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
         navigate("/auth/login") // TODO: show a success message as a toast ?
       } 

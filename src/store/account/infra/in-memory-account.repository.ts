@@ -8,12 +8,12 @@ export class InMemoryAccountRepository implements AccountRepository {
   accounts: AccountWithPassword[] = []
   loggedAccount: Account | undefined
 
-  async create(params: { email: string; password: string; }): Promise<RegisterApiResult> {
+  async create(params: { email: string; password: string; displayName: string, username: string }): Promise<RegisterApiResult> {
     const alreadyExists = this.accounts.find(a => a.email === params.email)
     if(alreadyExists) {
       return {type: ApiResultType.CREDENTIAL_ERROR, data: "Email already exists"}
     }
-    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER, avatar: "https://example.com/avatar.png"})
+    this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER, avatar: "https://example.com/avatar.png", displayName: params.displayName, username: params.username})
     return {type: ApiResultType.SUCCESS, data: undefined}
   }
 
@@ -23,7 +23,7 @@ export class InMemoryAccountRepository implements AccountRepository {
       return {type: ApiResultType.CREDENTIAL_ERROR, data: "Invalid email or password"}
     }
 
-    this.loggedAccount = {email: account.email, id: account.id, role: account.role, avatar: account.avatar}
+    this.loggedAccount = {email: account.email, id: account.id, role: account.role, avatar: account.avatar, displayName: account.displayName, username: account.username}
     
     return {
       type: ApiResultType.SUCCESS,
@@ -31,7 +31,9 @@ export class InMemoryAccountRepository implements AccountRepository {
         email: account.email,
         id: account.id,
         role: account.role,
-        avatar: account.avatar
+        avatar: account.avatar,
+        displayName: account.displayName,
+        username: account.username
       }}
   }
 
