@@ -31,7 +31,8 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
     const postCommentParams: PostCommentParams = {
       id: payload.id,
       content: payload.commentMessage.value,
-      feedbackId: payload.feedbackId
+      feedbackId: payload.feedbackId,
+      replyTo: null
     }
 
     const result = await commentRepository.postComment(postCommentParams)
@@ -41,7 +42,9 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
       feedbackId: payload.feedbackId,
       sender: {
         avatar: account.avatar,
-        name: account.email
+        displayName: account.displayName,
+        id: account.id,
+        username: account.username
       },
       replyTo: null
     }

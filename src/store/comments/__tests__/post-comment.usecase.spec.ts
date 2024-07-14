@@ -24,8 +24,15 @@ describe("Post comment usecase", () => {
     const authAccount = authAccountBuilder().withId("2").withEmail("user@email.fr").build()
     const newComment = commentBuilder().withId("45").withSender({
       avatar: authAccount.avatar,
-      name: authAccount.email
-    }).withFeedbackId("1").withSender({name: authAccount.email, avatar: authAccount.avatar}).build()
+      displayName: authAccount.displayName,
+      id: authAccount.id,
+      username: authAccount.username
+    }).withFeedbackId("1").withSender({
+      avatar: authAccount.avatar,
+      displayName: authAccount.displayName,
+      id: authAccount.id,
+      username: authAccount.username
+    }).build()
 
     commentFixture.givenNoCommentsExist()
     feedbackFixture.givenFeedbacksExists([existingFeedback])

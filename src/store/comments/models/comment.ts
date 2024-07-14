@@ -1,13 +1,21 @@
 export interface Comment {
   id: string
   sender: {
-    name: string
+    id: string
+    username: string
+    displayName: string
     avatar: string | null
   }
   content: string
   feedbackId: string
   replyTo: {
-    username: string,
-    mainCommentId: string
+    id: string
+    mainCommentId: string,
+    user: {
+      id: string,
+      username: string,
+      displayName: string,
+      avatar: string | null
+    }
   } | null
 }

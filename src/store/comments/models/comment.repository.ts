@@ -11,6 +11,10 @@ export type PostCommentParams = {
   id: string,
   content: string,
   feedbackId: string
+  replyTo: {
+    userId: string,
+    mainCommentId: string
+  } | null
 }
 
 export type PostCommentResponse = ApiFieldError | ApiSuccessResult<undefined> | ApiCredentialError | ApiUnknownError

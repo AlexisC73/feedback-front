@@ -22,7 +22,9 @@ export class InMemoryCommentRepository implements CommentRepository {
       replyTo: null,
       sender: {
         avatar: account.avatar,
-        name: account.email
+        displayName: account.displayName,
+        id: account.id,
+        username: account.username
       }
     }
 
