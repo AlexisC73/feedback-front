@@ -1,5 +1,5 @@
 import { Account } from './account'
-import { ApiCredentialError, ApiFieldError, ApiSuccessResult, ApiUnknownError } from '@/store/@shared/models/resultType'
+import { ApiErrors, ApiSuccessResult } from '@/store/@shared/models/resultType'
 
 export abstract class AccountRepository {
   abstract create(params: {email: string, password: string, displayName: string, username: string}): Promise<RegisterApiResult>
@@ -8,6 +8,6 @@ export abstract class AccountRepository {
 }
 
 
-export type LoginApiResult = ApiFieldError | ApiSuccessResult<Account> | ApiUnknownError | ApiCredentialError
-export type RegisterApiResult = ApiFieldError | ApiSuccessResult<undefined> | ApiUnknownError | ApiCredentialError
-export type GetMeApiResult = ApiSuccessResult<Account> | ApiUnknownError | ApiCredentialError
+export type LoginApiResult =ApiSuccessResult<Account> | ApiErrors
+export type RegisterApiResult = ApiSuccessResult<undefined> | ApiErrors
+export type GetMeApiResult = ApiSuccessResult<Account> | ApiErrors

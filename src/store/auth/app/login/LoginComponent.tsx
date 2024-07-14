@@ -1,11 +1,14 @@
 import { LoginForm } from "@/components/form/login-form/LoginForm";
 import { useAppDispatch } from "@/store/store-hooks";
 import { loginThunk } from "../../usecases/login.usecase";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
+import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function LoginComponent () {
   const [fieldsErrors, setFieldsErrors] = useState<{[key: string]: string[]}>({})
+  const {addToast} = useContext(ToastCtx)
   const dispatch = useAppDispatch()
   const performLogin = async ({email, password}: {email: string, password: string}) => {
     setFieldsErrors({})
@@ -16,8 +19,10 @@ export function LoginComponent () {
           errors[errorField.field] = errorField.errors
         })
         setFieldsErrors(errors)
-      } else if(res.payload?.type === UsecaseResultType.CREDENTIAL_ERROR) {
-        console.log("Invalid credentials, or account does not exist") // TODO add error message to the UI. ex: toast ?
+      } else if(res.payload?.type === UsecaseResultType.SUCCESS) {
+        return
+      } else {
+        handleUsecaseError(addToast, res.payload)
       }
     })
   }
