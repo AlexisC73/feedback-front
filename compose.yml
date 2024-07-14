@@ -19,7 +19,7 @@ services:
       - PORT=8080
       - HOST=0.0.0.0
       - LOG_LEVEL=info
-      - APP_KEY=RfjPQOQqEghTg77BWOugEtbhW2AIfRX6
+      - APP_KEY=ThisKeyUsedOnlyForTesting
       - NODE_ENV=test
       - DB_HOST=db
       - DB_PORT=5432
