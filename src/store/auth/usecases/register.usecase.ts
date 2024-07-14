@@ -1,13 +1,13 @@
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 import { createAppAsyncThunk } from "../../create-app-thunk";
 import { RegisterPayload } from "./payload/register.payload";
-import { ApiResultType, UsecaseCredentialError, UsecaseFieldError, UsecaseForbiddenError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseFieldError, UsecaseForbiddenError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
 
-export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: RegisterThunkResult}>()("auth/register", async (params: RegisterUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
+export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError}>()("auth/register", async (params: RegisterUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
   const registerPayload = new RegisterPayload({email: params.email, password: params.password, confirmationPassword: params.confirmationPassword, displayName: params.displayName, username: params.username})
 
   if (!registerPayload.validate()) {
-    const result: RegisterThunkResult = {type: UsecaseResultType.FIELD_ERROR, data: registerPayload.errors} as UsecaseFieldError
+    const result: UsecaseFieldError = {type: UsecaseResultType.FIELD_ERROR, data: registerPayload.errors} as UsecaseFieldError
     return rejectWithValue(result)
   }
   try {
@@ -30,9 +30,6 @@ export const registerThunk = createAppAsyncThunk.withTypes<{rejectValue: Registe
     return {type: UsecaseResultType.UNKNOWN_ERROR} as UsecaseUnknownError
   }
 })
-
-type RegisterThunkResult = UsecaseSuccess<undefined> | UsecaseUnknownError | UsecaseForbiddenError | UsecaseFieldError
-
 
 export interface RegisterUsecaseParams {
   email: string,

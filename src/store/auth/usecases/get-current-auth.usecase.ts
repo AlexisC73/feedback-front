@@ -1,8 +1,8 @@
-import { ApiResultType, UsecaseCredentialError, UsecaseResultType, UsecaseUnknownError } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 
-export const getCurrentAuthThunk = createAppAsyncThunk.withTypes<{rejectValue: GetCurrentAuthReject}>()("auth/getCurrentAuth", async (_, {extra: { accountRepository }, rejectWithValue}) => {
+export const getCurrentAuthThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("auth/getCurrentAuth", async (_, {extra: { accountRepository }, rejectWithValue}) => {
   try {
     const result = await accountRepository.getMe()
     switch(result.type) {
@@ -21,6 +21,11 @@ export const getCurrentAuthThunk = createAppAsyncThunk.withTypes<{rejectValue: G
           type: UsecaseResultType.UNKNOWN_ERROR,
           data: undefined
         })
+      case ApiResultType.FORBIDDEN:
+        return rejectWithValue({
+          type: UsecaseResultType.FORBIDDEN,
+          data: result.data
+        })
       default:
         exhaustiveGuard(result)
     }
@@ -31,5 +36,3 @@ export const getCurrentAuthThunk = createAppAsyncThunk.withTypes<{rejectValue: G
     })
   }
 })
-
-export type GetCurrentAuthReject = UsecaseUnknownError | UsecaseCredentialError

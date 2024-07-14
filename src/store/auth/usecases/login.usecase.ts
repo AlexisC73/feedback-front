@@ -1,14 +1,14 @@
 import { createAppAsyncThunk } from "../../create-app-thunk";
 import { LoginPayload } from "./payload/login.payload";
 import { Account } from "@/store/account/models/account";
-import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseFieldError, UsecaseForbiddenError, UsecaseNotFoundError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseFieldError, UsecaseForbiddenError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
-export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: LoginThunkResult}>()("auth/login", async (params: LoginUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
+export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError}>()("auth/login", async (params: LoginUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
   const loginPayload = new LoginPayload({email: params.email, password: params.password})
 
   if (!loginPayload.validate()) {
-    const result: LoginThunkResult = {type: UsecaseResultType.FIELD_ERROR, data: loginPayload.errors}
+    const result: UsecaseFieldError = {type: UsecaseResultType.FIELD_ERROR, data: loginPayload.errors}
     return rejectWithValue(result)
   }
   
@@ -27,8 +27,6 @@ export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: LoginThunk
           return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data} as UsecaseCredentialError)
         case ApiResultType.FORBIDDEN:
           return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: "You are not allowed to Login"} as UsecaseForbiddenError)
-        case ApiResultType.NOT_FOUND:
-          return rejectWithValue({type: UsecaseResultType.NOT_FOUND, data: result.data} as UsecaseNotFoundError)
         default:
           exhaustiveGuard(result)
       }
@@ -37,9 +35,6 @@ export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: LoginThunk
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined} as UsecaseUnknownError)
   }
 })
-
-export type LoginThunkResult = UsecaseSuccess<Account> | UsecaseErrors
-
 
 export interface LoginUsecaseParams {
   email: string,

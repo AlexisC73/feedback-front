@@ -1,7 +1,7 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
 import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { Account } from "../models/account";
-import { handleApiError } from "@/store/@shared/utiles/badRequestError";
+import { handleApiError, handleApiFieldError } from "@/store/@shared/utiles/badRequestError";
 import { injectable } from "inversify";
 import { api } from "@/config/api";
 
@@ -29,9 +29,17 @@ export class AccountApiRepository implements AccountRepository {
             type: ApiResultType.SUCCESS,
             data: undefined
           }
+        case 400: {
+          const result = await request.json()
+          const hasFieldErrors = handleApiFieldError(result)
+          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+            return handleApiError(request.status, result)
+          }
+        } break
         default:
           return handleApiError(request.status, await request.json())
       }
+      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,
@@ -60,9 +68,17 @@ export class AccountApiRepository implements AccountRepository {
             type: ApiResultType.SUCCESS,
             data: await request.json() as Account
           }
+        case 400: {
+          const result = await request.json()
+          const hasFieldErrors = handleApiFieldError(result)
+          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+            return handleApiError(request.status, result)
+          }
+        } break
         default:
           return handleApiError(request.status, await request.json())
       }
+      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,

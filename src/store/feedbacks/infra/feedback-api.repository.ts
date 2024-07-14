@@ -4,6 +4,7 @@ import { UpvotePayload } from "../usecases/payload/upvote.payload";
 import { Feedback } from "../models/feedback";
 import { injectable } from "inversify";
 import { api } from "@/config/api";
+import { handleApiError, handleApiFieldError } from "@/store/@shared/utiles/badRequestError";
 
 @injectable()
 export class FeedbackApiRepository implements FeedbackRepository {
@@ -19,10 +20,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: data as Feedback[]
       }
     } else {
-      return {
-        type: ApiResultType.UNKNOWN_ERROR,
-        data: undefined
-      }
+      return handleApiError(request.status, await request.json())
     }
   }
   
@@ -42,10 +40,18 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      return {
-        type: ApiResultType.UNKNOWN_ERROR,
-        data: undefined
+      switch(request.status) {
+        case 400: {
+          const result = await request.json()
+          const hasFieldErrors = handleApiFieldError(result)
+          if(hasFieldErrors.type !== ApiResultType.FIELD_ERROR) {
+            return handleApiError(request.status, result)
+          }
+        } break
+        default:
+          return handleApiError(request.status, await request.json())
       }
+      return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
     }
   }
   
@@ -61,10 +67,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      return {
-        type: ApiResultType.UNKNOWN_ERROR,
-        data: undefined
-      }
+      return handleApiError(request.status, await request.json())
     }
   }
 
@@ -83,10 +86,21 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      return {
-        type: ApiResultType.UNKNOWN_ERROR,
-        data: undefined
+      if(request.status === 400) {
+        const result = await request.json()
+        const hasFieldErrors = handleApiFieldError(result)
+        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
+          return hasFieldErrors
+        }
+        return handleApiError(request.status, result)
+      } else if (request.status === 404) {
+        const result = await request.json()
+        return {
+          type: ApiResultType.NOT_FOUND,
+          data: "message" in result ? result.message : "Not found"
+        }
       }
+      return handleApiError(request.status, await request.json())
     }
   }
 
@@ -106,10 +120,14 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      return {
-        type: ApiResultType.UNKNOWN_ERROR,
-        data: undefined
+      if(request.status === 404) {
+        const result = await request.json()
+        return {
+          type: ApiResultType.NOT_FOUND,
+          data: "message" in result ? result.message : "Not found"
+        }
       }
+      return handleApiError(request.status, await request.json())
     }
   }
 }

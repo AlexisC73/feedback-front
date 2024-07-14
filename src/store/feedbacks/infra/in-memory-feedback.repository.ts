@@ -36,7 +36,7 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
   async editFeedback({id, category, description, status, title}: EditFeedbackParams): Promise<EditFeedbackApiResult> {
     const feedback = this.feedbacks.find(f => f.id === id)
     if(!feedback) {
-      return {type: ApiResultType.NOT_FOUND, data: undefined}
+      return {type: ApiResultType.NOT_FOUND, data: "The feedback was not found"}
     }
     const editedFeedback: Feedback = {...feedback, category, description, status, title}
     this.feedbacks = this.feedbacks.map(f => f.id === editedFeedback.id ? editedFeedback : f)
@@ -47,7 +47,7 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
   async upvote({feedbackId, upvote}: UpvoteFeedbackParams): Promise<UpvoteApiResult> {
     const feedbackIndex = this.feedbacks.findIndex(f => f.id === feedbackId)
     if(feedbackIndex === -1) {
-      return {type: ApiResultType.NOT_FOUND, data: undefined}
+      return {type: ApiResultType.NOT_FOUND, data: "The feedback was not found"}
     }
     this.feedbacks = this.feedbacks.map(f => f.id === feedbackId ? {...f, upvoted: upvote, upvotes: f.upvotes + (upvote ? 1 : -1)} : f)
     return {type: ApiResultType.SUCCESS, data: undefined}
@@ -56,7 +56,7 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
   async deleteFeedback(params: { feedbackId: string; }): Promise<DeleteFeedbackApiResult> {
     const feedbackIndex = this.feedbacks.findIndex(f => f.id === params.feedbackId)
     if(feedbackIndex === -1) {
-      return {type: ApiResultType.NOT_FOUND, data: undefined}
+      return {type: ApiResultType.SUCCESS, data: undefined}
     }
     this.feedbacks = this.feedbacks.filter(f => f.id !== params.feedbackId)
     return {type: ApiResultType.SUCCESS, data: undefined}

@@ -20,7 +20,7 @@ export type UsecaseSuccess<T> = UsecaseResult<UsecaseResultType.SUCCESS, T>
 export type UsecaseCredentialError = UsecaseResult<UsecaseResultType.CREDENTIAL_ERROR, undefined>
 export type UsecaseNotFoundError = UsecaseResult<UsecaseResultType.NOT_FOUND, string>
 export type UsecaseForbiddenError = UsecaseResult<UsecaseResultType.FORBIDDEN, string | undefined>
-export type UsecaseErrors = UsecaseFieldError | UsecaseUnknownError | UsecaseCredentialError | UsecaseNotFoundError | UsecaseForbiddenError
+export type UsecaseErrors = UsecaseUnknownError | UsecaseCredentialError | UsecaseForbiddenError
 
 export type ApiResult<T, P> =  {
   type: T,
@@ -43,4 +43,4 @@ export type ApiCredentialError = ApiResult<ApiResultType.CREDENTIAL_ERROR, strin
 export type ApiNotFoundError = ApiResult<ApiResultType.NOT_FOUND, string>
 export type ApiForbiddenError = ApiResult<ApiResultType.FORBIDDEN, string>
 
-export type ApiErrors = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiNotFoundError | ApiForbiddenError
+export type ApiErrors = ApiUnknownError | ApiCredentialError | ApiForbiddenError

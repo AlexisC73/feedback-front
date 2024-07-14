@@ -1,4 +1,4 @@
-import { ApiCredentialError, ApiFieldError, ApiNotFoundError, ApiSuccessResult, ApiUnknownError } from "@/store/@shared/models/resultType";
+import { ApiErrors, ApiFieldError, ApiNotFoundError, ApiSuccessResult } from "@/store/@shared/models/resultType";
 import { Feedback, FeedbackCategory, FeedbackStatus } from "./feedback";
 
 export abstract class FeedbackRepository {
@@ -13,8 +13,8 @@ export type AddFeedbackParams = {title: string, description: string, category: F
 export type EditFeedbackParams = {title: string, description: string, category: FeedbackCategory, id: string, status: FeedbackStatus}
 export type UpvoteFeedbackParams = {feedbackId: string, upvote: boolean}
 
-export type GetFeedbacksApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<Feedback[]>
-export type AddFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void>
-export type EditFeedbackApiResult = ApiFieldError | ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
-export type UpvoteApiResult = ApiUnknownError | ApiCredentialError | ApiSuccessResult<void> | ApiNotFoundError
-export type DeleteFeedbackApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiCredentialError | ApiUnknownError
+export type GetFeedbacksApiResult = ApiSuccessResult<Feedback[]> | ApiErrors
+export type AddFeedbackApiResult = ApiSuccessResult<void> | ApiErrors | ApiFieldError
+export type EditFeedbackApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiFieldError | ApiErrors
+export type UpvoteApiResult = ApiSuccessResult<void> | ApiNotFoundError | ApiErrors
+export type DeleteFeedbackApiResult = ApiSuccessResult<void> | ApiErrors

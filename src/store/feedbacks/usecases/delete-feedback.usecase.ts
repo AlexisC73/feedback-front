@@ -1,15 +1,15 @@
-import { ApiResultType, UsecaseCredentialError, UsecaseNotFoundError, UsecaseResultType, UsecaseUnknownError } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 
-export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: DeleteFeedbackRejectResult}>()("feedbacks/delete", async ({ feedbackId }: DeleteFeedbackUsecaseParams, { rejectWithValue, getState, extra: { feedbackRepository } }) => {
+export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/delete", async ({ feedbackId }: DeleteFeedbackUsecaseParams, { rejectWithValue, getState, extra: { feedbackRepository } }) => {
   const account = getState().auth.account
 
   if(!account) {
     return rejectWithValue({
       type: UsecaseResultType.CREDENTIAL_ERROR,
       data: undefined
-    })
+    } as UsecaseCredentialError)
   }
 
   try {
@@ -17,11 +17,6 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: D
     switch(result.type) {
       case ApiResultType.SUCCESS:
         return {type: UsecaseResultType.SUCCESS, data: { feedbackId }}
-      case ApiResultType.NOT_FOUND:
-        return rejectWithValue({
-          type: UsecaseResultType.NOT_FOUND,
-          data: undefined
-        })
       case ApiResultType.CREDENTIAL_ERROR:
         return rejectWithValue({
           type: UsecaseResultType.CREDENTIAL_ERROR,
@@ -31,6 +26,11 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: D
         return rejectWithValue({
           type: UsecaseResultType.UNKNOWN_ERROR,
           data: undefined
+        })
+      case ApiResultType.FORBIDDEN:
+        return rejectWithValue({
+          type: UsecaseResultType.FORBIDDEN,
+          data: "You are not allowed to delete this feedback"
         })
       default:
         exhaustiveGuard(result)
@@ -42,8 +42,6 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: D
     })
   }
 })
-
-export type DeleteFeedbackRejectResult = UsecaseCredentialError | UsecaseUnknownError | UsecaseNotFoundError
 
 export type DeleteFeedbackUsecaseParams = {
     feedbackId: string;
