@@ -22,10 +22,10 @@ export function SuggestionFeedbackList ({ tagFilter, sortFilter }: SuggestionFee
   
   return (
     <>
-      <div className="md:px-10 lg:px-0">
+      <div className="md:px-10 xl:px-0">
         <Suggestions suggestionCount={sortedFeedbacks.length} />
       </div>
-      <div className="px-6 py-8 md:px-10 md:py-6 lg:px-0">
+      <div className="px-6 py-8 md:px-10 md:py-6 xl:px-0">
         {sortedFeedbacks.length > 0 ? <FeedbackList feedbacks={sortedFeedbacks} /> : <EmptyFeedback />}
       </div>
     </>

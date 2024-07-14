@@ -13,7 +13,7 @@ export function Header () {
 
   return (
     <>
-      <header className="flex justify-between lg:flex-col lg:gap-y-6">
+      <header className="flex justify-between xl:flex-col xl:gap-y-6">
         <HeaderMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
         <div className="hidden md:flex"><TagFilterComponent /></div>
         <div className="hidden md:flex"><RoadmapState /></div>
@@ -24,7 +24,7 @@ export function Header () {
 }
 
 export function HeaderMenu ({menuOpen, toggleMenu}: {menuOpen?: boolean, toggleMenu?: () => void}) {
-   return <div className="h-18 w-full bg-custom-radial flex items-center justify-between px-6 md:w-55.75 md:h-44.5 md:p-6 md:items-end md:rounded-2.5 lg:h-137px lg:w-63.75">
+   return <div className="h-18 w-full bg-custom-radial flex items-center justify-between px-6 md:w-55.75 md:h-44.5 md:p-6 md:items-end md:rounded-2.5 xl:h-137px xl:w-63.75">
     <div>
       <h1 className="text-2xl font-bold text-white text-3.75 line-height-5.5 font-bold -tracking-0.19px">Frontend Mentor</h1>
       <p className="text-2xl font-bold text-white text-3.25 line-height-4.75 font-medium text-opacity-75">Feedback Board</p>

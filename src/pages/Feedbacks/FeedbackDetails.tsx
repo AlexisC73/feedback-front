@@ -16,7 +16,7 @@ export function FeedbackDetailsPage () {
 
   return (
     <Layout.emptyLayout>
-      <div className="flex flex-col gap-y-6 p-6 md:px-10 lg:max-w-182.5 lg:px-0 lg:mx-auto w-full">
+      <div className="flex flex-col gap-y-6 p-6 md:px-10 xl:max-w-182.5 xl:px-0 xl:mx-auto w-full">
         <div className="flex justify-between">
           <Link to="/"><GoBackButton /></Link>
           <button>
