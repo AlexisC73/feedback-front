@@ -11,6 +11,7 @@ services:
 
   backend:
     image: alexisc73/feedback-back:development
+    pull_policy: always
     restart: always
     ports:
       - 3333:8080
