@@ -48,7 +48,7 @@ describe("Test API account", () => {
       email: "test@test.fr",
       password: expect.any(String),
       id: expect.any(String),
-      displayName: "display name",
+      display_name: "display name",
       username: "username",
     })
 
