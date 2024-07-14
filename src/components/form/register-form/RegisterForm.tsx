@@ -33,7 +33,7 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
       <p className="text-4.5 font-bold text-#3A4374 line-height-6.5 mb-6">Create your account</p>
       <FormGroup>
         <InputHeader htmlFor="email" label="Mail address" />
-        <Input name="email" errors={fieldsErrors.email} />
+        <Input name="email" type="email" errors={fieldsErrors.email} />
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="password" label="Password" />
