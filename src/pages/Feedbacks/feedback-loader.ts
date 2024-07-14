@@ -4,7 +4,7 @@ import { AppStore } from "@/store/store";
 import { LoaderFunction } from "react-router-dom";
 
 export const createFeedbackLoader = ({store}: {store: AppStore}): LoaderFunction => async () => {
-  await store.dispatch(getCurrentAuthThunk())
   store.dispatch(getFeedbacksThunk())
+  store.dispatch(getCurrentAuthThunk())
   return null
 }

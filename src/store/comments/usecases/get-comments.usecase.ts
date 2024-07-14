@@ -1,18 +1,9 @@
-import { ApiResultType, UsecaseCredentialError, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
+import { ApiResultType, UsecaseCredentialError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { Comment } from "../models/comment";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
-export const getCommentsForFeedbackThunk = createAppAsyncThunk.withTypes<{ rejectValue: GetThunkRejectType}>()("comments/getAll", async ({feedbackId}: GetFeedbackCommentParams, { getState, rejectWithValue, extra: { commentRepository } }) => {
-
-  const account = getState().auth.account
-
-  if(!account) {
-    return rejectWithValue({
-      type: UsecaseResultType.CREDENTIAL_ERROR,
-      data: undefined
-    })
-  }
+export const getCommentsForFeedbackThunk = createAppAsyncThunk.withTypes<{ rejectValue: GetThunkRejectType}>()("comments/getAll", async ({feedbackId}: GetFeedbackCommentParams, { rejectWithValue, extra: { commentRepository } }) => {
 
   const result = await commentRepository.getForFeedback({feedbackId})
   switch(result.type) {
@@ -22,21 +13,21 @@ export const getCommentsForFeedbackThunk = createAppAsyncThunk.withTypes<{ rejec
         data: result.data
       } as UsecaseSuccess<Comment[]>
     case ApiResultType.CREDENTIAL_ERROR:
-      return {
+      return rejectWithValue({
         type: UsecaseResultType.CREDENTIAL_ERROR,
         data: undefined
-      }
+      })
     case ApiResultType.UNKNOWN_ERROR:
-      return {
+      return rejectWithValue({
         type: UsecaseResultType.UNKNOWN_ERROR,
         data: undefined
-      }
+      })
     default:
       exhaustiveGuard(result)
   }
 })
 
-export type GetThunkRejectType = UsecaseCredentialError
+export type GetThunkRejectType = UsecaseCredentialError | UsecaseUnknownError
 export type GetFeedbackCommentParams = {
   feedbackId: string
 }
