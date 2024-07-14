@@ -6,12 +6,9 @@ export function handleUsecaseError(addToast: (toast: Toast) => void, result?: Us
     addToast({message: "An error occurred, please try again later", type: "error", id: new Date().getTime().toString()})
   }
   if(result?.type === UsecaseResultType.CREDENTIAL_ERROR) {
-    addToast({message: "Email or password invalid", type: "error", id: new Date().getTime().toString()})
+    addToast({message: "Email or password invalid", type: "error", id: new Date().getTime().toString(), autoClose: true})
   }
   if(result?.type === UsecaseResultType.FORBIDDEN) {
     addToast({message: result.data ?? "You are not allowed to do this.", type: "error", id: new Date().getTime().toString()})
-  }
-  if(result?.type === UsecaseResultType.NOT_FOUND) {
-    addToast({message: result.data, type: "error", id: new Date().getTime().toString()})
   }
 }

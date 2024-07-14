@@ -6,9 +6,9 @@ export function ToastList() {
   const {toasts, deleteToast} = useContext(ToastCtx)
 
   return (
-    <ul className="toast-list absolute right-10 top-4 flex flex-col gap-y-4">
+    <ul className="toast-list absolute right-10 top-4 flex flex-col gap-y-4 z-50">
       {toasts.map(toast => (
-        <ToastItem closeToast={() => deleteToast(toast.id)} key={toast.id} toast={toast} />
+        <ToastItem closeToast={deleteToast} key={toast.id} toast={toast} />
       ))}
     </ul>
   )

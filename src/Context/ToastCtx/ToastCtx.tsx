@@ -1,10 +1,11 @@
 import { ToastList } from "@/components/Toast/ToastList/ToastList"
-import { createContext, PropsWithChildren, useState } from "react"
+import { createContext, PropsWithChildren, useCallback, useState } from "react"
 
 export interface Toast {
   type: 'success' | 'error' | 'info' | 'warning'
   message: string
-  id: string
+  id: string,
+  autoClose?: boolean
 }
 
 interface ToastCtxType {
@@ -26,9 +27,9 @@ export const ToastContextProvider = ({children}: PropsWithChildren) => {
     setToasts([...toasts, toast])
   }
 
-  const deleteToast = (id: string) => {
+  const deleteToast = useCallback((id: string) => {
     setToasts(prev => prev.filter(toast => toast.id !== id))
-  }
+  }, [])
 
   const toastContext: ToastCtxType = {
     toasts,
