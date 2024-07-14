@@ -52,7 +52,7 @@ export function ToastItem ({toast, closeToast}: {toast: Toast, closeToast: (id: 
           <ToastCloseIcon />
       </button>
       <div className="left-0 right-0 h-0.75 absolute bottom-0 overflow-hidden">
-        <div className={`w-full h-full rounded-lg ${style[toast.type].slideColor} ${toast.autoClose ? "toast-close-anim" : ""}`}></div>
+        <div className={`w-full h-full rounded-lg ${style[toast.type].slideColor} ${toast.autoClose ? "toast-close-anim" : "hidden"}`}></div>
       </div>
     </div>
   )
