@@ -9,6 +9,7 @@ import { useState } from "react";
 import { EditFeedbackUsecaseParams } from "@/store/feedbacks/usecases/edit-feedback.usecase";
 import { PenIcon } from "@/assets/icons";
 import { DeleteFeedbackButtonState } from "@/store/feedbacks/app/DeleteFeedbackButton/DeleteFeedbackButton";
+import { Link } from "react-router-dom";
 
 export interface EditFeedbackFormProps {
   feedback: Feedback,
@@ -74,7 +75,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
             <DeleteFeedbackButtonState feedbackId={feedback.id} />
             <div className="order-first flex flex-col gap-y-4 md:order-last md:flex-row md:gap-x-4">
               <button disabled={isProcessing} type="submit" className="md:w-36 md:order-last"><Button isLoading={isProcessing} fullWidth>Save Changes</Button></button>
-              <div className="md:w-23.25"><Button fullWidth type="tertiary">Cancel</Button></div>
+              <Link to={`/feedbacks/${feedback.id}`} className="md:w-23.25"><Button fullWidth type="tertiary">Cancel</Button></Link>
             </div>
           </div>
         </form>
