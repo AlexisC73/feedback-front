@@ -11,13 +11,14 @@ import { AppStore } from "./store/store"
 import { FeedbackPage } from "./pages/Feedbacks/FeedbackPage"
 import { createFeedbackDetailLoader } from "./pages/Feedbacks/feedback-detail-loader"
 import { createAuthLoader } from "./pages/auth/authLoader"
+import { RoadmapPage } from "./pages/roadmap/roadmap"
+import { createRoadmapLoader } from "./pages/roadmap/roadmap-loader.function"
 
 export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter([
     {
       path: "/",
       index: true,
-      loader: createAuthLoader({store}),
-      element: <RequireAuth page={<HomePage />} />
+      element: <HomePage />
     },
     {
       path: "/feedbacks",
@@ -52,6 +53,16 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
         {
           path: "/auth/login",
           element: <LoginPage />
+        }
+      ]
+    },
+    {
+      path: "/roadmap",
+      loader: createRoadmapLoader({store}),
+      children: [
+        {
+          path: "/roadmap",
+          element: <RoadmapPage />
         }
       ]
     }
