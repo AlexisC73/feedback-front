@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Outlet } from "react-router-dom"
 import { HomePage } from "@/pages/Home"
 import { FeedbackDetailsPage } from "@/pages/Feedbacks/FeedbackDetails"
 import { AddFeedbackPage } from "@/pages/Feedbacks/AddFeedback"
@@ -10,7 +10,6 @@ import { createFeedbackLoader } from "./pages/Feedbacks/feedback-loader"
 import { AppStore } from "./store/store"
 import { FeedbackPage } from "./pages/Feedbacks/FeedbackPage"
 import { createFeedbackDetailLoader } from "./pages/Feedbacks/feedback-detail-loader"
-import { createAuthLoader } from "./pages/auth/authLoader"
 import { RoadmapPage } from "./pages/roadmap/roadmap"
 import { createRoadmapLoader } from "./pages/roadmap/roadmap-loader.function"
 
@@ -23,28 +22,28 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
     {
       path: "/feedbacks",
       loader: createFeedbackLoader({store}),
+      element: <RequireAuth page={<Outlet />} />,
       children: [
         {
           path: "/feedbacks",
-          element: <RequireAuth page={<FeedbackPage />} />
+          element: <FeedbackPage />
         },
         {
           path: "/feedbacks/new",
-          element: <RequireAuth page={<AddFeedbackPage />} />
+          element: <AddFeedbackPage />
         },
         {
           path: "/feedbacks/edit/:id",
-          element: <RequireAuth page={<UpdateFeedbackPage />} />
+          element: <UpdateFeedbackPage />
         },
         {
           path: "/feedbacks/:id",
           loader: createFeedbackDetailLoader({store}),
-          element: <RequireAuth page={<FeedbackDetailsPage />} />
+          element: <FeedbackDetailsPage />
         },
       ]
     }, {
       path: "/auth",
-      loader: createAuthLoader({store}),
       children: [
         {
           path: "/auth/register",
@@ -59,6 +58,7 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
     {
       path: "/roadmap",
       loader: createRoadmapLoader({store}),
+      element: <RequireAuth page={<Outlet />} />,
       children: [
         {
           path: "/roadmap",
