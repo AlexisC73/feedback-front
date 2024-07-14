@@ -10,7 +10,7 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
   if(!account) {
     return rejectWithValue({
       type: UsecaseResultType.CREDENTIAL_ERROR,
-      data: "User is not logged in"
+      data: undefined
     })
   }
 
@@ -55,7 +55,7 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
       case ApiResultType.FIELD_ERROR:
         return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
       case ApiResultType.CREDENTIAL_ERROR:
-        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data})
+        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined})
       case ApiResultType.UNKNOWN_ERROR:
         return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
       default:
