@@ -13,7 +13,11 @@ export class InMemoryCommentRepository implements CommentRepository {
   constructor(@inject(AccountRepository) private readonly accountRepository: InMemoryAccountRepository) {}
 
   async postComment (params: PostCommentParams): Promise<PostCommentResponse> {
-    const account = this.accountRepository.loggedAccount!
+    const account = this.accountRepository.loggedAccount
+
+    if(!account) {
+      return {type: ApiResultType.CREDENTIAL_ERROR, data: undefined}
+    }
     
     const newComment: Comment = {
       id: params.id,
