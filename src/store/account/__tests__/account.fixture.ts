@@ -1,6 +1,5 @@
 import { registerThunk, RegisterUsecaseParams } from "@/store/auth/usecases/register.usecase"
 import { expect } from "vitest"
-import { EmailVO } from "@/store/value-objects/email"
 import { AuthState } from "@/store/auth/auth-reducer"
 import { loginThunk, LoginUsecaseParams } from "@/store/auth/usecases/login.usecase"
 import { Account, AccountWithPassword, Role } from "../models/account"
@@ -42,13 +41,18 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     thenResultTypeShouldBe(expectedType: string) {
       expect(resultType).toBe(expectedType)
     },
-    thenAccountShouldExist( { email, role }: { email: EmailVO, role: Role } ) {
-      const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email.value)
-      expect(repoAccount?.email).toBe(email.value)
-      expect(repoAccount?.role).toBe(role)
+    thenAccountShouldExist( { email, role, displayName, username }: { email: string, role: Role, displayName: string, username: string } ) {
+      const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email)
+      expect(repoAccount).toMatchObject({
+        id: expect.any(String),
+        email,
+        role,
+        displayName,
+        username
+      })
     },
-    thenAccountShouldNotExist(email: EmailVO) {
-      const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email.value)
+    thenAccountShouldNotExist(email: string) {
+      const repoAccount = stateBuilder.getAccountRepository().accounts.find(a => a.email === email)
       expect(repoAccount).toBeUndefined()
     },
     thenAuthStateShouldBe(expectedAuthState: AuthState) {

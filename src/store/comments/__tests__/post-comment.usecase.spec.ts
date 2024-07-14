@@ -4,8 +4,8 @@ import { CommentFixture, createCommentFixture } from "./comment-fixture";
 import { createFeedbackFixture, FeedbackFixture } from "@/store/feedbacks/__tests__/feedback.fixture";
 import { feedbackBuilder } from "@/store/feedbacks/__tests__/feedback.builder";
 import { AccountFixture, createAccountFixture } from "@/store/account/__tests__/account.fixture";
-import { Role } from "@/store/account/models/account";
 import { commentBuilder } from "./comment-builder";
+import { authAccountBuilder } from "@/store/account/__tests__/authAccountBuilder";
 
 describe("Post comment usecase", () => {
   let commentFixture: CommentFixture
@@ -21,12 +21,16 @@ describe("Post comment usecase", () => {
 
   test("should post a comment", async () => {
     const existingFeedback = feedbackBuilder().withId("1").build()
-    const newComment = commentBuilder().withId("45").withFeedbackId("1").withSender({name: "test@test.fr", avatar: "https://example.com/avatar.png"}).build()
+    const authAccount = authAccountBuilder().withId("2").withEmail("user@email.fr").build()
+    const newComment = commentBuilder().withId("45").withSender({
+      avatar: authAccount.avatar,
+      name: authAccount.email
+    }).withFeedbackId("1").withSender({name: authAccount.email, avatar: authAccount.avatar}).build()
 
     commentFixture.givenNoCommentsExist()
     feedbackFixture.givenFeedbacksExists([existingFeedback])
     commentFixture.givenNextId(newComment.id)
-    accountFixture.givenIsAuthenticatedAs({id: "99", email: "test@test.fr", role: Role.USER, avatar: "https://example.com/avatar.png"})
+    accountFixture.givenIsAuthenticatedAs(authAccount)
 
     await commentFixture.postComment({
       feedbackId: newComment.feedbackId,

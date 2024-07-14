@@ -1,5 +1,5 @@
 import { AccountFixture, createAccountFixture } from "@/store/account/__tests__/account.fixture";
-import { Role } from "@/store/account/models/account";
+import { authAccountBuilder } from "@/store/account/__tests__/authAccountBuilder";
 import { stateBuilder } from "@/store/state-builder";
 import { beforeEach, describe, test } from "vitest";
 
@@ -13,12 +13,7 @@ describe("Get Current Auth", () => {
   })
 
   test("should get the current auth", async () => {
-    const authAccount = {
-      id: "1",
-      avatar: "https://example.com/avatar.png",
-      email: "test@test.fr",
-      role: Role.USER
-    }
+    const authAccount = authAccountBuilder().withUsername("it's me").build()
     accountFixture.givenIsApiAuthAs(authAccount)
 
     await accountFixture.whenRetrievingCurrentAuth()

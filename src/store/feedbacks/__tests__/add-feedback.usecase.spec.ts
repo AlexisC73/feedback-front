@@ -4,7 +4,7 @@ import { feedbackBuilder } from "./feedback.builder";
 import { StateBuilder, stateBuilder } from "@/store/state-builder";
 import { AccountFixture, createAccountFixture } from "@/store/account/__tests__/account.fixture";
 import { FeedbackStatus } from "../models/feedback";
-import { Role } from "@/store/account/models/account";
+import { authAccountBuilder } from "@/store/account/__tests__/authAccountBuilder";
 
 describe("Add Feedback Usecase", () => {
   let feedbackFixture: FeedbackFixture
@@ -18,17 +18,13 @@ describe("Add Feedback Usecase", () => {
 
   test("Should add a feedback with suggestion status", async () => {
     const defaultFeedback = feedbackBuilder().withId("12")
+    const authAccount = authAccountBuilder().withId("2").build()
     const newFeedback = defaultFeedback.build()
-    const expectedFeedback = defaultFeedback.withStatus(FeedbackStatus.SUGGESTION).build()
+    const expectedFeedback = defaultFeedback.withStatus(FeedbackStatus.SUGGESTION).withOwner("2").build()
 
     feedbackFixture.givenNoFeedbacksExists()
     feedbackFixture.givenNextGeneratedId(newFeedback.id)
-    accountFixture.givenIsAuthenticatedAs({
-      email: "test@email.fr",
-      id: newFeedback.owner,
-      role: Role.USER,
-      avatar: "https://example.com/avatar.png"
-    })
+    accountFixture.givenIsAuthenticatedAs(authAccount)
 
     await feedbackFixture.whenAddFeedback({
       category: newFeedback.category,
@@ -45,18 +41,14 @@ describe("Add Feedback Usecase", () => {
 
   test("Given some Feedbacks already exists", async () => {
     const defaultFeedback = feedbackBuilder().withId("4")
+    const authAccount = authAccountBuilder().withId("2").build()
     const newFeedback = defaultFeedback.build()
-    const expectedNewFeedback = defaultFeedback.withStatus(FeedbackStatus.SUGGESTION).build()
+    const expectedNewFeedback = defaultFeedback.withStatus(FeedbackStatus.SUGGESTION).withOwner("2").build()
     const existingFeedback = [feedbackBuilder().withId("2").build(), feedbackBuilder().withId("3").build()]
 
     feedbackFixture.givenFeedbacksExists(existingFeedback)
     feedbackFixture.givenNextGeneratedId(newFeedback.id)
-    accountFixture.givenIsAuthenticatedAs({
-      email: "test@email.fr",
-      id: newFeedback.owner,
-      role: Role.USER,
-      avatar: "https://example.com/avatar.png"
-    })
+    accountFixture.givenIsAuthenticatedAs(authAccount)
 
     await feedbackFixture.whenAddFeedback({
       category: newFeedback.category,
@@ -73,15 +65,11 @@ describe("Add Feedback Usecase", () => {
 
   test("When adding new feedback, should have 0 upvotes and comments", async () => {
     const feedback = feedbackBuilder().build()
+    const authAccount = authAccountBuilder().withId("1").build()
 
     feedbackFixture.givenNoFeedbacksExists()
     feedbackFixture.givenNextGeneratedId(feedback.id)
-    accountFixture.givenIsAuthenticatedAs({
-      email: "test@email.fr",
-      id: feedback.owner,
-      role: Role.USER,
-      avatar: "https://example.com/avatar.png"
-    })
+    accountFixture.givenIsAuthenticatedAs(authAccount)
 
     await feedbackFixture.whenAddFeedback({
       category: feedback.category,

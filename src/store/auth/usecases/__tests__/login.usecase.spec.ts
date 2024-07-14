@@ -12,17 +12,19 @@ describe("Register Usecase", () => {
   })
 
   test("should logged user account", async () => {
-    const account = accountBuilder().withEmail("test@test.fr").withRole(Role.ADMIN).withId("1")
-    accountFixture.givenAccountExists([account.buildWithPassword("password")])
+    const account = accountBuilder().withEmail("test@test.fr").withAvatar(null).withRole(Role.ADMIN).withId("1").buildWithPassword("password")
+    accountFixture.givenAccountExists([account])
 
     await accountFixture.whenUserLogin({email: "test@test.fr", password: "password"})
 
     accountFixture.thenAuthStateShouldBe({
       account: {
-        email: "test@test.fr",
-        id: "1",
-        role: Role.ADMIN,
-        avatar: "https://example.com/avatar.png"
+        email: account.email,
+        id: account.id,
+        role: account.role,
+        avatar: account.avatar,
+        displayName: account.displayName,
+        username: account.username
       },
       loading: false
     })

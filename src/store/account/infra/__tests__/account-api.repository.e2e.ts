@@ -36,7 +36,9 @@ describe("Test API account", () => {
     const result = await store.dispatch(registerThunk({
       email: "test@test.fr",
       confirmationPassword: "password",
-      password: "password"
+      password: "password",
+      displayName: "display name",
+      username: "username"
     })).then(unwrapResult)
     
     const users = await pool.query("SELECT * FROM accounts WHERE email = $1 LIMIT 1", ["test@test.fr"])
@@ -46,6 +48,8 @@ describe("Test API account", () => {
       email: "test@test.fr",
       password: expect.any(String),
       id: expect.any(String),
+      displayName: "display name",
+      username: "username",
     })
 
     const apiResult: ApiSuccessResult<undefined> = {
