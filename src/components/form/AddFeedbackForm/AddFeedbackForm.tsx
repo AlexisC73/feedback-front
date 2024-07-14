@@ -7,6 +7,7 @@ import { Input } from "../input/Input";
 import { Textarea } from "../textarea/Textarea";
 import { useState } from "react";
 import { AddFeedbackUsecaseParams } from "@/store/feedbacks/usecases/add-feedback.usecase";
+import { Link } from "react-router-dom";
 
 export interface AddFeedbackFormProps {
   onPostFeedback: (params: AddFeedbackUsecaseParams) => Promise<void>
@@ -56,9 +57,9 @@ export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormP
         <button disabled={isProcessing} type="submit" className="w-full md:w-36 md:order-last">
           <Button isLoading={isProcessing} fullWidth>Add Feedback</Button>
         </button>
-        <div className="w-full md:w-23.25">
+        <Link to={"/feedbacks"} className="w-full md:w-23.25">
           <Button fullWidth type="tertiary">Cancel</Button>
-        </div>
+        </Link>
       </div>
     </form>
   )
