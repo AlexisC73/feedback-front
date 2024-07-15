@@ -9,7 +9,7 @@ export enum UsecaseResultType {
   SUCCESS = "SUCCESS",
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
   FIELD_ERROR = "FIELD_ERROR",
-  CREDENTIAL_ERROR = "CREDENTIAL_ERROR",
+  BAD_REQUEST = "BAD_REQUEST",
   NOT_FOUND = "NOT_FOUND",
   FORBIDDEN = "FORBIDDEN",
   UNAUTHORIZED = "UNAUTHORIZED"
@@ -17,7 +17,8 @@ export enum UsecaseResultType {
 
 export type UsecaseFieldError = UsecaseResult<UsecaseResultType.FIELD_ERROR, FieldError[]>
 export type UsecaseSuccess<T> = UsecaseResult<UsecaseResultType.SUCCESS, T>
-export type UsecaseErrors = UsecaseResult<Exclude<UsecaseResultType, UsecaseResultType.FIELD_ERROR | UsecaseResultType.SUCCESS>, string | undefined> | UsecaseFieldError
+export type UsecaseBadRequestResult = UsecaseResult<UsecaseResultType.BAD_REQUEST, string | undefined>
+export type UsecaseErrors = UsecaseResult<Exclude<UsecaseResultType, UsecaseResultType.FIELD_ERROR | UsecaseResultType.SUCCESS | UsecaseResultType.BAD_REQUEST>, string | undefined> | UsecaseFieldError | UsecaseBadRequestResult
 
 export type ApiResult<T, P> =  {
   type: T,
@@ -28,7 +29,7 @@ export enum ApiResultType {
   SUCCESS = "SUCCESS",
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
   FIELD_ERROR = "FIELD_ERROR",
-  CREDENTIAL_ERROR = "CREDENTIAL_ERROR",
+  BAD_REQUEST = "BAD_REQUEST",
   NOT_FOUND = "NOT_FOUND",
   FORBIDDEN = "FORBIDDEN",
   UNAUTHORIZED = "UNAUTHORIZED"
@@ -36,4 +37,5 @@ export enum ApiResultType {
 
 export type ApiSuccessResult<T> = ApiResult<ApiResultType.SUCCESS, T>
 export type ApiFieldError = ApiResult<ApiResultType.FIELD_ERROR, FieldError[]>
-export type ApiErrors = ApiResult<Exclude<ApiResultType, ApiResultType.FIELD_ERROR | ApiResultType.SUCCESS>, undefined> | ApiFieldError
+export type ApiBadRequestError = ApiResult<ApiResultType.BAD_REQUEST, string | undefined>
+export type ApiErrors = ApiResult<Exclude<ApiResultType, ApiResultType.FIELD_ERROR | ApiResultType.SUCCESS | ApiResultType.BAD_REQUEST>, undefined> | ApiFieldError | ApiBadRequestError

@@ -18,11 +18,7 @@ export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErr
       return {type: UsecaseResultType.SUCCESS, data: result.data} as UsecaseSuccess<Account>
     } else {
       return rejectWithValue(handleUsecaseErrors(result, {
-        CREDENTIAL_ERROR: "Email or password invalid",
-        FIELD_ERROR: "Invalid field",
-        NOT_FOUND: "Not found",
-        FORBIDDEN: "You are not allowed to do this",
-        UNAUTHORIZED: "You are not authorized to do this",
+        UNAUTHORIZED: "You are not authorized to do this.",
       }))
     }
   } catch(e) {

@@ -1,16 +1,17 @@
 import { FieldError } from "@/store/errors/fields-error"
-import { ApiErrors, ApiResultType } from "../models/resultType"
+import { ApiBadRequestError, ApiErrors, ApiFieldError, ApiResult, ApiResultType } from "../models/resultType"
 
-export function handleBadRequestErrors (object: unknown): ApiErrors {
+export function handleBadRequestErrors (object: unknown): ApiBadRequestError | ApiFieldError | ApiResult<ApiResultType.UNKNOWN_ERROR, undefined> {
   if(!object || typeof object !== "object") return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
-  if("message" in object) {
-    if(object.message === "Invalid user credentials") {
-      return {type: ApiResultType.CREDENTIAL_ERROR, data: undefined}
-    }
-    if(object.message === "Invalid fields") {
-      if("errors" in object) {
-        return {type: ApiResultType.FIELD_ERROR, data: object.errors as FieldError[]}
+  if("errors" in object && Array.isArray(object.errors) && object.errors.length > 0) {
+    const errors = object.errors[0]
+    if("message" in errors && errors.message !== null && typeof errors.message === "string") {
+      if(errors.message === "Invalid fields") {
+        if("errors" in object) {
+          return {type: ApiResultType.FIELD_ERROR, data: object.errors as FieldError[]}
+        }
       }
+      return {type: ApiResultType.BAD_REQUEST, data: errors.message}
     }
   }
   return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}

@@ -28,7 +28,10 @@ export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Use
     if(result.type === ApiResultType.SUCCESS) {
       return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} as UsecaseSuccess<EditFeedbackPayload["data"]>
     }
-    return rejectWithValue(handleUsecaseErrors(result, {}))
+    return rejectWithValue(handleUsecaseErrors(result, {
+      UNAUTHORIZED: "You are not authorized to edit this feedback",
+      NOT_FOUND: "Feedback not found"
+    }))
   } catch(e) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }

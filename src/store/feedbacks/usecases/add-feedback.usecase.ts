@@ -40,7 +40,9 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Usec
     if(result.type === ApiResultType.SUCCESS) {
       return {type: UsecaseResultType.SUCCESS, data: addedFeedback} as UsecaseSuccess<Feedback>
     } else {
-      return rejectWithValue(handleUsecaseErrors(result, {}))
+      return rejectWithValue(handleUsecaseErrors(result, {
+        UNAUTHORIZED: "You are not authorized to add feedback.",
+      }))
     }
   } catch(e) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})

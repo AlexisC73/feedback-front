@@ -11,7 +11,7 @@ export class InMemoryAccountRepository implements AccountRepository {
   async create(params: { email: string; password: string; displayName: string, username: string }): Promise<RegisterApiResult> {
     const alreadyExists = this.accounts.find(a => a.email === params.email)
     if(alreadyExists) {
-      return {type: ApiResultType.CREDENTIAL_ERROR, data: undefined}
+      return {type: ApiResultType.BAD_REQUEST, data: undefined}
     }
     this.save({id: new Date().getTime().toString(), email: params.email, password: params.password, role: Role.USER, avatar: "https://example.com/avatar.png", displayName: params.displayName, username: params.username})
     return {type: ApiResultType.SUCCESS, data: undefined}
@@ -20,7 +20,7 @@ export class InMemoryAccountRepository implements AccountRepository {
   async login(params: { email: string; password: string; }): Promise<LoginApiResult> {
     const account = this.accounts.find(a => a.email === params.email && a.password === params.password)
     if(!account) {
-      return {type: ApiResultType.CREDENTIAL_ERROR, data: undefined}
+      return {type: ApiResultType.BAD_REQUEST, data: "Invalid credentials"}
     }
 
     this.loggedAccount = {email: account.email, id: account.id, role: account.role, avatar: account.avatar, displayName: account.displayName, username: account.username}

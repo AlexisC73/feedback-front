@@ -16,7 +16,7 @@ export class InMemoryCommentRepository implements CommentRepository {
     const account = this.accountRepository.loggedAccount
 
     if(!account) {
-      return {type: ApiResultType.CREDENTIAL_ERROR, data: undefined}
+      return {type: ApiResultType.BAD_REQUEST, data: "Invalid credentials"}
     }
     
     const newComment: Comment = {

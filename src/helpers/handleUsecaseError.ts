@@ -6,7 +6,7 @@ export function handleUsecaseError(addToast: (toast: Toast) => void, result?: Us
   if(result?.type === UsecaseResultType.UNKNOWN_ERROR) {
     addToast({message: result.data ?? "An error occurred, please try again later", type: "error", id: new Date().getTime().toString(), autoClose: true})
   }
-  if(result?.type === UsecaseResultType.CREDENTIAL_ERROR) {
+  if(result?.type === UsecaseResultType.BAD_REQUEST) {
     addToast({message: result.data ?? "Should not happend, please try again later or contact support.", type: "error", id: new Date().getTime().toString(), autoClose: true})
   }
   if(result?.type === UsecaseResultType.FORBIDDEN) {
@@ -18,11 +18,11 @@ export function handleUsecaseError(addToast: (toast: Toast) => void, result?: Us
 }
 
 export function handleUsecaseErrors(errors: ApiErrors, errorsMessage: {
-  [key in UsecaseResultType]?: string
+  [key in Exclude<UsecaseResultType, UsecaseResultType.SUCCESS | UsecaseResultType.FIELD_ERROR | UsecaseResultType.BAD_REQUEST>]?: string
 }): UsecaseErrors {
   switch(errors.type) {
-    case ApiResultType.CREDENTIAL_ERROR:
-      return {type: UsecaseResultType.CREDENTIAL_ERROR, data: errorsMessage[UsecaseResultType.CREDENTIAL_ERROR]}
+    case ApiResultType.BAD_REQUEST:
+      return {type: UsecaseResultType.BAD_REQUEST, data: errors.data}
     case ApiResultType.UNKNOWN_ERROR:
       return {type: UsecaseResultType.UNKNOWN_ERROR, data: errorsMessage[UsecaseResultType.UNKNOWN_ERROR]}
     case ApiResultType.FIELD_ERROR:
