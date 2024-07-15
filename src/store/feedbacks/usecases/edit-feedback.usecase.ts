@@ -1,10 +1,10 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { FeedbackCategory, FeedbackStatus } from "../models/feedback";
 import { EditFeedbackPayload } from "./payload/edit-feedback.payload";
-import { ApiResultType, UsecaseErrors, UsecaseFieldError, UsecaseNotFoundError, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
-import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
+import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
+import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
 
-export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError | UsecaseNotFoundError}>()("feedbacks/editFeedback", async (feedback: EditFeedbackUsecaseParams, {getState, rejectWithValue, extra: {feedbackRepository}}) => {
+export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/editFeedback", async (feedback: EditFeedbackUsecaseParams, {getState, rejectWithValue, extra: {feedbackRepository}}) => {
   const editFeedbackPayload = new EditFeedbackPayload({
     id: feedback.id,
     title: feedback.title,
@@ -25,22 +25,10 @@ export const editFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Use
 
   try {
     const result = await feedbackRepository.editFeedback({ category: editFeedbackPayload.category.value, description: editFeedbackPayload.description, id: editFeedbackPayload.id, title: editFeedbackPayload.title, status: editFeedbackPayload.status.value})
-    switch(result.type) {
-      case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} as UsecaseSuccess<EditFeedbackPayload["data"]>
-      case ApiResultType.CREDENTIAL_ERROR:
-        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined})
-      case ApiResultType.UNKNOWN_ERROR:
-        return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
-      case ApiResultType.FIELD_ERROR:
-        return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
-      case ApiResultType.NOT_FOUND:
-        return rejectWithValue({type: UsecaseResultType.NOT_FOUND, data: result.data})
-      case ApiResultType.FORBIDDEN:
-        return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: result.data})
-      default:
-        return exhaustiveGuard(result)
+    if(result.type === ApiResultType.SUCCESS) {
+      return {type: UsecaseResultType.SUCCESS, data: editFeedbackPayload.data} as UsecaseSuccess<EditFeedbackPayload["data"]>
     }
+    return rejectWithValue(handleUsecaseErrors(result, {}))
   } catch(e) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }

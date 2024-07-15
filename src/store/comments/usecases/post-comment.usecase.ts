@@ -1,11 +1,11 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { PostCommentPayload } from "./payload/post-usecase.payload";
 import { Comment } from "../models/comment";
-import { ApiResultType, UsecaseCredentialError, UsecaseFieldError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
-import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
+import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
 import { PostCommentParams } from "../models/comment.repository";
+import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
 
-export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: PostCommentRejectResult}>()("comments/postComment", async (params: PostCommentUsecaseParams, {getState, extra: { commentRepository, idProvider }, rejectWithValue}) => {
+export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("comments/postComment", async (params: PostCommentUsecaseParams, {getState, extra: { commentRepository, idProvider }, rejectWithValue}) => {
   const { account } = getState().auth
   if(!account) {
     return rejectWithValue({
@@ -49,24 +49,14 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Post
       replyTo: null
     }
 
-    switch(result.type) {
-      case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: addedComment} as UsecaseSuccess<Comment>
-      case ApiResultType.FIELD_ERROR:
-        return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data})
-      case ApiResultType.CREDENTIAL_ERROR:
-        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined})
-      case ApiResultType.UNKNOWN_ERROR:
-        return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
-      default:
-        return exhaustiveGuard(result)
+    if(result.type === ApiResultType.SUCCESS) {
+      return {type: UsecaseResultType.SUCCESS, data: addedComment} as UsecaseSuccess<Comment>
     }
+    return rejectWithValue(handleUsecaseErrors(result, {}))
   } catch(e) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }
 })
-
-export type PostCommentRejectResult = UsecaseCredentialError | UsecaseUnknownError | UsecaseFieldError
 
 export type PostCommentUsecaseParams = {
   feedbackId: string

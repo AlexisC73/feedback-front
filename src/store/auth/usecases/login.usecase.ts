@@ -1,10 +1,10 @@
 import { createAppAsyncThunk } from "../../create-app-thunk";
 import { LoginPayload } from "./payload/login.payload";
 import { Account } from "@/store/account/models/account";
-import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseFieldError, UsecaseForbiddenError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
-import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
+import { ApiResultType, UsecaseErrors, UsecaseFieldError, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
+import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
 
-export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError}>()("auth/login", async (params: LoginUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
+export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("auth/login", async (params: LoginUsecaseParams, { rejectWithValue, extra: { accountRepository } }) => {
   const loginPayload = new LoginPayload({email: params.email, password: params.password})
 
   if (!loginPayload.validate()) {
@@ -15,24 +15,18 @@ export const loginThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErr
   try {
     const result = await accountRepository.login({email: params.email, password: params.password})
     if(result.type === ApiResultType.SUCCESS) {
-      const successResult: UsecaseSuccess<Account> = {type: UsecaseResultType.SUCCESS, data: result.data}
-      return successResult
+      return {type: UsecaseResultType.SUCCESS, data: result.data} as UsecaseSuccess<Account>
     } else {
-      switch(result.type) {
-        case ApiResultType.UNKNOWN_ERROR:
-          return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined} as UsecaseUnknownError)
-        case ApiResultType.FIELD_ERROR:
-          return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data} as UsecaseFieldError)
-        case ApiResultType.CREDENTIAL_ERROR:
-          return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: result.data} as UsecaseCredentialError)
-        case ApiResultType.FORBIDDEN:
-          return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: "You are not allowed to Login"} as UsecaseForbiddenError)
-        default:
-          exhaustiveGuard(result)
-      }
+      return rejectWithValue(handleUsecaseErrors(result, {
+        CREDENTIAL_ERROR: "Email or password invalid",
+        FIELD_ERROR: "Invalid field",
+        NOT_FOUND: "Not found",
+        FORBIDDEN: "You are not allowed to do this",
+        UNAUTHORIZED: "You are not authorized to do this",
+      }))
     }
   } catch(e) {
-    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined} as UsecaseUnknownError)
+    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined} as UsecaseErrors)
   }
 })
 

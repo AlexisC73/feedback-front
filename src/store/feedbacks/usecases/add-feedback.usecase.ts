@@ -1,15 +1,15 @@
 import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { AddFeedbackPayload } from "./payload/add-feedback.payload";
 import { Feedback, FeedbackCategory, FeedbackStatus } from "../models/feedback";
-import { ApiResultType, UsecaseCredentialError, UsecaseErrors, UsecaseFieldError, UsecaseForbiddenError, UsecaseResultType, UsecaseSuccess, UsecaseUnknownError } from "@/store/@shared/models/resultType";
-import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
+import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
+import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
 
 
-export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors | UsecaseFieldError}>()("feedbacks/addFeedback", async (params: AddFeedbackUsecaseParams, { getState, rejectWithValue, extra: { feedbackRepository, idProvider } }) => {
+export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/addFeedback", async (params: AddFeedbackUsecaseParams, { getState, rejectWithValue, extra: { feedbackRepository, idProvider } }) => {
   const auth = getState().auth.account
 
   if(!auth) {
-    return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: "You are not connected"} as UsecaseForbiddenError)
+    return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: "You are not connected"})
   }
 
   const addFeedbackPayload: AddFeedbackPayload = new AddFeedbackPayload({
@@ -36,22 +36,14 @@ export const addFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: Usec
       upvotes: 0,
       upvoted: false
     }
-    switch(result.type) {
-      case ApiResultType.SUCCESS:
-        return {type: UsecaseResultType.SUCCESS, data: addedFeedback} as UsecaseSuccess<Feedback>
-      case ApiResultType.CREDENTIAL_ERROR:
-        return rejectWithValue({type: UsecaseResultType.CREDENTIAL_ERROR, data: undefined} as UsecaseCredentialError)
-      case ApiResultType.UNKNOWN_ERROR:
-        return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: result.data} as UsecaseUnknownError)
-      case ApiResultType.FIELD_ERROR:
-        return rejectWithValue({type: UsecaseResultType.FIELD_ERROR, data: result.data} as UsecaseFieldError)
-      case ApiResultType.FORBIDDEN:
-        return rejectWithValue({type: UsecaseResultType.FORBIDDEN, data: result.data} as UsecaseForbiddenError)
-      default:
-        return exhaustiveGuard(result)
+
+    if(result.type === ApiResultType.SUCCESS) {
+      return {type: UsecaseResultType.SUCCESS, data: addedFeedback} as UsecaseSuccess<Feedback>
+    } else {
+      return rejectWithValue(handleUsecaseErrors(result, {}))
     }
   } catch(e) {
-    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined} as UsecaseUnknownError)
+    return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }
 })
 

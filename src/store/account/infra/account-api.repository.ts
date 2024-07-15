@@ -1,7 +1,7 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
 import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
 import { Account } from "../models/account";
-import { handleApiError, handleApiFieldError } from "@/store/@shared/utiles/badRequestError";
+import { handleApiError, handleBadRequestErrors } from "@/store/@shared/utiles/badRequestError";
 import { injectable } from "inversify";
 import { api } from "@/config/api";
 
@@ -26,14 +26,12 @@ export class AccountApiRepository implements AccountRepository {
       if(request.status === 201) {
         return {type: ApiResultType.SUCCESS, data: undefined}
       }
-      const result = await request.json()
       if(request.status === 400) {
-        const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
-          return hasFieldErrors
-        }
+        const result = await request.json()
+        return handleBadRequestErrors(result)
+
       }
-      return handleApiError(request.status, result)
+      return handleApiError(request.status)
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,
@@ -62,14 +60,12 @@ export class AccountApiRepository implements AccountRepository {
             data: await request.json() as Account
           }
       }
-      const result = await request.json()
       if(request.status === 400) {
-        const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
-          return handleApiError(request.status, hasFieldErrors)
-        }
+        const result = await request.json()
+        return handleBadRequestErrors(result)
+        
       }
-      return handleApiError(request.status, result)
+      return handleApiError(request.status)
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,
@@ -91,7 +87,7 @@ export class AccountApiRepository implements AccountRepository {
           data: await request.json() as Account
         }
       }
-      return handleApiError(request.status, await request.json())
+      return handleApiError(request.status)
     } catch(e) {
       return {
         type: ApiResultType.UNKNOWN_ERROR,

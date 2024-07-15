@@ -4,7 +4,7 @@ import { UpvotePayload } from "../usecases/payload/upvote.payload";
 import { Feedback } from "../models/feedback";
 import { injectable } from "inversify";
 import { api } from "@/config/api";
-import { handleApiError, handleApiFieldError } from "@/store/@shared/utiles/badRequestError";
+import { handleApiError, handleBadRequestErrors } from "@/store/@shared/utiles/badRequestError";
 
 @injectable()
 export class FeedbackApiRepository implements FeedbackRepository {
@@ -20,7 +20,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: data as Feedback[]
       }
     } else {
-      return handleApiError(request.status, await request.json())
+      return handleApiError(request.status)
     }
   }
   
@@ -40,14 +40,11 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      const result = await request.json()
       if (request.status === 400) {
-        const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
-          return hasFieldErrors
-        }
+        const result = await request.json()
+        return handleBadRequestErrors(result)
       }
-      return handleApiError(request.status, result)
+      return handleApiError(request.status)
     }
   }
   
@@ -63,7 +60,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
         data: undefined
       }
     } else {
-      return handleApiError(request.status, await request.json())
+      return handleApiError(request.status)
     }
   }
 
@@ -81,22 +78,16 @@ export class FeedbackApiRepository implements FeedbackRepository {
         type: ApiResultType.SUCCESS,
         data: undefined
       }
-    } else {
+    } else {     
       if(request.status === 400) {
-        const result = await request.json()
-        const hasFieldErrors = handleApiFieldError(result)
-        if(hasFieldErrors.type === ApiResultType.FIELD_ERROR) {
-          return hasFieldErrors
-        }
-        return handleApiError(request.status, result)
+        return handleBadRequestErrors(await request.json())
       } else if (request.status === 404) {
-        const result = await request.json()
         return {
           type: ApiResultType.NOT_FOUND,
-          data: "message" in result ? result.message : "Not found feedback"
+          data: undefined
         }
       }
-      return handleApiError(request.status, await request.json())
+      return handleApiError(request.status)
     }
   }
 
@@ -123,7 +114,7 @@ export class FeedbackApiRepository implements FeedbackRepository {
           data: "message" in result ? result.message : "Not found"
         }
       }
-      return handleApiError(request.status, await request.json())
+      return handleApiError(request.status)
     }
   }
 }
