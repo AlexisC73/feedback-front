@@ -2,11 +2,11 @@ import { Toast } from "@/Context/ToastCtx/ToastCtx";
 import { ApiErrors, ApiResultType, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
-export function notifyUsecaseError(addToast: (toast: Toast) => void, result?: UsecaseErrors) {
+export function notifyUsecaseError(addToast: (toast: {message: string, autoClose?: boolean, type?: Toast["type"]}) => void, result?: UsecaseErrors) {
   if(result?.type === UsecaseResultType.FIELD_ERROR) {
     return
   }
-  addToast({message: result?.data ?? "An error occurred, please try again later", type: "error", id: new Date().getTime().toString(), autoClose: true})
+  addToast({message: result?.data ?? "An error occurred, please try again later", type: "error"})
 }
 
 export function handleUsecaseErrors(errors: ApiErrors, errorsMessage: {

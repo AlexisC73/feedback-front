@@ -10,7 +10,7 @@ export interface Toast {
 
 interface ToastCtxType {
   toasts: Toast[]
-  addToast: (toast: Toast) => void
+  addToast: (toast: {message: string, autoClose?: boolean, type?: Toast["type"]}) => void
   deleteToast: (id: string) => void
 }
 
@@ -23,8 +23,8 @@ export const ToastCtx = createContext<ToastCtxType>({
 export const ToastContextProvider = ({children}: PropsWithChildren) => {
   const [toasts, setToasts] = useState<Toast[]>([])
 
-  const addToast = (toast: Toast) => {
-    setToasts([...toasts, toast])
+  const addToast = (toast: {message: string, autoClose?: boolean, type?: Toast["type"]}) => {
+    setToasts([...toasts, {id: new Date().getTime().toString(), autoClose: toast.autoClose ?? true, message: toast.message, type: toast.type ?? "info"}])
   }
 
   const deleteToast = useCallback((id: string) => {
