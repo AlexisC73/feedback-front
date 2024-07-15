@@ -18,7 +18,8 @@ export enum UsecaseResultType {
 export type UsecaseFieldError = UsecaseResult<UsecaseResultType.FIELD_ERROR, FieldError[]>
 export type UsecaseSuccess<T> = UsecaseResult<UsecaseResultType.SUCCESS, T>
 export type UsecaseBadRequestResult = UsecaseResult<UsecaseResultType.BAD_REQUEST, string | undefined>
-export type UsecaseErrors = UsecaseResult<Exclude<UsecaseResultType, UsecaseResultType.FIELD_ERROR | UsecaseResultType.SUCCESS | UsecaseResultType.BAD_REQUEST>, string | undefined> | UsecaseFieldError | UsecaseBadRequestResult
+export type UsecaseErrorWithMessage =UsecaseResult<Exclude<UsecaseResultType, UsecaseResultType.FIELD_ERROR | UsecaseResultType.SUCCESS | UsecaseResultType.BAD_REQUEST>, string | undefined> | UsecaseBadRequestResult
+export type UsecaseErrors = UsecaseErrorWithMessage | UsecaseFieldError
 
 export type ApiResult<T, P> =  {
   type: T,

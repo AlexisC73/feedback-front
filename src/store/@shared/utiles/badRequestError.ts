@@ -5,10 +5,10 @@ export function handleBadRequestErrors (object: unknown): ApiBadRequestError | A
   if(!object || typeof object !== "object") return {type: ApiResultType.UNKNOWN_ERROR, data: undefined}
   if("errors" in object && Array.isArray(object.errors) && object.errors.length > 0) {
     const errors = object.errors[0]
-    if("message" in errors && errors.message !== null && typeof errors.message === "string") {
+    if(typeof errors === "object" && "message" in errors && typeof errors.message === "string" && errors.message !== null ) {
       if(errors.message === "Invalid fields") {
-        if("errors" in object) {
-          return {type: ApiResultType.FIELD_ERROR, data: object.errors as FieldError[]}
+        if("data" in errors) {
+          return {type: ApiResultType.FIELD_ERROR, data: errors.data as FieldError[]}
         }
       }
       return {type: ApiResultType.BAD_REQUEST, data: errors.message}
