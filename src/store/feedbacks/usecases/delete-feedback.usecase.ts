@@ -8,7 +8,9 @@ export const deleteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: U
     if(result.type === ApiResultType.SUCCESS) {
       return {type: UsecaseResultType.SUCCESS, data: { feedbackId }} as UsecaseSuccess<{feedbackId: string}>
     }
-    return rejectWithValue(handleUsecaseErrors(result, {}))
+    return rejectWithValue(handleUsecaseErrors(result, {
+      UNAUTHORIZED: "You are not authorized to delete this feedback",
+    }))
   } catch(e) {
     return rejectWithValue({
       type: UsecaseResultType.UNKNOWN_ERROR,

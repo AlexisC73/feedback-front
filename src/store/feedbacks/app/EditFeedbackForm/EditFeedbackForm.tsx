@@ -34,7 +34,7 @@ export function EditFeedbackFormComponent() {
           }
           setErrors(errors)
       } else if(payload.type === UsecaseResultType.NOT_FOUND) {
-        addToast({message: "Feedback not found", type: "error", id: new Date().getTime().toString()})
+        addToast({message: "Feedback not found", type: "error"})
       } else {  
         notifyUsecaseError(addToast, payload)
       }

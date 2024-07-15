@@ -18,7 +18,7 @@ export function RegisterComponent () {
     setErrors({})
     await dispatch(registerThunk({email, password, confirmationPassword, displayName, username})).then(res => {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
-        addToast({message: "Account created successfully", type: "success", id: new Date().getTime().toString()})
+        addToast({message: "Account created successfully", type: "success"})
         navigate("/auth/login")
       } else if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
         const errors: {[key: string]: string[]} = {}
