@@ -5,7 +5,7 @@ import { selectFeedback } from "../../feedback.reducer";
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../../usecases/edit-feedback.usecase";
 import { useContext, useState } from "react";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
-import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function EditFeedbackFormComponent() {
@@ -36,7 +36,7 @@ export function EditFeedbackFormComponent() {
       } else if(payload.type === UsecaseResultType.NOT_FOUND) {
         addToast({message: "Feedback not found", type: "error", id: new Date().getTime().toString()})
       } else {  
-        handleUsecaseError(addToast, payload)
+        notifyUsecaseError(addToast, payload)
       }
     })
   }

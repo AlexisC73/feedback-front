@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
-import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 
 export function RegisterComponent () {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export function RegisterComponent () {
         res.payload.data.forEach(fieldError => errors[fieldError.field] = fieldError.errors)
         setErrors(errors)
       } else {
-        handleUsecaseError(addToast, res.payload)
+        notifyUsecaseError(addToast, res.payload)
       }
     })
   }

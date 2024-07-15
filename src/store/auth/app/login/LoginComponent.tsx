@@ -3,7 +3,7 @@ import { useAppDispatch } from "@/store/store-hooks";
 import { loginThunk } from "../../usecases/login.usecase";
 import { useContext, useState } from "react";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
-import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function LoginComponent () {
@@ -22,7 +22,7 @@ export function LoginComponent () {
       } else if(res.payload?.type === UsecaseResultType.SUCCESS) {
         return
       } else {
-        handleUsecaseError(addToast, res.payload)
+        notifyUsecaseError(addToast, res.payload)
       }
     })
   }

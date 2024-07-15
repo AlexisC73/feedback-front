@@ -4,7 +4,7 @@ import { deleteFeedbackThunk } from "../../usecases/delete-feedback.usecase";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function DeleteFeedbackButtonState ({feedbackId}: {feedbackId: string}) {
@@ -19,7 +19,7 @@ export function DeleteFeedbackButtonState ({feedbackId}: {feedbackId: string}) {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
         return navigate("/feedbacks")
       } else {
-        handleUsecaseError(addToast, res.payload)
+        notifyUsecaseError(addToast, res.payload)
       }
     }).finally(() => setIsProcessing(false))
   }

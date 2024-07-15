@@ -2,19 +2,11 @@ import { Toast } from "@/Context/ToastCtx/ToastCtx";
 import { ApiErrors, ApiResultType, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
 
-export function handleUsecaseError(addToast: (toast: Toast) => void, result?: UsecaseErrors) {
-  if(result?.type === UsecaseResultType.UNKNOWN_ERROR) {
-    addToast({message: result.data ?? "An error occurred, please try again later", type: "error", id: new Date().getTime().toString(), autoClose: true})
+export function notifyUsecaseError(addToast: (toast: Toast) => void, result?: UsecaseErrors) {
+  if(result?.type === UsecaseResultType.FIELD_ERROR) {
+    return
   }
-  if(result?.type === UsecaseResultType.BAD_REQUEST) {
-    addToast({message: result.data ?? "Should not happend, please try again later or contact support.", type: "error", id: new Date().getTime().toString(), autoClose: true})
-  }
-  if(result?.type === UsecaseResultType.FORBIDDEN) {
-    addToast({message: result.data ?? "Should not happend, please try again later or contact support.", type: "error", id: new Date().getTime().toString(), autoClose: true})
-  }
-  if(result?.type === UsecaseResultType.UNAUTHORIZED) {
-    addToast({message: result.data ?? "Should not happend, please try again later or contact support.", type: "error", id: new Date().getTime().toString(), autoClose: true})
-  }
+  addToast({message: result?.data ?? "An error occurred, please try again later", type: "error", id: new Date().getTime().toString(), autoClose: true})
 }
 
 export function handleUsecaseErrors(errors: ApiErrors, errorsMessage: {

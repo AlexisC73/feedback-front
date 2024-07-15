@@ -5,7 +5,7 @@ import { addFeedbackThunk } from "../../usecases/add-feedback.usecase";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
-import { handleUsecaseError } from "@/helpers/handleUsecaseError";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 export function AddSuggestionForm () {
@@ -28,7 +28,7 @@ export function AddSuggestionForm () {
         }
         setErrors(payloadErrors)
       } else {
-        handleUsecaseError(addToast, res.payload)
+        notifyUsecaseError(addToast, res.payload)
       }
     })
   }
