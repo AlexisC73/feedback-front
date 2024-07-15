@@ -41,7 +41,7 @@ export function ToastItem ({toast, closeToast}: {toast: Toast, closeToast: (id: 
   }
 
   return (
-    <div id={`toast-${toast.type}`} className="relative overflow-hidden flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div id={`toast-${toast.type}`} className="relative max-w-md overflow-hidden flex items-center p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
       <div className={`inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg ${style[toast.type].class}`}>
         {style[toast.type].icon}
         <span className="sr-only">{style[toast.type].srOnly}</span>
