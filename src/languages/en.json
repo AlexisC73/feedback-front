@@ -74,6 +74,7 @@
       "least_upvotes": "Least Upvotes",
       "most_comments": "Most Comments",
       "least_comments": "Least Comments"
-    }
+    },
+    "sort_by": "Sort by"
   }
 }

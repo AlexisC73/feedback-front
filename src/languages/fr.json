@@ -67,6 +67,13 @@
     },
     "roadmap_component": {
       "view": "Voir"
-    }
+    },
+    "sort_filters": {
+      "most_upvotes": "Plus Validé",
+      "least_upvotes": "Moins Validé",
+      "most_comments": "Plus Commenté",
+      "least_comments": "Moins Commenté"
+    },
+    "sort_by": "Trier par"
   }
 }
