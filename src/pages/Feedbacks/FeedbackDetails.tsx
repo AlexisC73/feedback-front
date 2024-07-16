@@ -8,8 +8,10 @@ import { CommentsListStore } from "@/store/comments/app/CommentsList/CommentsLis
 import { useAppSelector } from "@/store/store-hooks";
 import { selectFeedback } from "@/store/feedbacks/feedback.reducer";
 import { selectAuth } from "@/store/auth/auth-reducer";
+import { useTranslation } from "react-i18next";
 
 export function FeedbackDetailsPage () {
+  const {t} = useTranslation()
   const params = useParams<{id: string}>()
   const feedback = useAppSelector(selectFeedback(params.id!))
   const auth = useAppSelector(selectAuth)
@@ -29,7 +31,7 @@ export function FeedbackDetailsPage () {
           <Link to={`/${backRoute}`}><GoBackButton /></Link>
           {canEdit && <button>
             <Link to={`/feedbacks/edit/${params.id}?back=${backRoute}`}>
-              <Button type="secondary">Edit Feedback</Button>
+              <Button type="secondary">{t("detail_page.edit_button")}</Button>
             </Link>
           </button>}
         </div>
