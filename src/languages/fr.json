@@ -89,9 +89,14 @@
     "coming_soon": "Bientôt disponible",
     "status": {
       "planned": "Planifié",
+      "planned_description": "Réflection sur la mise en place",
       "in-progress": "En cours",
+      "in-progress_description": "En cours de développement",
       "live": "En ligne",
-      "suggestion": "Suggestion"
-    }
+      "live_description": "Fonctionnalité disponible",
+      "suggestion": "Suggestion",
+      "suggestion_description": "Suggestion de fonctionnalité"
+    },
+    "choose_element": "Choisir un élément"
   }
 }

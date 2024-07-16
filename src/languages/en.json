@@ -90,9 +90,13 @@
     "coming_soon": "Coming soon",
     "status": {
       "planned": "Planned",
+      "planned_description": "Ideas prioritized for research",
       "in-progress": "In Progress",
+      "in-progress_description": "Currently being developed",
       "live": "Live",
-      "suggestion": "Suggestions"
+      "live_description": "Released features",
+      "suggestion": "Suggestions",
+      "suggestion_description": "Suggestion feature"
     },
     "choose_element": "Choose an element"
   }

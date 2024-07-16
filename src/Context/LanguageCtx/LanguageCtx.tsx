@@ -14,7 +14,7 @@ export const LanguageCtx = createContext<LanguageCtxProps>({
 
 export function LanguageCtxProvider ({children}: {children: React.ReactNode}) {
   const {i18n: {changeLanguage}} = useTranslation()
-  const [language, setLanguage] = useState<Language>(Language.FR)
+  const [language, setLanguage] = useState<Language>(Language.EN)
 
   const handleChangeLanguage = (language: Language) => {
     setLanguage(language)

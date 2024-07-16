@@ -7,16 +7,15 @@ import { useTranslation } from "react-i18next";
 interface RoadmapColumnProps {
   status: FeedbackStatus
   feedbacks: Feedback[]
-  description: string
 }
 
-export function RoadmapColumn ({ status, feedbacks, description }: RoadmapColumnProps) {
+export function RoadmapColumn ({ status, feedbacks }: RoadmapColumnProps) {
   const {t} = useTranslation()
   const displayedFeedbacks = feedbacks.filter(f => f.status === status)
 
   return (
     <div id="feedbacks-list" className="p-6 md:p-0 flex flex-col gap-y-6 w-full">
-      <RoadmapColumnTitle title={t(`status.${status}`)} amount={displayedFeedbacks.length} description={description} />
+      <RoadmapColumnTitle title={t(`status.${status}`)} amount={displayedFeedbacks.length} description={t(`status.${status}_description`)} />
       <RoadmapColumnList>
         {displayedFeedbacks.map(f => (<RoadmapCard key={f.id} feedback={f} />))}
       </RoadmapColumnList>

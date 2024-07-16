@@ -35,12 +35,12 @@ export function RoadmapPage () {
           <TabStatusItem currentStatus={currentStatus} feedbacks={feedbacks} setStatus={handleChangeStatus} status={FeedbackStatus.IN_PROGRESS} />
           <TabStatusItem currentStatus={currentStatus} feedbacks={feedbacks} setStatus={handleChangeStatus} status={FeedbackStatus.LIVE} />
         </TabBar>
-        <RoadmapColumn description="Feature in progress" feedbacks={feedbacks} status={currentStatus} />
+        <RoadmapColumn feedbacks={feedbacks} status={currentStatus} />
       </div>
       <div className="hidden md:flex px-10 md:gap-x-2.5 xl:gap-x-7.5 md:mt-8 xl:mx-auto xl:px-0 xl:max-w-1110px w-full">
-        <RoadmapColumn description="Feature planned" feedbacks={feedbacks} status={FeedbackStatus.PLANNED} />
-        <RoadmapColumn description="Feature in progress" feedbacks={feedbacks} status={FeedbackStatus.IN_PROGRESS} />
-        <RoadmapColumn description="Feature live" feedbacks={feedbacks} status={FeedbackStatus.LIVE} />
+        <RoadmapColumn feedbacks={feedbacks} status={FeedbackStatus.PLANNED} />
+        <RoadmapColumn feedbacks={feedbacks} status={FeedbackStatus.IN_PROGRESS} />
+        <RoadmapColumn feedbacks={feedbacks} status={FeedbackStatus.LIVE} />
       </div>
     </Layout.emptyLayout>
   )
