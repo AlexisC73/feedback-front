@@ -9,13 +9,13 @@ type TagFilterCtxType = {
 }
 
 export const TagFilterCtx = createContext<TagFilterCtxType>({
-  currentFilter: "All",
+  currentFilter: "all",
   updateFilter: () => {}
 })
 
 export const TagFilterCtxProvider = ({children}: PropsWithChildren) => {
 
-  const [currentFilter, updateFilter] = useState<TagType>("All")
+  const [currentFilter, updateFilter] = useState<TagType>("all")
 
   const handleUpdateFilter = (filter: TagType) => {
     updateFilter(filter)
@@ -33,7 +33,7 @@ export const TagFilterCtxProvider = ({children}: PropsWithChildren) => {
 }
 
 export const TagFilterComponent = () => {
-  const filters = Object.values({...FeedbackCategory, ALL: "All"})
+  const filters = Object.values({...FeedbackCategory, ALL: "all"})
   const { currentFilter, updateFilter } = useContext(TagFilterCtx)
 
   const handleUpdateFilter = (filter: string) => {

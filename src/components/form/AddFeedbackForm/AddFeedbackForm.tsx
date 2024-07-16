@@ -18,7 +18,7 @@ export interface AddFeedbackFormProps {
 export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormProps) {
   const {t} = useTranslation()
   const categoryOptions = Object.values(FeedbackCategory)
-  const [currentOption, setCurrentOption] = useState<FeedbackCategory>(categoryOptions[0])
+  const [currentOption, setCurrentOption] = useState<FeedbackCategory>(FeedbackCategory.FEATURE)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const handleSelectOption = (selected: string) => {

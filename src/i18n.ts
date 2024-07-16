@@ -5,7 +5,7 @@ import frJSON from "@/languages/fr.json"
 import { Language } from "./Context/LanguageCtx/languageType"
 
 i18n.use(initReactI18next).init({
-  lng: Language.FR,
+  lng: Language.EN,
   resources: {
     en: enJSON,
     fr: frJSON

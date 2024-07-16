@@ -74,6 +74,14 @@
       "most_comments": "Plus Commenté",
       "least_comments": "Moins Commenté"
     },
+    "categories": {
+      "all": "Tous",
+      "feature": "Fonctionnalité",
+      "bug": "Bug",
+      "enhancement": "Amélioration",
+      "ui": "UI",
+      "ux": "UX"
+    },
     "sort_by": "Trier par",
     "comment": {
       "reply": "Répondre"
