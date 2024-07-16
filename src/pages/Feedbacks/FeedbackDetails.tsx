@@ -28,7 +28,7 @@ export function FeedbackDetailsPage () {
         <div className="flex justify-between h-15 items-center">
           <Link to={`/${backRoute}`}><GoBackButton /></Link>
           {canEdit && <button>
-            <Link to={`/feedbacks/edit/${params.id}`}>
+            <Link to={`/feedbacks/edit/${params.id}?back=${backRoute}`}>
               <Button type="secondary">Edit Feedback</Button>
             </Link>
           </button>}

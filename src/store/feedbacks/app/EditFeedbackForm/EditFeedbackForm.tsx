@@ -1,6 +1,6 @@
 import { EditFeedbackForm } from "@/components/form/EditFeedbackForm/EditFeedbackForm";
 import { useAppDispatch, useAppSelector } from "@/store/store-hooks";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { selectFeedback } from "../../feedback.reducer";
 import { editFeedbackThunk, EditFeedbackUsecaseParams } from "../../usecases/edit-feedback.usecase";
 import { useContext, useState } from "react";
@@ -15,6 +15,8 @@ export function EditFeedbackFormComponent() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const feedback = useAppSelector(selectFeedback(params.id!))
+  const searchParams = useSearchParams()[0]
+  const backRoute = searchParams.get('back') ?? "feedbacks"
   
 
   const handleEditFeedback = async (feedback: EditFeedbackUsecaseParams) => {
@@ -24,7 +26,7 @@ export function EditFeedbackFormComponent() {
         return
       }
       if(payload.type === UsecaseResultType.SUCCESS) {
-        return navigate(`/feedbacks/${params.id}`)
+        return navigate(`/feedbacks/${params.id}?back=${backRoute}`)
       } else if(payload.type === UsecaseResultType.FIELD_ERROR) {
         const errors: {[key: string]: string[]} = {}
           if(Array.isArray(payload.data)) {

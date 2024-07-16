@@ -58,7 +58,7 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
     {
       path: "/roadmap",
       loader: createRoadmapLoader({store}),
-      element: <Outlet />,
+      element: <RequireAuth page={<Outlet />} />,
       children: [
         {
           path: "/roadmap",

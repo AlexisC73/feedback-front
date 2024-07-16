@@ -13,8 +13,8 @@ export function UpdateFeedbackPage () {
 
   const canEdit = feedback?.owner === auth.account?.id
 
-  if(!params.id || !auth.account || !canEdit) {
-    return <Navigate to="/feedbacks" />
+  if(!feedback || !auth.account || !canEdit) {
+    return <Navigate to={`/`} />
   }
 
   return (
