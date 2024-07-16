@@ -1,0 +1,72 @@
+{
+  "translation": {
+    "login_form": {
+      "title": "Connexion",
+      "email_label": "Adresse Email",
+      "password_label": "Mot de passe",
+      "signin_button": "Me connecter",
+      "no_account": "Vous n'avez pas de compte ?",
+      "signup_link": "Créez-en un maintenant"
+    },
+    "register_form": {
+      "title": "Créer un compte",
+      "email_label": "Adresse Email",
+      "password_label": "Mot de passe",
+      "confirm_password_label": "Confirmer le mot de passe",
+      "confirm_password_description": "Retapez votre mot de passe",
+      "display_name_label": "Nom d'affichage",
+      "display_name_description": "Peut contenir un espace et dois faire 8 caractères minimum",
+      "username_label": "Nom d'utilisateur",
+      "username_description": "Votre nom d'utilisateur unique",
+      "register_button": "M'inscrire",
+      "got_account": "Déjà un compte ?",
+      "signin_link": "Connectez-vous ici"
+    },
+    "go_back_button_label": "Retour",
+    "add_suggestion_form": {
+      "title": "Créer un nouveau feedback",
+      "title_label": "Titre du feedback",
+      "title_description": "Ajoutez un titre court et descriptif",
+      "category_label": "Catégorie",
+      "category_description": "Choisissez une catégorie pour votre feedback",
+      "detail_label": "Détails du feedback",
+      "detail_description": "Incluez tout commentaire spécifique sur ce qui devrait être amélioré, ajouté, etc.",
+      "cancel_button": "Annuler",
+      "add_button": "Ajouter"
+    },
+    "detail_page": {
+      "edit_button": "Modifier le feedback"
+    },
+    "add_comment_form": {
+      "title": "Ajouter un commentaire",
+      "content_placeholder": "Tapez votre commentaire ici",
+      "caracters_left": "Caractères restants",
+      "post_button": "Commenter"
+    },
+    "suggestion_header": {
+      "suggestion": "Suggestions",
+      "add_feedback_button": "+ Ajouter un feedback",
+      "add_feedback_button_min": "+ Ajouter"
+    },
+    "edit_feedback_form": {
+      "title": "Modifie",
+      "title_label": "Titre du feedback",
+      "title_description": "Ajoutez un titre court et descriptif",
+      "category_label": "Catégorie",
+      "category_description": "Choisissez une catégorie pour votre feedback",
+      "status_label": "Mettre à jour le statut",
+      "status_description": "Changer le status du feedback",
+      "detail_label": "Détails du feedback",
+      "detail_description": "Incluez tout commentaire spécifique sur ce qui devrait être amélioré, ajouté, etc.",
+      "delete_button": "Supprimer",
+      "cancel_button": "Annuler",
+      "update_button": "Sauvegarder"
+    },
+    "roadmap_page": {
+      "add_feedback_button": "+ Ajouter un feedback"
+    },
+    "roadmap_component": {
+      "view": "Voir"
+    }
+  }
+}

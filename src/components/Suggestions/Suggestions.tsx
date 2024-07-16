@@ -10,11 +10,17 @@ export function Suggestions ({ suggestionCount }: {suggestionCount: number}) {
   return (
     <div className="flex bg-#373F68 p-6 md:pr-3 xl:pr-4 py-3.5 md:rounded-2.5 justify-between">
       <div className="flex gap-x-9.5 items-center">
-        <p className="hidden text-white gap-x-4 items-center md:flex"><SuggestionsIcon className="text-6 text-white" /> <strong>{suggestionCount} {t('suggestion_header.suggestion')}</strong></p>
+        <p className="hidden text-white gap-x-4 items-center md:flex">
+          <SuggestionsIcon className="text-6 text-white" />
+          <strong>{suggestionCount} {t('suggestion_header.suggestion')}</strong>
+          </p>
         <SortFilterComponent />
       </div>
-      <Link to="/feedbacks/new" className="w-33.5 md:w-39.5">
-        <Button>{t('suggestion_header.add_feedback_button')}</Button>
+      <Link to="/feedbacks/new">
+        <Button>
+          <span className="md:hidden">{t('suggestion_header.add_feedback_button_min')}</span>
+          <span className="hidden md:block">{t('suggestion_header.add_feedback_button')}</span>
+        </Button>
       </Link>
     </div>
   )

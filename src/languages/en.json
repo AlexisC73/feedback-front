@@ -45,7 +45,8 @@
     },
     "suggestion_header": {
       "suggestion": "Suggestions",
-      "add_feedback_button": "+ Add Feedback"
+      "add_feedback_button": "+ Add Feedback",
+      "add_feedback_button_min": "+ Add Feedback"
     },
     "edit_feedback_form": {
       "title": "Editing",
@@ -62,16 +63,11 @@
       "update_button": "Save Changes"
     },
     "roadmap_page": {
-      "add_feedback_button": "+ Add Feedback"
+      "add_feedback_button": "+ Add Feedback",
+      "add_feedback_button_min": "+ Add Feedback"
     },
     "roadmap_component": {
       "view": "View"
-    },
-    "sort_filters": {
-      "most_upvotes": "Most Upvotes",
-      "least_upvotes": "Least Upvotes",
-      "most_comments": "Most Comments",
-      "least_comments": "Least Comments"
     }
   }
 }
