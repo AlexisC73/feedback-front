@@ -9,6 +9,6 @@ const mapCommentsToCommentItemProps = createSelector([(comments: Comment[]) => c
   id: c.id,
   comment: c.content,
   fullName: c.sender.displayName,
-  imageUrl: c.sender.avatar ?? "https://example.com/no_avatar.png",
+  imageUrl: c.sender.avatar,
   username: c.sender.username
 })))

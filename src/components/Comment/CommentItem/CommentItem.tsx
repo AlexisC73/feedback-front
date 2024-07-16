@@ -1,7 +1,8 @@
+import { Avatar } from "@/components/avatar/Avatar"
 import { useTranslation } from "react-i18next"
 
  export interface CommentItemProps {
-  imageUrl: string
+  imageUrl: string | null
   fullName: string
   username: string
   comment: string
@@ -11,7 +12,7 @@ import { useTranslation } from "react-i18next"
   const {t} = useTranslation()
   return <div className="flex flex-col items-start gap-x-8">
     <div className="flex w-full gap-x-8">
-      <img src={imageUrl} className="rounded-full h-10 w-10" />
+      <Avatar imageUrl={imageUrl} username={username} />
       <div className="flex items-center w-full">
         <div className="flex-1">
           <h3 className="text-#3A4374 text-3.5 line-height-5 -tracking-0.19px font-bold">{fullName}</h3>
