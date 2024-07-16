@@ -44,11 +44,11 @@ export function RegisterForm ({registerFn, fieldsErrors}: RegisterFormProps) {
         <Input name="confirmation-password" type="password" errors={fieldsErrors.confirmationPassword} />
       </FormGroup>
       <FormGroup>
-        <InputHeader htmlFor="display-name" label="Display Name" description="Your display name" />
+        <InputHeader htmlFor="display-name" label="Display Name" description="Can contain a whitespace and 8 caracters minimum" />
         <Input name="display-name" errors={fieldsErrors.displayName} />
       </FormGroup>
       <FormGroup>
-        <InputHeader htmlFor="username" label="Username" description="Need to be unique" />
+        <InputHeader htmlFor="username" label="Username" description="Your unique username" />
         <Input name="username" errors={fieldsErrors.username} />
       </FormGroup>
       <div className="mt-10 flex flex-col gap-y-4 md:flex-row md:justify-end md:gap-x-4">

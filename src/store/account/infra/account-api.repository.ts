@@ -29,7 +29,6 @@ export class AccountApiRepository implements AccountRepository {
       if(request.status === 400) {
         const result = await request.json()
         return handleBadRequestErrors(result)
-
       }
       return handleApiError(request.status)
     } catch(e) {
