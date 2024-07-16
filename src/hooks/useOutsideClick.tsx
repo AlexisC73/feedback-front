@@ -1,15 +1,15 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 
 export const useOutsideClick = (callback: () => void) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = useCallback((e: MouseEvent) => {
-    if(ref.current && ref.current !== e.target) {
+    if(ref.current && !ref.current.contains(e.target as Node)) {
       callback();
     }
   }, [callback, ref])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.addEventListener("click", handleClickOutside)
 
     return () => {
