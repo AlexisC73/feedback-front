@@ -1,5 +1,5 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
-import { CustomDropdown, CustomDropdownItem } from "../dropdown/custom-dropdown";
+import { Dropdown, DropdownItem } from "../dropdown/Dropdown";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
@@ -20,8 +20,8 @@ export function CategoriesSelect ({current, onSelect}: {current: FeedbackCategor
   }
 
   return (
-    <CustomDropdown isOpen={isOpen} toggle={toggleSelect} current={t(`categories.${current}`)}>
-      {Object.values(FeedbackCategory).map(c => (<CustomDropdownItem key={c} active={current === c} label={t(`categories.${c}`)} onClick={() => handleSelectedCategory(c)}></CustomDropdownItem>))}
-    </CustomDropdown>
+    <Dropdown isOpen={isOpen} toggle={toggleSelect} current={t(`categories.${current}`)}>
+      {Object.values(FeedbackCategory).map(c => (<DropdownItem key={c} active={current === c} label={t(`categories.${c}`)} onClick={() => handleSelectedCategory(c)}></DropdownItem>))}
+    </Dropdown>
   )
 } 

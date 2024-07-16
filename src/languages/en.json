@@ -93,6 +93,7 @@
       "in-progress": "In Progress",
       "live": "Live",
       "suggestion": "Suggestions"
-    }
+    },
+    "choose_element": "Choose an element"
   }
 }

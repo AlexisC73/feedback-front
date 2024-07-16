@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ArrowIcon } from "@/assets/icons"
-import { CustomDropdownItem } from "../form/dropdown/custom-dropdown"
+import { DropdownItem } from "../form/dropdown/Dropdown"
 import { useTranslation } from "react-i18next"
 
 export function SelectSortFilter ({activeFilter, filters, onUpdateFilter}: {activeFilter: string, filters: string[], onUpdateFilter: (filter: string) => void}) {
@@ -22,7 +22,7 @@ export function SelectSortFilter ({activeFilter, filters, onUpdateFilter}: {acti
       { isFilterOpen && (
         <ul className="rounded-1.25 overflow-hidden w-63.75 top-10.5 left-0 absolute flex flex-col gap-y-1px bg-#3A4374 bg-opacity-15">
           {filters.map((filter, index) => (
-            <CustomDropdownItem active={filter === activeFilter} onClick={() =>handleUpdateFilter(filter)} label={t(`sort_filters.${filter}`)} key={index}  />
+            <DropdownItem active={filter === activeFilter} onClick={() =>handleUpdateFilter(filter)} label={t(`sort_filters.${filter}`)} key={index}  />
           ))}
         </ul>)
       }
