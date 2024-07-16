@@ -21,6 +21,18 @@
       "register_button": "Sign Up",
       "got_account": "Already got an account?",
       "signin_link": "Login here"
+    },
+    "go_back_button_label": "Go back",
+    "add_suggestion_form": {
+      "title": "Create New Feedback",
+      "title_label": "Feedback Title",
+      "title_description": "Add a short, descriptive headline",
+      "category_label": "Category",
+      "category_description": "Choose a category for your feedback",
+      "detail_label": "Feedback Detail",
+      "detail_description": "Include any specific comments on what should be improved, added, etc.",
+      "cancel_button": "Cancel",
+      "add_button": "Add Feedback"
     }
   }
 }
