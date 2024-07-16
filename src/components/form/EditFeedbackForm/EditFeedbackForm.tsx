@@ -11,6 +11,7 @@ import { PenIcon } from "@/assets/icons";
 import { DeleteFeedbackButtonState } from "@/store/feedbacks/app/DeleteFeedbackButton/DeleteFeedbackButton";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
 
 export interface EditFeedbackFormProps {
   feedback: Feedback,
@@ -24,14 +25,14 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
   const status = Object.values(FeedbackStatus)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
-  const [currentOption, setCurrentOption] = useState<FeedbackCategory>(feedback.category)
+  const [currentCategory, setCurrentCategory] = useState<FeedbackCategory>(feedback.category)
   const [currentStatus, setCurrentStatus] = useState<FeedbackStatus>(feedback.status)
 
-  const handleSelectOption = (selected: string) => {
+  const handleSelectCategory = (selected: string) => {
     if(!categories.includes(selected as FeedbackCategory)) {
       return
     }
-    setCurrentOption(selected as FeedbackCategory)
+    setCurrentCategory(selected as FeedbackCategory)
   }
 
   const handleUpdateStatus = (selected: string) => {
@@ -47,7 +48,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
     const form = e.currentTarget
     const formData = new FormData(form)
     const title = formData.get('title') as string
-    const category = currentOption
+    const category = currentCategory
     const status = currentStatus
     const description = formData.get('description') as string
     onEditFeedback({id: feedback.id, title, category, status, description}).finally(() => setIsProcessing(false))
@@ -63,7 +64,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="category" label={t("edit_feedback_form.category_label")} description={t("edit_feedback_form.category_description")} />
-            <Dropdown onSelect={handleSelectOption} current={currentOption} options={categories} />
+            <CategoriesSelect current={currentCategory} onSelect={handleSelectCategory} />
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="status" label={t("edit_feedback_form.status_label")} description={t("edit_feedback_form.status_description")} />

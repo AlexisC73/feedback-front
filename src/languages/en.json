@@ -75,6 +75,14 @@
       "most_comments": "Most Comments",
       "least_comments": "Least Comments"
     },
+    "categories": {
+      "all": "Tous",
+      "feature": "Feature",
+      "bug": "Bug",
+      "enhancement": "Enhancement",
+      "ui": "UI",
+      "ux": "UX"
+    },
     "sort_by": "Sort by",
     "comment": {
       "reply": "Reply"

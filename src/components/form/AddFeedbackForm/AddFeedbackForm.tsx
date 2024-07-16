@@ -1,6 +1,5 @@
 import { FeedbackCategory } from "@/store/feedbacks/models/feedback";
 import { Button } from "../../ui/Button/button";
-import { Dropdown } from "../dropdown/Dropdown";
 import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";
@@ -9,6 +8,7 @@ import { useState } from "react";
 import { AddFeedbackUsecaseParams } from "@/store/feedbacks/usecases/add-feedback.usecase";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
 
 export interface AddFeedbackFormProps {
   onPostFeedback: (params: AddFeedbackUsecaseParams) => Promise<void>
@@ -49,7 +49,7 @@ export function AddFeedbackForm ({onPostFeedback, fieldErrors}: AddFeedbackFormP
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="category" label={t("add_suggestion_form.category_label")} description={t("add_suggestion_form.category_description")} />
-        <Dropdown onSelect={handleSelectOption} current={currentOption} options={categoryOptions} />
+        <CategoriesSelect current={currentOption} onSelect={handleSelectOption} />
       </FormGroup>
       <FormGroup>
         <InputHeader htmlFor="description" label={t("add_suggestion_form.detail_label")} description={t("add_suggestion_form.detail_description")} />

@@ -11,11 +11,11 @@ export interface Feedback {
 }
 
 export enum FeedbackCategory {
-  FEATURE = 'Feature',
-  BUG = 'Bug',
-  ENHANCEMENT = 'Enhancement',
-  UI = 'UI',
-  UX = 'UX',
+  FEATURE = 'feature',
+  BUG = 'bug',
+  ENHANCEMENT = 'enhancement',
+  UI = 'ui',
+  UX = 'ux',
 }
 
 export enum FeedbackStatus {
