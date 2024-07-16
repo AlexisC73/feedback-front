@@ -2,11 +2,18 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { GoBackButton } from "@/components/ui/BoBackButton/GoBackButton";
 import Layout from "@/Layout";
 import { EditFeedbackFormComponent } from "@/store/feedbacks/app/EditFeedbackForm/EditFeedbackForm";
+import { useAppSelector } from "@/store/store-hooks";
+import { selectAuth } from "@/store/auth/auth-reducer";
+import { selectFeedback } from "@/store/feedbacks/feedback.reducer";
 
 export function UpdateFeedbackPage () {
   const params = useParams<{id: string}>()
-  
-  if(!params.id) {
+  const feedback = useAppSelector(selectFeedback(params.id!))
+  const auth = useAppSelector(selectAuth)
+
+  const canEdit = feedback?.owner === auth.account?.id
+
+  if(!params.id || !auth.account || !canEdit) {
     return <Navigate to="/feedbacks" />
   }
 
