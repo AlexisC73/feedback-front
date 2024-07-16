@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { GoBackButton } from "@/components/ui/BoBackButton/GoBackButton";
 import { Button } from "@/components/ui/Button/button";
 import Layout from "@/Layout";
@@ -13,18 +13,20 @@ export function FeedbackDetailsPage () {
   const params = useParams<{id: string}>()
   const feedback = useAppSelector(selectFeedback(params.id!))
   const auth = useAppSelector(selectAuth)
+  const searchParams = useSearchParams()[0]
+  const backRoute = searchParams.get('back') ?? "feedbacks"
 
   const canEdit = feedback?.owner === auth.account?.id
 
   if(!params.id || !feedback) {
-    return <Navigate to="/feedbacks" />
+    return <Navigate to={`/${backRoute}`} />
   }
 
   return (
     <Layout.emptyLayout>
       <div className="flex flex-col gap-y-6 p-6 md:px-10 xl:max-w-182.5 xl:px-0 xl:mx-auto w-full">
         <div className="flex justify-between h-15 items-center">
-          <Link to="/"><GoBackButton /></Link>
+          <Link to={`/${backRoute}`}><GoBackButton /></Link>
           {canEdit && <button>
             <Link to={`/feedbacks/edit/${params.id}`}>
               <Button type="secondary">Edit Feedback</Button>

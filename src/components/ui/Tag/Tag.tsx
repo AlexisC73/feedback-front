@@ -1,6 +1,6 @@
 import { TagType } from "@/Context/TagFilter/TagFilterType"
 
-export function Tag ({title, active, hoverable}: {title: TagType, active: boolean, hoverable?: boolean}) {
+export function Tag ({title, active = false, hoverable}: {title: TagType, active?: boolean, hoverable?: boolean}) {
   const filtersStyle: {[key in TagType]: string} = {
     All: "px-4",
     UI: "pl-4 pr-4.75",
