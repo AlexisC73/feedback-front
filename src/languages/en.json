@@ -98,6 +98,12 @@
       "suggestion": "Suggestions",
       "suggestion_description": "Suggestion feature"
     },
-    "choose_element": "Choose an element"
+    "choose_element": "Choose an element",
+    "errors": {
+      "unknow": "An error occured, please try again later",
+      "login": {
+        "unauthorized": "You are not authorized to do this."
+      }
+    }
   }
 }

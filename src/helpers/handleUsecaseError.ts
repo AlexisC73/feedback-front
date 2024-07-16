@@ -1,12 +1,13 @@
 import { Toast } from "@/Context/ToastCtx/ToastCtx";
 import { ApiErrors, ApiResultType, UsecaseErrors, UsecaseResultType } from "@/store/@shared/models/resultType";
 import { exhaustiveGuard } from "@/store/@shared/utiles/exhaustive-guard";
+import { t } from "i18next";
 
 export function notifyUsecaseError(addToast: (toast: {message: string, autoClose?: boolean, type?: Toast["type"]}) => void, result?: UsecaseErrors) {
   if(result?.type === UsecaseResultType.FIELD_ERROR) {
     return
   }
-  addToast({message: result?.data ?? "An error occurred, please try again later", type: "error"})
+  addToast({message: result?.data ?? t("errors.unknow"), type: "error"})
 }
 
 export function handleUsecaseErrors(errors: ApiErrors, errorsMessage: {
@@ -28,5 +29,5 @@ export function handleUsecaseErrors(errors: ApiErrors, errorsMessage: {
     default:
       exhaustiveGuard(errors)
   }
-  return {type: UsecaseResultType.UNKNOWN_ERROR, data: "An error occurred, please try again later"}
+  return {type: UsecaseResultType.UNKNOWN_ERROR, data: t("errors.unknow")}
 }

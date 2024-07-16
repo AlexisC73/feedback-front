@@ -97,6 +97,9 @@
       "suggestion": "Suggestion",
       "suggestion_description": "Suggestion de fonctionnalité"
     },
-    "choose_element": "Choisir un élément"
+    "choose_element": "Choisir un élément",
+    "errors": {
+      "unknow": "Une erreur inconnue s'est produite, veuillez réessayer plus tard"
+    }
   }
 }
