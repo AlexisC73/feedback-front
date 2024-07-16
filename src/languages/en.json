@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "login_form": {
+      "title": "Sign In",
+      "email_label": "Mail address",
+      "password_label": "Password",
+      "signin_button": "Sign In",
+      "no_account": "Don't have an account?",
+      "signup_link": "Create one now"
+    }
+  }
+}
