@@ -35,7 +35,7 @@
       "add_button": "Ajouter"
     },
     "detail_page": {
-      "edit_button": "Modifier le feedback"
+      "edit_button": "Modifier le Feedback"
     },
     "add_comment_form": {
       "title": "Ajouter un commentaire",
@@ -45,7 +45,7 @@
     },
     "suggestion_header": {
       "suggestion": "Suggestions",
-      "add_feedback_button": "+ Ajouter un feedback",
+      "add_feedback_button": "+ Ajouter un Feedback",
       "add_feedback_button_min": "+ Ajouter"
     },
     "edit_feedback_form": {
@@ -63,14 +63,14 @@
       "update_button": "Sauvegarder"
     },
     "roadmap_page": {
-      "add_feedback_button": "+ Ajouter un feedback"
+      "add_feedback_button": "+ Ajouter un Feedback"
     },
     "roadmap_component": {
       "view": "Voir"
     },
     "sort_filters": {
-      "most_upvotes": "Plus Validé",
-      "least_upvotes": "Moins Validé",
+      "most_upvotes": "Plus Voté",
+      "least_upvotes": "Moins Voté",
       "most_comments": "Plus Commenté",
       "least_comments": "Moins Commenté"
     },
