@@ -86,6 +86,12 @@
     "comment": {
       "reply": "Répondre"
     },
-    "coming_soon": "Bientôt disponible"
+    "coming_soon": "Bientôt disponible",
+    "status": {
+      "planned": "Planifié",
+      "in-progress": "En cours",
+      "live": "En ligne",
+      "suggestion": "Suggestion"
+    }
   }
 }

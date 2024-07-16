@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/Button/button";
-import { Dropdown } from "../dropdown/Dropdown";
 import { FormGroup } from "../form-group/FormGroup";
 import { InputHeader } from "../input-header/InputHeader";
 import { Input } from "../input/Input";
@@ -12,6 +11,7 @@ import { DeleteFeedbackButtonState } from "@/store/feedbacks/app/DeleteFeedbackB
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
+import { StatusSelect } from "../StatusSelect/StatusSelect";
 
 export interface EditFeedbackFormProps {
   feedback: Feedback,
@@ -68,7 +68,7 @@ export function EditFeedbackForm ({ feedback, onEditFeedback, errors }: EditFeed
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="status" label={t("edit_feedback_form.status_label")} description={t("edit_feedback_form.status_description")} />
-            <Dropdown onSelect={handleUpdateStatus} current={currentStatus} options={status} />
+            <StatusSelect current={currentStatus} onSelect={handleUpdateStatus} />
           </FormGroup>
           <FormGroup>
             <InputHeader htmlFor="description" label={t("edit_feedback_form.detail_label")} description={t("edit_feedback_form.detail_description")} />

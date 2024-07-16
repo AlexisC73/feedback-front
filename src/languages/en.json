@@ -87,6 +87,12 @@
     "comment": {
       "reply": "Reply"
     },
-    "coming_soon": "Coming soon"
+    "coming_soon": "Coming soon",
+    "status": {
+      "planned": "Planned",
+      "in-progress": "In Progress",
+      "live": "Live",
+      "suggestion": "Suggestions"
+    }
   }
 }

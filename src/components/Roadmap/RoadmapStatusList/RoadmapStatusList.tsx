@@ -16,9 +16,9 @@ export function RoadmapStatusList ({ amountByStatus }: RoadmapStatusListProps) {
         <Link to="/roadmap" className="text-3.25 text-#4661E6 underline font-semibold">{t("roadmap_component.view")}</Link>
       </div>
       <ul>
-        <RoadmapStatusItem status={FeedbackStatus.PLANNED} amount={amountByStatus?.Planned ?? 0} />
-        <RoadmapStatusItem status={FeedbackStatus.IN_PROGRESS} amount={amountByStatus?.["In-Progress"] ?? 0} />
-        <RoadmapStatusItem status={FeedbackStatus.LIVE} amount={amountByStatus?.Live ?? 0} />
+        <RoadmapStatusItem status={FeedbackStatus.PLANNED} amount={amountByStatus?.planned ?? 0} />
+        <RoadmapStatusItem status={FeedbackStatus.IN_PROGRESS} amount={amountByStatus?.["in-progress"] ?? 0} />
+        <RoadmapStatusItem status={FeedbackStatus.LIVE} amount={amountByStatus?.live ?? 0} />
       </ul>
     </div>
   )
