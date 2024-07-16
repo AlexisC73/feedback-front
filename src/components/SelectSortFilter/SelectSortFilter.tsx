@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 
 export function SelectSortFilter ({activeFilter, filters, onUpdateFilter}: {activeFilter: string, filters: string[], onUpdateFilter: (filter: string) => void}) {
   const {t} = useTranslation()
-  const [isFilterOpen, setIsFilterOpen] = useState(true)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const toggleFilter = () => {
     setIsFilterOpen(prev => !prev)
