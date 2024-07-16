@@ -68,6 +68,12 @@
     },
     "roadmap_component": {
       "view": "View"
+    },
+    "sort_filters": {
+      "most_upvotes": "Most Upvotes",
+      "least_upvotes": "Least Upvotes",
+      "most_comments": "Most Comments",
+      "least_comments": "Least Comments"
     }
   }
 }

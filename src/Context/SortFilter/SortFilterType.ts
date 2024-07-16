@@ -1,6 +1,6 @@
 export enum SortFilter {
-  MostUpvotes = "Most Upvotes",
-  LeastUpvotes = "Least Upvotes",
-  MostComments = "Most Comments",
-  LeastComments = "Least Comments"
+  MostUpvotes = "most_upvotes",
+  LeastUpvotes = "least_upvotes",
+  MostComments = "most_comments",
+  LeastComments = "least_comments"
 }
