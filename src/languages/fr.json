@@ -74,6 +74,10 @@
       "most_comments": "Plus Commenté",
       "least_comments": "Moins Commenté"
     },
-    "sort_by": "Trier par"
+    "sort_by": "Trier par",
+    "comment": {
+      "reply": "Répondre"
+    },
+    "coming_soon": "Bientôt disponible"
   }
 }
