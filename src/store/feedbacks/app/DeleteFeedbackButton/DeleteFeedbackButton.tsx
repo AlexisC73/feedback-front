@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
 import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
+import { useTranslation } from "react-i18next";
 
 export function DeleteFeedbackButtonState ({feedbackId}: {feedbackId: string}) {
+  const {t} = useTranslation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const {addToast} = useContext(ToastCtx)
@@ -26,7 +28,7 @@ export function DeleteFeedbackButtonState ({feedbackId}: {feedbackId: string}) {
 
   return (
     <button disabled={isProcessing} onClick={handleDeleteFeedback} type="button" className="md:w-23.25">
-      <Button isLoading={isProcessing} fullWidth type="danger">Delete</Button>
+      <Button isLoading={isProcessing} fullWidth type="danger">{t("edit_feedback_form.delete_button")}</Button>
     </button>
   )
 }

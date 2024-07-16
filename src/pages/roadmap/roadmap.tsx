@@ -8,9 +8,11 @@ import { selectFeedbacks } from "@/store/feedbacks/feedback.reducer";
 import { FeedbackStatus } from "@/store/feedbacks/models/feedback";
 import { useAppSelector } from "@/store/store-hooks";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export function RoadmapPage () {
+  const {t} = useTranslation()
   const {data: feedbacks} = useAppSelector(selectFeedbacks)
   const [currentStatus, setCurrentStatus] = useState(FeedbackStatus.IN_PROGRESS)
 
@@ -25,7 +27,7 @@ export function RoadmapPage () {
           <Link to={"/feedbacks"}><GoBackButton style="alt" /></Link>
           <h1 className="text-4.5 text-white -tracking-0.25px font-bold md:text-6 md:-tracking-0.33px">Roadmap</h1>
         </div>
-        <Link to={`/feedbacks/new?back=roadmap`}><Button>+ Add Feedback</Button></Link>
+        <Link to={`/feedbacks/new?back=roadmap`}><Button>{t("roadmap_page.add_feedback_button")}</Button></Link>
       </header>
       <div className="md:hidden">
         <TabBar>

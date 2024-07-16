@@ -42,6 +42,36 @@
       "content_placeholder": "Type your comment here",
       "caracters_left": "Characters left",
       "post_button": "Post Comment"
+    },
+    "suggestion_header": {
+      "suggestion": "Suggestions",
+      "add_feedback_button": "+ Add Feedback"
+    },
+    "edit_feedback_form": {
+      "title": "Editing",
+      "title_label": "Feedback Title",
+      "title_description": "Add a short, descriptive headline",
+      "category_label": "Category",
+      "category_description": "Choose a category for your feedback",
+      "status_label": "Update Status",
+      "status_description": "Change feature state",
+      "detail_label": "Feedback Detail",
+      "detail_description": "Include any specific comments on what should be improved, added, etc.",
+      "delete_button": "Delete",
+      "cancel_button": "Cancel",
+      "update_button": "Save Changes"
+    },
+    "roadmap_page": {
+      "add_feedback_button": "+ Add Feedback"
+    },
+    "roadmap_component": {
+      "view": "View"
+    },
+    "sort_filters": {
+      "most_upvotes": "Most Upvotes",
+      "least_upvotes": "Least Upvotes",
+      "most_comments": "Most Comments",
+      "least_comments": "Least Comments"
     }
   }
 }
