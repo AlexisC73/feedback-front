@@ -6,6 +6,6 @@ export function Avatar ({ imageUrl, username }: {imageUrl: string | null, userna
     )
   }
   return (
-    <div className="rounded-full flex items-center justify-center min-h-10 min-w-10 h-10 w-10 text-white font-bold text-6 bg-blue-6 bg-opacity-60">{username.charAt(0).toLocaleUpperCase()}</div>
+    <div className="rounded-full flex items-center justify-center min-h-10 min-w-10 h-10 w-10 text-white font-bold text-6 bg-blue-6 bg-opacity-80">{username.charAt(0).toLocaleUpperCase()}</div>
   )
 }

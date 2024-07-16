@@ -16,7 +16,7 @@ export interface FeedbackCardProps {
 export function FeedbackCard ({title, category, description, comments, id}: FeedbackCardProps) {
   return (
     <div className="flex flex-col md:flex-row w-full p-6 bg-white rounded-2.5 gap-y-2 md:items-center md:gap-x-10">
-      <div className="hidden md:flex">
+      <div className="hidden md:flex self-start">
         <UpvoteComponent feedbackId={id} />
       </div>
       <div className="flex flex-col gap-y-2 md:gay-y-1 w-full">
