@@ -7,6 +7,20 @@
       "signin_button": "Sign In",
       "no_account": "Don't have an account?",
       "signup_link": "Create one now"
+    },
+    "register_form": {
+      "title": "Create your account",
+      "email_label": "Mail address",
+      "password_label": "Password",
+      "confirm_password_label": "Verification password",
+      "confirm_password_description": "Re-type your password",
+      "display_name_label": "Display Name",
+      "display_name_description": "Can contain a whitespace and 8 caracters minimum",
+      "username_label": "Username",
+      "username_description": "Your unique username",
+      "register_button": "Sign Up",
+      "got_account": "Already got an account?",
+      "signin_link": "Login here"
     }
   }
 }
