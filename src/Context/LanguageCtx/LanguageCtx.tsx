@@ -1,8 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Language } from "./languageType";
-
-
+import { DEFAULT_LANGUAGE, Language } from "./languageType";
 
 interface LanguageCtxProps {
   setLanguage: (language: Language) => void
@@ -14,25 +12,35 @@ export const LanguageCtx = createContext<LanguageCtxProps>({
 
 export function LanguageCtxProvider ({children}: {children: React.ReactNode}) {
   const {i18n: {changeLanguage}} = useTranslation()
-  const [language, setLanguage] = useState<Language>(Language.EN)
 
-  const handleChangeLanguage = (language: Language) => {
-    setLanguage(language)
+  const getCurrentStoredLanguage = useCallback(() => {
+    const storedLanguage = localStorage.getItem("language")
+    if(!storedLanguage) {
+      return DEFAULT_LANGUAGE
+    }
+    if(Object.values(Language).includes(storedLanguage as Language)) {
+      return storedLanguage as Language
+    }
+    return DEFAULT_LANGUAGE
+  }, [])
+
+  const handleChangeLanguage = useCallback((language: Language) => {
     changeLanguage(language)
-  }
+    localStorage.setItem("language", language)
+  }, [changeLanguage])
 
   const languageCtx: LanguageCtxProps = {
     setLanguage: handleChangeLanguage
   }
 
-  const toggleLanguage = () => {
-    handleChangeLanguage(language === Language.EN ? Language.FR : Language.EN)
-  }
+  useEffect(() => {
+    const storedLanguage = getCurrentStoredLanguage()
+    handleChangeLanguage(storedLanguage)
+  }, [handleChangeLanguage, getCurrentStoredLanguage])
 
   return (
     <LanguageCtx.Provider value={languageCtx}>
       {children}
-      <button className="absolute bottom-1 left-1 px-2 py-1 text-white rounded-1 bg-blue-6" onClick={toggleLanguage}>Toggle Fr/En</button>
     </LanguageCtx.Provider>
   )
 }
