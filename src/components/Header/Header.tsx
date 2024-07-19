@@ -3,6 +3,7 @@ import { BurgerMenuIcon, CloseMenuIcon } from "@/assets/icons"
 import { MobileSideMenu } from "./MobileSideMenu/MobileSideMenu"
 import { TagFilterComponent } from "@/Context/TagFilter/TagFilterCtx"
 import { RoadmapState } from "@/store/feedbacks/app/RoadmapState/RoadmapState"
+import { Profile } from "../Profile/Profile"
 
 export function Header () {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -17,6 +18,7 @@ export function Header () {
         <HeaderMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
         <div className="hidden md:flex"><TagFilterComponent /></div>
         <div className="hidden md:flex"><RoadmapState /></div>
+        <div className="hidden xl:flex"><Profile /></div>
       </header>
       {menuOpen && <MobileSideMenu />}
     </>

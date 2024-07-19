@@ -104,6 +104,10 @@
       "login": {
         "unauthorized": "You are not authorized to do this."
       }
+    },
+    "language": {
+      "en": "EN",
+      "fr": "FR"
     }
   }
 }

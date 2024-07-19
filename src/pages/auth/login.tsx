@@ -16,10 +16,6 @@ export function LoginPage() {
   return (
     <Layout.emptyLayout>
       <div className="px-6 py-8.5 flex w-full flex-col gap-y-13.75 items-start md:max-w-135 md:mx-auto md:px-0 md:my-auto">
-        <div className="w-full">
-          <div className="flex justify-end">
-          </div>
-        </div>
         <LoginComponent />
       </div>
     </Layout.emptyLayout>

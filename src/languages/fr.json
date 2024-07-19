@@ -99,7 +99,14 @@
     },
     "choose_element": "Choisir un élément",
     "errors": {
-      "unknow": "Une erreur inconnue s'est produite, veuillez réessayer plus tard"
+      "unknow": "Une erreur inconnue s'est produite, veuillez réessayer plus tard",
+      "login": {
+        "unauthorized": "Vous n'êtes pas autorisé à faire cela."
+      }
+    },
+    "language": {
+      "en": "EN",
+      "fr": "FR"
     }
   }
 }

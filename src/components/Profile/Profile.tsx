@@ -1,0 +1,30 @@
+import { useAppSelector } from "@/store/store-hooks";
+import { Avatar } from "../avatar/Avatar";
+import { selectAuth } from "@/store/auth/auth-reducer";
+import { LogoutIcon } from "@/assets/icons";
+import { FormGroup } from "../form/form-group/FormGroup";
+import { InputHeader } from "../form/input-header/InputHeader";
+import { LanguageSelect } from "../ui/LanguageSelect/LanguageSelect";
+import { Button } from "../ui/Button/button";
+
+export function Profile () {
+  const {account} = useAppSelector(selectAuth)
+
+  if(!account) return null
+
+  return (
+    <ul id="filter" className="flex flex-col bg-white p-6 rounded-2.5 md:w-55.75 xl:w-63.75 gap-y-3.5 gap-x-2 justify-center gap-y-8">
+      <div className="flex items-center gap-x-2">
+        <Avatar imageUrl={account.avatar} username={account.username} />
+        <p className="flex-1">{account.username}</p>
+      </div>
+      <FormGroup>
+        <InputHeader htmlFor="language" label="Changer de langue" />
+        <div className="bg-#F7F8FD">
+            <LanguageSelect />
+        </div>
+      </FormGroup>
+      <button><Button type="tertiary"><LogoutIcon className="text-5" /> Me déconnecter</Button></button>
+    </ul>
+  )
+}

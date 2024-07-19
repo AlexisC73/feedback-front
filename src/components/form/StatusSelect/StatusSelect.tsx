@@ -20,8 +20,11 @@ export function StatusSelect ({current, onSelect}: {current: FeedbackStatus, onS
   }
 
   return (
-    <Dropdown isOpen={isOpen} toggle={toggleSelect} current={t(`status.${current}`)}>
-      {Object.values(FeedbackStatus).map(c => (<DropdownItem key={c} active={current === c} label={t(`status.${c}`)} onClick={() => handleSelectedStatus(c)}></DropdownItem>))}
-    </Dropdown>
+    <div className="bg-#F7F8FD rounded-1.25">
+      <Dropdown isOpen={isOpen} toggle={toggleSelect} current={t(`status.${current}`)}>
+        {Object.values(FeedbackStatus).map(c => (<DropdownItem key={c} active={current === c} label={t(`status.${c}`)} onClick={() => handleSelectedStatus(c)}></DropdownItem>))}
+      </Dropdown>
+    </div>
+    
   )
 } 

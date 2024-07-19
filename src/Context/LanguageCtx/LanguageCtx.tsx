@@ -1,28 +1,30 @@
 import { createContext, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { DEFAULT_LANGUAGE, Language } from "./languageType";
+import { Language } from "./languageType";
 
 interface LanguageCtxProps {
+  lang: Language
   setLanguage: (language: Language) => void
 }
 
 export const LanguageCtx = createContext<LanguageCtxProps>({
+  lang: Language.EN,
   setLanguage: () => {}
 })
 
 export function LanguageCtxProvider ({children}: {children: React.ReactNode}) {
-  const {i18n: {changeLanguage}} = useTranslation()
+  const {i18n: {changeLanguage, language}} = useTranslation()
 
   const getCurrentStoredLanguage = useCallback(() => {
     const storedLanguage = localStorage.getItem("language")
     if(!storedLanguage) {
-      return DEFAULT_LANGUAGE
+      return language as Language
     }
     if(Object.values(Language).includes(storedLanguage as Language)) {
       return storedLanguage as Language
     }
-    return DEFAULT_LANGUAGE
-  }, [])
+    return language as Language
+  }, [language])
 
   const handleChangeLanguage = useCallback((language: Language) => {
     changeLanguage(language)
@@ -30,6 +32,7 @@ export function LanguageCtxProvider ({children}: {children: React.ReactNode}) {
   }, [changeLanguage])
 
   const languageCtx: LanguageCtxProps = {
+    lang: language as Language,
     setLanguage: handleChangeLanguage
   }
 

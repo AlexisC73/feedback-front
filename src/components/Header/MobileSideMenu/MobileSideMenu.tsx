@@ -1,3 +1,4 @@
+import { Profile } from "@/components/Profile/Profile";
 import { TagFilterComponent } from "@/Context/TagFilter/TagFilterCtx";
 import { RoadmapState } from "@/store/feedbacks/app/RoadmapState/RoadmapState";
 
@@ -7,6 +8,7 @@ export function MobileSideMenu () {
       <div className="bg-#F7F8FD w-67.75 flex flex-col p-6 gap-y-6">
         <TagFilterComponent  />
         <RoadmapState />
+        <Profile />
       </div>
     </div>
   )

@@ -20,8 +20,11 @@ export function CategoriesSelect ({current, onSelect}: {current: FeedbackCategor
   }
 
   return (
-    <Dropdown isOpen={isOpen} toggle={toggleSelect} current={t(`categories.${current}`)}>
-      {Object.values(FeedbackCategory).map(c => (<DropdownItem key={c} active={current === c} label={t(`categories.${c}`)} onClick={() => handleSelectedCategory(c)}></DropdownItem>))}
-    </Dropdown>
+    <div className="bg-#F7F8FD rounded-1.25">
+      <Dropdown isOpen={isOpen} toggle={toggleSelect} current={t(`categories.${current}`)}>
+        {Object.values(FeedbackCategory).map(c => (<DropdownItem key={c} active={current === c} label={t(`categories.${c}`)} onClick={() => handleSelectedCategory(c)}></DropdownItem>))}
+      </Dropdown>
+    </div>
+    
   )
 } 
