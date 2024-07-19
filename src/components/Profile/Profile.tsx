@@ -23,7 +23,7 @@ export function Profile () {
       </div>
       <FormGroup>
         <InputHeader htmlFor="language" label="Changer de langue" />
-        <div className="bg-#F7F8FD">
+        <div className="bg-#F7F8FD rounded-1.25">
             <LanguageSelect />
         </div>
       </FormGroup>
