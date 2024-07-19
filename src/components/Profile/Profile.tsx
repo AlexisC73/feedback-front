@@ -14,9 +14,12 @@ export function Profile () {
 
   return (
     <ul id="filter" className="flex flex-col bg-white p-6 rounded-2.5 md:w-55.75 xl:w-63.75 gap-y-3.5 gap-x-2 justify-center gap-y-8">
-      <div className="flex items-center gap-x-2">
-        <Avatar imageUrl={account.avatar} username={account.username} />
-        <p className="flex-1">{account.username}</p>
+      <div className="flex items-center gap-x-3">
+        <Avatar size="md" imageUrl={account.avatar} username={account.username} />
+        <div>
+          <p className="flex-1 text-4">{account.displayName}</p>
+          <p className="text-3.5 text-#647196">@{account.username}</p>
+        </div>
       </div>
       <FormGroup>
         <InputHeader htmlFor="language" label="Changer de langue" />

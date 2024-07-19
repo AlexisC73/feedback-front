@@ -7,13 +7,13 @@ import { useTranslation } from "react-i18next";
 export function LanguageSelect () {
   const [isOpen, setIsOpen] = useState(false)
   const {t} = useTranslation()
-  const {lang} = useContext(LanguageCtx)
+  const {lang, setLanguage} = useContext(LanguageCtx)
 
   const toggleOpen = () => setIsOpen(prev => !prev)
 
   return (
     <Dropdown isOpen={isOpen} toggle={toggleOpen} current={t(`language.${lang}`)}>
-      {Object.values(Language).map(lang => (<DropdownItem active={false} label={t(`language.${lang}`)} onClick={() => console.log("ok")} />))}
+      {Object.values(Language).map(lang => (<DropdownItem key={lang} active={false} label={t(`language.${lang}`)} onClick={() => setLanguage(lang)} />))}
     </Dropdown>
   )
 }
