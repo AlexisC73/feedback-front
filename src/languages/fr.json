@@ -107,6 +107,7 @@
     "language": {
       "en": "Anglais (EN)",
       "fr": "Français (FR)"
-    }
+    },
+    "logout_label": "Me déconnecter"
   }
 }

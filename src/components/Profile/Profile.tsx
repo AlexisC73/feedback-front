@@ -6,9 +6,11 @@ import { FormGroup } from "../form/form-group/FormGroup";
 import { InputHeader } from "../form/input-header/InputHeader";
 import { LanguageSelect } from "../ui/LanguageSelect/LanguageSelect";
 import { Button } from "../ui/Button/button";
+import { useTranslation } from "react-i18next";
 
 export function Profile () {
   const {account} = useAppSelector(selectAuth)
+  const {t} = useTranslation()
 
   if(!account) return null
 
@@ -27,7 +29,7 @@ export function Profile () {
             <LanguageSelect />
         </div>
       </FormGroup>
-      <button><Button type="tertiary"><LogoutIcon className="text-5" /> Me déconnecter</Button></button>
+      <button><Button type="tertiary"><LogoutIcon className="text-5" /> {t("logout_label")}</Button></button>
     </ul>
   )
 }

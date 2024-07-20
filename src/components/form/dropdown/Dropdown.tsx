@@ -14,7 +14,7 @@ export function Dropdown ({current, children, isOpen, toggle}: {current?: string
 
   return (
     <div className="relative w-full">
-      <div ref={ref} onClick={toggle} className="h-12 rounded-1.25 px-6 flex justify-between items-center cursor-pointer justify-between">
+      <div ref={ref} onClick={toggle} className="h-12 rounded-1.25 px-6 flex justify-between items-center cursor-pointer justify-between gap-x-2">
         <span className="text-#3A4374">{current? current : t("choose_element")}</span>
         <ArrowIcon className={`text-2 text-#4661E6 ${isOpen ? "rotate-0" : "rotate-180"}`} />
       </div>
