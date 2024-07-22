@@ -103,6 +103,14 @@
       "unknow": "An error occured, please try again later",
       "login": {
         "unauthorized": "You are not authorized to do this."
+      },
+      "feedback": {
+        "upvote": {
+          "unauthorized": "You are not authorized to do this."
+        },
+        "postComment": {
+          "unauthorized" : "You are not authorized to do this."
+        }
       }
     },
     "language": {

@@ -4,6 +4,7 @@ import { Comment } from "../models/comment";
 import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
 import { PostCommentParams } from "../models/comment.repository";
 import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
+import { t } from "i18next";
 
 export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("comments/postComment", async (params: PostCommentUsecaseParams, {getState, extra: { commentRepository, idProvider }, rejectWithValue}) => {
   const { account } = getState().auth
@@ -52,7 +53,9 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Usec
     if(result.type === ApiResultType.SUCCESS) {
       return {type: UsecaseResultType.SUCCESS, data: addedComment} as UsecaseSuccess<Comment>
     }
-    return rejectWithValue(handleUsecaseErrors(result, {}))
+    return rejectWithValue(handleUsecaseErrors(result, {
+      UNAUTHORIZED: t("errors.feedback.postComment.unauthorized")
+    }))
   } catch(e) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }

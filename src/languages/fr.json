@@ -102,6 +102,14 @@
       "unknow": "Une erreur inconnue s'est produite, veuillez réessayer plus tard",
       "login": {
         "unauthorized": "Vous n'êtes pas autorisé à faire cela."
+      },
+      "feedback": {
+        "upvote": {
+          "unauthorized":"Vous n'êtes pas autorisé à faire cela."
+        },
+        "postComment": {
+          "unauthorized":"Vous n'êtes pas autorisé à faire cela."
+        }
       }
     },
     "language": {

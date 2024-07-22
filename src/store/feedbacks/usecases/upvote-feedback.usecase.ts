@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from "@/store/create-app-thunk";
 import { UpvotePayload } from "./payload/upvote.payload";
 import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from "@/store/@shared/models/resultType";
 import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
+import { t } from "i18next";
 
 export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/upvote", async (param: UpvoteUsecaseParams, {rejectWithValue, extra: {feedbackRepository}}) => {
   const upvotePayload = new UpvotePayload({ feedbackId: param.feedbackId, upvote: param.upvote });
@@ -16,7 +17,7 @@ export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: U
       return {type: UsecaseResultType.SUCCESS, data: upvotePayload.data} as UsecaseSuccess<UpvotePayload["data"]>
     }
     return rejectWithValue(handleUsecaseErrors(result, {
-      "UNAUTHORIZED": "You need to be logged in to upvote"
+      UNAUTHORIZED: t("errors.feedback.upvote.unauthorized")
     }))
   } catch(err) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
