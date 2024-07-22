@@ -4,23 +4,18 @@ import { MobileSideMenu } from "./MobileSideMenu/MobileSideMenu"
 import { TagFilterComponent } from "@/Context/TagFilter/TagFilterCtx"
 import { RoadmapState } from "@/store/feedbacks/app/RoadmapState/RoadmapState"
 import { Profile } from "../Profile/Profile"
-import { useAppSelector } from "@/store/store-hooks"
-import { selectAuth } from "@/store/auth/auth-reducer"
 import { useOutsideClick } from "@/hooks/useOutsideClick"
 
 export function Header () {
-  const {account} = useAppSelector(selectAuth)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => {
     setMenuOpen(prev => !prev)
   }
 
-  if(!account) return null
-
   return (
     <>
-      <header className="w-full h-full justify-between md:grid md:grid-cols-3 md:gap-y-6 xl:flex xl:flex-col">
+      <header className="w-full h-full md:grid md:grid-cols-3 md:gap-y-6 xl:flex xl:flex-col">
         <HeaderMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
         <div className="hidden w-full md:flex justify-center"><TagFilterComponent /></div>
         <div className="hidden w-full md:flex justify-end"><RoadmapState /></div>

@@ -8,6 +8,7 @@ import { LogoutButton } from "@/store/auth/app/logout/LogoutButton";
 
 export function Profile () {
   const {account} = useAppSelector(selectAuth)
+
   if(!account) return null
 
   return (

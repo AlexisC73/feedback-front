@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom"
 import { HomePage } from "@/pages/Home"
 import { FeedbackDetailsPage } from "@/pages/Feedbacks/FeedbackDetails"
 import { AddFeedbackPage } from "@/pages/Feedbacks/AddFeedback"
@@ -22,7 +22,6 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
     {
       path: "/feedbacks",
       loader: createFeedbackLoader({store}),
-      element: <RequireAuth page={<Outlet />} />,
       children: [
         {
           path: "/feedbacks",
@@ -30,11 +29,11 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
         },
         {
           path: "/feedbacks/new",
-          element: <AddFeedbackPage />
+          element: <RequireAuth page={<AddFeedbackPage />} />
         },
         {
           path: "/feedbacks/edit/:id",
-          element: <UpdateFeedbackPage />
+          element: <RequireAuth page={<UpdateFeedbackPage />} />
         },
         {
           path: "/feedbacks/:id",
@@ -58,12 +57,6 @@ export const createRouter = ({store}: {store: AppStore}) => createBrowserRouter(
     {
       path: "/roadmap",
       loader: createRoadmapLoader({store}),
-      element: <RequireAuth page={<Outlet />} />,
-      children: [
-        {
-          path: "/roadmap",
-          element: <RoadmapPage />
-        }
-      ]
+      element: <RoadmapPage />
     }
   ])

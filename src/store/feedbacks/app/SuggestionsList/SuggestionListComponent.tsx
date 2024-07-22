@@ -6,6 +6,7 @@ import { EmptyFeedback } from "@/components/Feedback/EmptyFeedback/EmptyFeedback
 import { TagType } from "@/Context/TagFilter/TagFilterType";
 import { SortFilter } from "@/Context/SortFilter/SortFilterType";
 import { FeedbackCardProps } from "@/components/Feedback/FeedbackCard/FeedbackCard";
+import { selectAuth } from "@/store/auth/auth-reducer";
 
 interface SuggestionFeedbackListProps {
   tagFilter: TagType,
@@ -13,6 +14,8 @@ interface SuggestionFeedbackListProps {
 }
 
 export function SuggestionFeedbackList ({ tagFilter, sortFilter }: SuggestionFeedbackListProps) {
+  const {account} = useAppSelector(selectAuth)
+
   const feedbackListElement = useAppSelector(createSuggestionsListViewmodel)
   const feedbacks = tagFilter === "all" ? feedbackListElement : feedbackListElement.filter(f => f.category === tagFilter)
   const sortedFeedbacks = sortFilter === SortFilter.MostUpvotes ? sortBy(feedbacks, true, "upvotes") : 
@@ -23,7 +26,7 @@ export function SuggestionFeedbackList ({ tagFilter, sortFilter }: SuggestionFee
   return (
     <>
       <div className="md:px-10 xl:px-0">
-        <Suggestions suggestionCount={sortedFeedbacks.length} />
+        <Suggestions suggestionCount={sortedFeedbacks.length} isUserLoggedIn={account !== null} />
       </div>
       <div className="px-6 py-8 md:px-10 md:py-6 xl:px-0">
         {sortedFeedbacks.length > 0 ? <FeedbackList feedbacks={sortedFeedbacks} /> : <EmptyFeedback />}

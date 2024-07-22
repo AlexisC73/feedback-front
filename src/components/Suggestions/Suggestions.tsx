@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button/button"
 import { SortFilterComponent } from "@/Context/SortFilter/SortFilter"
 import { useTranslation } from "react-i18next"
 
-export function Suggestions ({ suggestionCount }: {suggestionCount: number}) {
+export function Suggestions ({ suggestionCount, isUserLoggedIn }: {suggestionCount: number, isUserLoggedIn: boolean}) {
   const {t} = useTranslation()
 
   return (
@@ -16,12 +16,15 @@ export function Suggestions ({ suggestionCount }: {suggestionCount: number}) {
           </p>
         <SortFilterComponent />
       </div>
-      <Link to="/feedbacks/new">
-        <Button>
-          <span className="md:hidden">{t('suggestion_header.add_feedback_button_min')}</span>
-          <span className="hidden md:block">{t('suggestion_header.add_feedback_button')}</span>
-        </Button>
-      </Link>
+      {isUserLoggedIn ? (
+        <Link to="/feedbacks/new">
+          <Button>
+            <span className="md:hidden">{t('suggestion_header.add_feedback_button_min')}</span>
+            <span className="hidden md:block">{t('suggestion_header.add_feedback_button')}</span>
+          </Button>
+        </Link>
+      ) : <Link to="/auth/login"><Button>Me connecter</Button></Link>}
+      
     </div>
   )
 }
