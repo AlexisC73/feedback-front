@@ -23,7 +23,7 @@ export function Suggestions ({ suggestionCount, isUserLoggedIn }: {suggestionCou
             <span className="hidden md:block">{t('suggestion_header.add_feedback_button')}</span>
           </Button>
         </Link>
-      ) : <Link to="/auth/login"><Button>Me connecter</Button></Link>}
+      ) : <Link to="/auth/login"><Button>{t("login_label")}</Button></Link>}
       
     </div>
   )

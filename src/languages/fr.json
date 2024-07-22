@@ -99,6 +99,7 @@
     },
     "choose_element": "Choisir un élément",
     "errors": {
+      "require_auth": "Vous devez être connecté pour faire cela",
       "unknow": "Une erreur inconnue s'est produite, veuillez réessayer plus tard",
       "login": {
         "unauthorized": "Vous n'êtes pas autorisé à faire cela."
@@ -116,6 +117,7 @@
       "en": "Anglais (EN)",
       "fr": "Français (FR)"
     },
-    "logout_label": "Me déconnecter"
+    "logout_label": "Me déconnecter",
+    "login_label": "Me connecter"
   }
 }

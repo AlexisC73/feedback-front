@@ -118,6 +118,7 @@
       "en": "English (EN)",
       "fr": "French (FR)"
     },
-    "logout_label": "Logout"
+    "logout_label": "Logout",
+    "login_label": "Login"
   }
 }
