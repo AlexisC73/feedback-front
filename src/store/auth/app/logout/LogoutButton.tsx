@@ -16,7 +16,7 @@ export function LogoutButton() {
   const handleLogout = () => {
     dispatch(logoutThunk()).then((res) => {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
-        return "rien"
+        return
       } else {
         notifyUsecaseError(addToast, res.payload)
       }

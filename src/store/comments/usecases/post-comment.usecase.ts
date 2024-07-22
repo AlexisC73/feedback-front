@@ -9,7 +9,7 @@ export const postCommentThunk = createAppAsyncThunk.withTypes<{rejectValue: Usec
   const { account } = getState().auth
   if(!account) {
     return rejectWithValue({
-      type: UsecaseResultType.BAD_REQUEST,
+      type: UsecaseResultType.UNAUTHORIZED,
       data: "You need to be logged in to post a comment"
     })
   }

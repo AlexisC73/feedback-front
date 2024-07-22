@@ -15,7 +15,9 @@ export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: U
     if(result.type === ApiResultType.SUCCESS){
       return {type: UsecaseResultType.SUCCESS, data: upvotePayload.data} as UsecaseSuccess<UpvotePayload["data"]>
     }
-    return rejectWithValue(handleUsecaseErrors(result, {}))
+    return rejectWithValue(handleUsecaseErrors(result, {
+      "UNAUTHORIZED": "You need to be logged in to upvote"
+    }))
   } catch(err) {
     return rejectWithValue({type: UsecaseResultType.UNKNOWN_ERROR, data: undefined})
   }
