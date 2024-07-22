@@ -1,18 +1,13 @@
 import { useAppSelector } from "@/store/store-hooks";
 import { Avatar } from "../avatar/Avatar";
 import { selectAuth } from "@/store/auth/auth-reducer";
-import { LogoutIcon } from "@/assets/icons";
 import { FormGroup } from "../form/form-group/FormGroup";
 import { InputHeader } from "../form/input-header/InputHeader";
 import { LanguageSelect } from "../ui/LanguageSelect/LanguageSelect";
-import { Button } from "../ui/Button/button";
-import { useTranslation } from "react-i18next";
 import { LogoutButton } from "@/store/auth/app/logout/LogoutButton";
 
 export function Profile () {
   const {account} = useAppSelector(selectAuth)
-  const {t} = useTranslation()
-
   if(!account) return null
 
   return (
