@@ -50,7 +50,7 @@ export function ProfileHeader () {
   const toggleOpen = () => setIsOpen(prev => !prev)
 
   return (
-    <div ref={ref} className={`md:absolute xl:static hidden md:flex top-0 shadow-xl xl:shadow-none ${isOpen ? "top-0" : "-top-72"} `}>
+    <div ref={ref} className={`md:absolute xl:static hidden md:flex shadow-xl xl:shadow-none ${isOpen ? "top-0" : "-top-72"} `}>
       <div className="relative">
         <button onClick={toggleOpen} className="w-8 h-8 xl:hidden bg-white flex items-center justify-center absolute -bottom-8 left-40 rounded-b-1.25"><ArrowIcon className={`text-2.2 text-#AD1FEA ${isOpen ? "rotate-0" : "rotate-180"}`} /></button>
         <Profile />
