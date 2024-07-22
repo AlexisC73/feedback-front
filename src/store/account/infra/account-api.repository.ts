@@ -1,5 +1,5 @@
 import { ApiResultType } from "@/store/@shared/models/resultType";
-import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
+import { AccountRepository, GetMeApiResult, LoginApiResult, LogoutApiResult, RegisterApiResult } from "../models/account-repository";
 import { Account } from "../models/account";
 import { handleApiError, handleBadRequestErrors } from "@/store/@shared/utiles/badRequestError";
 import { injectable } from "inversify";
@@ -84,6 +84,28 @@ export class AccountApiRepository implements AccountRepository {
         return {
           type: ApiResultType.SUCCESS,
           data: await request.json() as Account
+        }
+      }
+      return handleApiError(request.status)
+    } catch(e) {
+      return {
+        type: ApiResultType.UNKNOWN_ERROR,
+        data: undefined
+      }
+    }
+  }
+
+  async logout(): Promise<LogoutApiResult> {
+    try {
+      const request = await fetch(`${api.endpoint}/auth/logout`, {
+        method: "GET",
+        credentials: "include"
+      })
+
+      if(request.ok) {
+        return {
+          type: ApiResultType.SUCCESS,
+          data: undefined
         }
       }
       return handleApiError(request.status)

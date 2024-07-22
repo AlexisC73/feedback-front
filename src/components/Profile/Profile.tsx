@@ -7,6 +7,7 @@ import { InputHeader } from "../form/input-header/InputHeader";
 import { LanguageSelect } from "../ui/LanguageSelect/LanguageSelect";
 import { Button } from "../ui/Button/button";
 import { useTranslation } from "react-i18next";
+import { LogoutButton } from "@/store/auth/app/logout/LogoutButton";
 
 export function Profile () {
   const {account} = useAppSelector(selectAuth)
@@ -29,7 +30,7 @@ export function Profile () {
             <LanguageSelect />
         </div>
       </FormGroup>
-      <button><Button type="tertiary"><LogoutIcon className="text-5" /> {t("logout_label")}</Button></button>
+      <LogoutButton />
     </ul>
   )
 }
