@@ -5,6 +5,7 @@ import { loginThunk, LoginUsecaseParams } from "@/store/auth/usecases/login.usec
 import { Account, AccountWithPassword, Role } from "../models/account"
 import { StateBuilder } from "@/store/state-builder"
 import { getCurrentAuthThunk } from "@/store/auth/usecases/get-current-auth.usecase"
+import { logoutThunk } from "@/store/auth/usecases/logout.usecase"
 
 export const createAccountFixture = ( stateBuilder: StateBuilder) => {
 
@@ -36,6 +37,10 @@ export const createAccountFixture = ( stateBuilder: StateBuilder) => {
     },
     async whenRetrievingCurrentAuth() {
       const result = await stateBuilder.getStore().dispatch(getCurrentAuthThunk())
+      resultType = result.payload?.type
+    },
+    async whenUserLogout() {
+      const result = await stateBuilder.getStore().dispatch(logoutThunk())
       resultType = result.payload?.type
     },
     thenResultTypeShouldBe(expectedType: string) {

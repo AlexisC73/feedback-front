@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
 import { Account, AccountWithPassword, Role } from "../models/account";
-import { AccountRepository, GetMeApiResult, LoginApiResult, RegisterApiResult } from "../models/account-repository";
+import { AccountRepository, GetMeApiResult, LoginApiResult, LogoutApiResult, RegisterApiResult } from "../models/account-repository";
 import { ApiResultType } from "@/store/@shared/models/resultType";
 
 @injectable()
 export class InMemoryAccountRepository implements AccountRepository {
   accounts: AccountWithPassword[] = []
-  loggedAccount: Account | undefined
+  loggedAccount: Account | null = null
 
   async create(params: { email: string; password: string; displayName: string, username: string }): Promise<RegisterApiResult> {
     const alreadyExists = this.accounts.find(a => a.email === params.email)
@@ -41,6 +41,14 @@ export class InMemoryAccountRepository implements AccountRepository {
     return {
       type: ApiResultType.SUCCESS,
       data: this.loggedAccount!
+    }
+  }
+
+  async logout(): Promise<LogoutApiResult> {
+    this.loggedAccount = null
+    return {
+      type: ApiResultType.SUCCESS,
+      data: undefined
     }
   }
 

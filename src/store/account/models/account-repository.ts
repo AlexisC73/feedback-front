@@ -5,9 +5,11 @@ export abstract class AccountRepository {
   abstract create(params: {email: string, password: string, displayName: string, username: string}): Promise<RegisterApiResult>
   abstract login(params: {email: string, password: string}): Promise<LoginApiResult>
   abstract getMe(): Promise<GetMeApiResult>
+  abstract logout(): Promise<LogoutApiResult>
 }
 
 
 export type LoginApiResult = ApiSuccessResult<Account> | ApiErrors
 export type RegisterApiResult = ApiSuccessResult<undefined> | ApiErrors
 export type GetMeApiResult = ApiSuccessResult<Account> | ApiErrors
+export type LogoutApiResult = ApiSuccessResult<undefined> | ApiErrors

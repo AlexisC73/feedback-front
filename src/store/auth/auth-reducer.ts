@@ -4,6 +4,7 @@ import { loginThunk } from "./usecases/login.usecase"
 import { RootState } from "../store"
 import { UsecaseResultType } from "../@shared/models/resultType"
 import { getCurrentAuthThunk } from "./usecases/get-current-auth.usecase"
+import { logoutThunk } from "./usecases/logout.usecase"
 
 export interface AuthState {
   account: Account | null
@@ -33,6 +34,8 @@ export const authReducer = createReducer(initialState, (builder) => {
     state.loading = true
   }).addCase(getCurrentAuthThunk.rejected, (state) => {
     state.loading = false
+  }).addCase(logoutThunk.fulfilled, (state) => {
+    state.account = null
   })
 })
 
