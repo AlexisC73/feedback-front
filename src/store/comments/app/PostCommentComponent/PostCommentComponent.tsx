@@ -3,7 +3,9 @@ import { useAppDispatch } from "@/store/store-hooks";
 import { postCommentThunk } from "../../usecases/post-comment.usecase";
 import { PostCommentPayload } from "../../usecases/payload/post-usecase.payload";
 import { UsecaseResultType } from "@/store/@shared/models/resultType";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { notifyUsecaseError } from "@/helpers/handleUsecaseError";
+import { ToastCtx } from "@/Context/ToastCtx/ToastCtx";
 
 interface PostCommentComponentProps {
   feedbackId: string
@@ -11,6 +13,7 @@ interface PostCommentComponentProps {
 
 export function PostCommentComponent ({ feedbackId }: PostCommentComponentProps) {
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({})
+  const {addToast} = useContext(ToastCtx)
   const dispatch = useAppDispatch()
 
   const handlePostComment = async (params: PostCommentPayload["data"]) => {
@@ -18,8 +21,7 @@ export function PostCommentComponent ({ feedbackId }: PostCommentComponentProps)
     await dispatch(postCommentThunk(params)).then((res) => {
       if(res.payload?.type === UsecaseResultType.SUCCESS) {
         return
-      }
-      if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
+      } else if(res.payload?.type === UsecaseResultType.FIELD_ERROR) {
         const errors: {[key: string]: string[]} = {}
         if(Array.isArray(res.payload.data)) {
           res.payload.data.forEach((errorField) => {
@@ -27,6 +29,8 @@ export function PostCommentComponent ({ feedbackId }: PostCommentComponentProps)
           })
         }
         setErrors(errors)
+      } else {
+        notifyUsecaseError(addToast, res.payload)
       }
     })
     

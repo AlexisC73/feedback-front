@@ -4,7 +4,16 @@ import { ApiResultType, UsecaseErrors, UsecaseResultType, UsecaseSuccess } from 
 import { handleUsecaseErrors } from "@/helpers/handleUsecaseError";
 import { t } from "i18next";
 
-export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/upvote", async (param: UpvoteUsecaseParams, {rejectWithValue, extra: {feedbackRepository}}) => {
+export const upvoteFeedbackThunk = createAppAsyncThunk.withTypes<{rejectValue: UsecaseErrors}>()("feedbacks/upvote", async (param: UpvoteUsecaseParams, {getState, rejectWithValue, extra: {feedbackRepository}}) => {
+  const auth = getState().auth
+
+  if(!auth.account) {
+    return rejectWithValue({
+      type: UsecaseResultType.UNAUTHORIZED,
+      data: t("errors.require_auth")
+    })
+  }
+  
   const upvotePayload = new UpvotePayload({ feedbackId: param.feedbackId, upvote: param.upvote });
 
   if(!upvotePayload.validate()) {

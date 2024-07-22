@@ -100,6 +100,7 @@
     },
     "choose_element": "Choose an element",
     "errors": {
+      "require_auth": "You need to be authenticated to do this action",
       "unknow": "An error occured, please try again later",
       "login": {
         "unauthorized": "You are not authorized to do this."
