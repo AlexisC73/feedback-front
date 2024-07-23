@@ -119,6 +119,16 @@
       "fr": "French (FR)"
     },
     "logout_label": "Logout",
-    "login_label": "Login"
+    "login_label": "Login",
+    "pages": {
+      "home_title": "Home",
+      "roadmap_title": "Roadmap",
+      "login_title": "Login",
+      "register_title": "Register",
+      "detail_title": "Detail",
+      "suggestions_title": "Suggestions",
+      "add_feedback_title": "Add Feedback",
+      "edit_title": "Update Feedback"
+    }
   }
 }

@@ -118,6 +118,16 @@
       "fr": "Français (FR)"
     },
     "logout_label": "Me déconnecter",
-    "login_label": "Me connecter"
+    "login_label": "Me connecter",
+    "pages": {
+      "home_title": "Accueil",
+      "roadmap_title": "Roadmap",
+      "login_title": "Me connecter",
+      "register_title": "M'inscrire",
+      "detail_title": "Détails",
+      "suggestions_title": "Suggestions",
+      "add_feedback_title": "Ajouter un Feedback",
+      "edit_title": "Mettre à jour"
+    }
   }
 }

@@ -9,6 +9,7 @@ import { useAppSelector } from "@/store/store-hooks";
 import { selectFeedback } from "@/store/feedbacks/feedback.reducer";
 import { selectAuth } from "@/store/auth/auth-reducer";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 export function FeedbackDetailsPage () {
   const {t} = useTranslation()
@@ -25,20 +26,25 @@ export function FeedbackDetailsPage () {
   }
 
   return (
-    <Layout.emptyLayout>
-      <div className="flex flex-col gap-y-6 p-6 md:px-10 xl:max-w-182.5 xl:px-0 xl:mx-auto w-full">
-        <div className="flex justify-between h-15 items-center">
-          <Link to={`/${backRoute}`}><GoBackButton /></Link>
-          {canEdit && <button>
-            <Link to={`/feedbacks/edit/${params.id}?back=${backRoute}`}>
-              <Button type="secondary">{t("detail_page.edit_button")}</Button>
-            </Link>
-          </button>}
+    <>
+      <Helmet>
+        <title>{t("pages.detail_title")}</title>
+      </Helmet>
+      <Layout.emptyLayout>
+        <div className="flex flex-col gap-y-6 p-6 md:px-10 xl:max-w-182.5 xl:px-0 xl:mx-auto w-full">
+          <div className="flex justify-between h-15 items-center">
+            <Link to={`/${backRoute}`}><GoBackButton /></Link>
+            {canEdit && <button>
+              <Link to={`/feedbacks/edit/${params.id}?back=${backRoute}`}>
+                <Button type="secondary">{t("detail_page.edit_button")}</Button>
+              </Link>
+            </button>}
+          </div>
+          <FeedbackCardComponent feedbackId={params.id} />
+          <CommentsListStore feedbackId={params.id} />
+          <PostCommentComponent feedbackId={params.id} />
         </div>
-        <FeedbackCardComponent feedbackId={params.id} />
-        <CommentsListStore feedbackId={params.id} />
-        <PostCommentComponent feedbackId={params.id} />
-      </div>
-    </Layout.emptyLayout>
+      </Layout.emptyLayout>
+    </>
   )
 }
